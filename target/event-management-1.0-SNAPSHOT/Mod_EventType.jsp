@@ -47,7 +47,7 @@
 
             ManagerDTO user = (ManagerDTO) session.getAttribute("LOGIN_USER");
             if (user == null || !user.getRoleID().equals("MOD")) {
-                response.sendRedirect("Admin_Login.jsp");
+                response.sendRedirect("index.jsp");
                 return;
             }
 

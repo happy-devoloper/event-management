@@ -1,4 +1,5 @@
 
+
 <%@page import="sample.users.ManagerDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -19,7 +20,7 @@
         <%
             ManagerDTO manager = (ManagerDTO) session.getAttribute("LOGIN_USER");
             if (manager == null) {
-                response.sendRedirect("Admin_Login.jsp");
+                response.sendRedirect("index.jsp");
                 return;
             }
         %>

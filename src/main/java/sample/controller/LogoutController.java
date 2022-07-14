@@ -23,7 +23,7 @@ import sample.users.UserDTO;
 public class LogoutController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String AD_PAGE = "Admin_Login.jsp";
+    private static final String AD_PAGE = "index.jsp";
     private static final String US_PAGE = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

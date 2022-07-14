@@ -20,7 +20,7 @@
         Blog blog = (Blog) request.getAttribute("blog");
         ManagerDTO manager = (ManagerDTO) session.getAttribute("LOGIN_USER");
         if (manager == null) {
-            response.sendRedirect("Admin_Login.jsp");
+            response.sendRedirect("index.jsp");
             return;
         }
     %>

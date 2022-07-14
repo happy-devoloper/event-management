@@ -32,7 +32,7 @@
 
         ManagerDTO user = (ManagerDTO) session.getAttribute("LOGIN_USER");
         if (user == null) {
-            response.sendRedirect("Admin_Login.jsp");
+            response.sendRedirect("index.jsp");
             return;
         }
         String pageType = (String)request.getAttribute("page");

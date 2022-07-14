@@ -1,3 +1,4 @@
+
 <%@page import="sample.eventtype.EventType"%>
 <%@page import="sample.users.ManagerDTO"%>
 <%@page import="sample.posts.EventPostError"%>

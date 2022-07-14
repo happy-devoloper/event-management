@@ -31,7 +31,7 @@
         <%
             ManagerDTO user = (ManagerDTO) session.getAttribute("LOGIN_USER");
             if (user == null || !user.getRoleID().equals("ADM")) {
-                response.sendRedirect("Admin_Login.jsp");
+                response.sendRedirect("index.jsp");
                 return;
             }
             List<ManagerDTO> listManagers = (List) request.getAttribute("LIST_MANAGERS");
