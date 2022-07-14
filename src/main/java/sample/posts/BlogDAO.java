@@ -21,7 +21,7 @@ public class BlogDAO {
             + " FROM tblBlog, tblOrgPage WHERE tblBlog.orgID = tblOrgPage.orgID AND tblBlog.orgID = ?";
 
     private static final String GET_ALL_BLOG_BY_TITLE = "SELECT blogID, tblBlog.orgID, tblBlog.status, title, tblBlog.createDate, content, tblBlog.imgUrl, numberOfView, summary, orgName \n"
-            + "FROM tblBlog, tblOrgPage WHERE (dbo.ufn_removeMark(title) LIKE ? OR title LIKE ?) AND tblBlog.orgID = tblOrgPage.orgID";
+            + "FROM tblBlog, tblOrgPage WHERE (ufn_removeMark(title) LIKE ? OR title LIKE ?) AND tblBlog.orgID = tblOrgPage.orgID";
 
     private static final String CHECK_BLOG_DUPLICATE = "SELECT blogID FROM tblBlog where blogID = ?";
 
@@ -57,7 +57,7 @@ public class BlogDAO {
             + " WHERE blogID = ?";
 
     private static final String GET_ALL_ORG_BLOG_BY_TITLE = "SELECT blogID, tblBlog.orgID, tblBlog.status, title, tblBlog.createDate, content, tblBlog.imgUrl, numberOfView, summary, orgName \n"
-            + "FROM tblBlog, tblOrgPage WHERE (dbo.ufn_removeMark(title) LIKE ? OR title LIKE ?) AND tblBlog.orgID = ? AND tblBlog.orgID = tblOrgPage.orgID";
+            + "FROM tblBlog, tblOrgPage WHERE (ufn_removeMark(title) LIKE ? OR title LIKE ?) AND tblBlog.orgID = ? AND tblBlog.orgID = tblOrgPage.orgID";
 
     private static final String UPDATE_BLOG_STATUS = "UPDATE [dbo].[tblBlog]\n"
             + " SET [status] = ?\n"

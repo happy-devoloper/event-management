@@ -43,11 +43,11 @@ public class UserDAO {
 
     private static final String SEARCH_USER = "SELECT userID, fullName, password, email, status, roleID, gender, phone, avatarUrl, tblUserTypes.typeID, tblUserTypes.typeName \n"
             + "FROM tblUsers, tblUserTypes\n"
-            + "WHERE (dbo.ufn_removeMark(fullName) like ? or fullName like ? or userID like ? or tblUsers.typeID like ? or tblUserTypes.typeName like ?) AND tblUsers.typeID = tblUserTypes.typeID AND roleID = 'US'";
+            + "WHERE (ufn_removeMark(fullName) like ? or fullName like ? or userID like ? or tblUsers.typeID like ? or tblUserTypes.typeName like ?) AND tblUsers.typeID = tblUserTypes.typeID AND roleID = 'US'";
 
     private static final String SEARCH_MANAGER = "SELECT userID, fullName, password, tblUsers.email, tblUsers.status, roleID, gender, phone, avatarURL, tblOrgPage.orgID, tblUserTypes.typeID, tblUserTypes.typeName, tblOrgPage.orgName\n"
             + "from tblUsers, tblManagers, tblUserTypes, tblOrgPage\n"
-            + "WHERE tblUsers.userID = tblManagers.managerID AND tblUsers.typeID = tblUserTypes.typeID AND tblOrgPage.orgID = tblManagers.orgID AND (dbo.ufn_removeMark(fullName) like ? or fullName like ? or tblUsers.userID like ? or dbo.ufn_removeMark(tblOrgPage.orgName) like ? or tblOrgPage.orgID like ?)";
+            + "WHERE tblUsers.userID = tblManagers.managerID AND tblUsers.typeID = tblUserTypes.typeID AND tblOrgPage.orgID = tblManagers.orgID AND (ufn_removeMark(fullName) like ? or fullName like ? or tblUsers.userID like ? or ufn_removeMark(tblOrgPage.orgName) like ? or tblOrgPage.orgID like ?)";
 
     private static final String DELETE_USER = "UPDATE tblUsers SET status = '0' WHERE userID = ?";
 

@@ -21,7 +21,7 @@ public class LocationDAO {
 
     private static final String GET_ALL_LOCATION = "SELECT locationID, locationName, status FROM tblLocation";
     private static final String DELETE_LOCATION = "UPDATE tblLocation SET status = '0' WHERE locationID = ?";
-    private static final String SEARCH_LOCATION = "SELECT locationID, locationName, status FROM tblLocation WHERE dbo.ufn_removeMark(locationName) like ? OR locationName like ?";
+    private static final String SEARCH_LOCATION = "SELECT locationID, locationName, status FROM tblLocation WHERE ufn_removeMark(locationName) like ? OR locationName like ?";
     private static final String CREATE_LOCATION = "INSERT INTO tblLocation(locationName, status) VALUES (?, ?)";
     private static final String UPDATE_LOCATION = "UPDATE tblLocation SET locationName = ?, status = ? WHERE locationID = ?";
 
