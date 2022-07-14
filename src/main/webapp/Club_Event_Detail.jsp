@@ -35,7 +35,7 @@
         int participants = (Integer) request.getAttribute("participants");
         ManagerDTO user = (ManagerDTO) session.getAttribute("LOGIN_USER");
         if (user == null) {
-            response.sendRedirect("Admin_Login.jsp");
+            response.sendRedirect("index.jsp");
             return;
         }
         List<UserNotification> listNoti = (List) request.getAttribute("USER_NOTIFICATION");
