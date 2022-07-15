@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./css_Login/style.css" />
+        <title>Sign in & Sign up Form</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="forms-container">
+                <div class="signin-signup">
+                    <form action="MainController" method="POST" class="sign-in-form">
+                        <h2 class="title">Sign in</h2>
+                        <% 
+                            String error = (String)request.getAttribute("ERROR");
+                            if(error == null)
+                                error = "";
+                        %>
+                        <p style="font-weight: bold; color: red"><%= error %></p>
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Username" name="username"/>
+                        </div>
+                        <div class="input-field" >
+                            <i class="fas fa-lock"></i>
+                            <input id="pass"  type="password" name="password" placeholder="Password" />
+                            <i onclick="show('pass')"  class="fas fa-eye"></i>
+                        </div>
+                        <div style="display: flex;">
+                            <label style="margin-right: 100px; color: rgb(255, 166, 0);">
+                                <input type="checkbox" checked>
+                                Remember me
+                            </label>
+                            <a style="color: rgb(255, 166, 0);" href="">Forgot Password</a>
+                        </div>
+                        <input type="submit" name="action" value="Login" class="btn solid" />
+                    </form>
+                </div>
+            </div>
+
+            <div class="panels-container">
+                <div class="panel left-panel">
+                    <img width="200px" src="./css_Login/img/register.svg" class="image" alt="" />
+                </div>
+            </div>
+
+            <script src="/css_Login/Fapp.js"></script>
+    </body>
+
+</html>

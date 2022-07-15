@@ -25,10 +25,10 @@ import sample.util.DBUtils;
  */
 public class EventDAO {
 
-    private static final String GET_ALL_EVENT_POST = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n" +
-"                        FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n" +
-"                        WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID";
-    
+    private static final String GET_ALL_EVENT_POST = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
+            + "                        FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
+            + "                        WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID";
+
     private static final String GET_ALL_EVENT_BY_TITLE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, \n"
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
@@ -36,17 +36,16 @@ public class EventDAO {
             + "            and tblEventPost.eventTypeID = tblEventType.eventTypeID and \n"
             + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID";
 
-private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.orgID, tblEventPost.createDate, takePlaceDate, content, title, location, tblEventPost.imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary,\n"
+    private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.orgID, tblEventPost.createDate, takePlaceDate, content, title, location, tblEventPost.imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary,\n"
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblOrgPage.orgName\n"
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblOrgPage\n"
             + "            WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID \n"
             + "            and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblOrgPage.orgID = tblEventPost.orgID and tblEventPost.eventID LIKE ?\n";
 
-
     private static final String ADD_AN_EVENT = "INSERT INTO tblEventPost\n"
-            + "           (eventID, orgID, status, statusTypeID ,createDate ,takePlaceDate, content,\n"
-            + "		   title, location ,imgUrl, eventTypeID, numberOfView, speaker, approvalDes, summary)\n"
-            + "     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            + "           (eventID, orgID, status, statusTypeID, content,\n"
+            + "		   title, location ,imgUrl, eventTypeID, numberOfView, speaker, approvalDes, summary, createDate ,takePlaceDate)\n"
+            + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String CHECK_EVENT_DUPLICATE = "SELECT eventID FROM tblEventPost where eventID = ?";
 
@@ -115,7 +114,7 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
             + "            WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.statusTypeID = ?\n";
 
-        private static final String GET_ALL_PARTICIPANTS_BY_EVENT_ID = "select fullName, email, phone, gender from tblParticipants, tblUsers where tblParticipants.userID = tblUsers.userID AND eventID = ?";
+    private static final String GET_ALL_PARTICIPANTS_BY_EVENT_ID = "select fullName, email, phone, gender from tblParticipants, tblUsers where tblParticipants.userID = tblUsers.userID AND eventID = ?";
 
     public List<EventPost> getAllEventByType(String eventType, String roleID, String orgID) throws SQLException {
         Connection conn = null;
@@ -128,7 +127,7 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
         java.sql.Date nowDate = new java.sql.Date(millis);
         try {
             conn = DBUtils.getConnection();
-            if (!eventType.equals(onGoing) ) {
+            if (!eventType.equals(onGoing)) {
                 if ("MOD".equals(roleID)) {
                     ps = conn.prepareStatement(GET_ALL_EVENT_BY_TYPE);
                     ps.setString(1, eventType);
@@ -161,7 +160,7 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
                 String title = rs.getString("title");
                 String location = rs.getString("location");
                 String imgUrl = rs.getString("imgUrl");
-                                String orgIDOfEvent = rs.getString("orgID");
+                String orgIDOfEvent = rs.getString("orgID");
                 int numberOfView = rs.getInt("numberOfView");
                 String speaker = rs.getString("speaker");
                 String summary = rs.getString("summary");
@@ -172,7 +171,7 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
                 String statusTypeName = rs.getString("statusTypeName");
                 String approvalDes = rs.getString("approvalDes");
 
-                if (!eventType.equals(onGoing) ) {
+                if (!eventType.equals(onGoing)) {
                     EventPost event = new EventPost(takePlaceDate.toString(), location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgIDOfEvent, title, content, createDate, imgUrl, numberOfView, summary, status);
                     listEvent.add(event);
                 } else {
@@ -362,7 +361,7 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
         return listEvent;
     }
 
-public EventPost getAnEventByID(String eventID) throws SQLException {
+    public EventPost getAnEventByID(String eventID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -464,19 +463,19 @@ public EventPost getAnEventByID(String eventID) throws SQLException {
                 ps.setString(2, event.getOrgID());
                 ps.setBoolean(3, event.isStatus());
                 ps.setString(4, event.getStatusTypeID());
-                
-                ps.setObject(5, LocalDate.parse(event.getCreateDate()));
-                ps.setObject(6, LocalDate.parse(event.getTakePlaceDate()));
-                ps.setString(7, event.getContent());
-                ps.setString(8, event.getTitle());
-                ps.setString(9, event.getLocation());
-                ps.setString(10, event.getImgUrl());
-                ps.setString(11, event.getEventType());
-                ps.setInt(12, event.getNumberOfView());
-                ps.setString(13, event.getSpeaker());
-                ps.setString(14, event.getApprovalDes());
-                ps.setString(15, event.getSummary());
 
+                ps.setString(5, event.getContent());
+                ps.setString(6, event.getTitle());
+                ps.setInt(7, Integer.parseInt(event.getLocation()));
+                ps.setString(8, event.getImgUrl());
+                ps.setInt(9, Integer.parseInt(event.getEventType()));
+                ps.setInt(10, event.getNumberOfView());
+                ps.setString(11, event.getSpeaker());
+                ps.setString(12, event.getApprovalDes());
+                ps.setString(13, event.getSummary());
+
+                ps.setObject(14, LocalDate.parse(event.getCreateDate()));
+                ps.setObject(15, LocalDate.parse(event.getTakePlaceDate()));
                 if (ps.executeUpdate() > 0) {
                     check = true;
                 }
@@ -506,12 +505,12 @@ public EventPost getAnEventByID(String eventID) throws SQLException {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(UPDATE_AN_EVENT);
-                ps.setString(1, event.getTakePlaceDate());
+                ps.setObject(1, LocalDate.parse(event.getTakePlaceDate()));
                 ps.setString(2, event.getContent());
                 ps.setString(3, event.getTitle());
-                ps.setString(4, event.getLocation());
+                ps.setInt(4, Integer.parseInt(event.getLocation()));
                 ps.setString(5, event.getImgUrl());
-                ps.setString(6, event.getEventType());
+                ps.setInt(6, Integer.parseInt(event.getEventType()));
                 ps.setString(7, event.getSpeaker());
                 ps.setString(8, event.getSummary());
                 ps.setString(9, event.getId());
@@ -546,12 +545,12 @@ public EventPost getAnEventByID(String eventID) throws SQLException {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(UPDATE_AN_EVENT_BY_MOD);
-                ps.setString(1, event.getTakePlaceDate());
+                ps.setObject(1, LocalDate.parse(event.getTakePlaceDate()));
                 ps.setString(2, event.getContent());
                 ps.setString(3, event.getTitle());
-                ps.setString(4, event.getLocation());
+                ps.setInt(4, Integer.parseInt(event.getLocation()));
                 ps.setString(5, event.getImgUrl());
-                ps.setString(6, event.getEventType());
+                ps.setInt(6, Integer.parseInt(event.getEventType()));
                 ps.setString(7, event.getSpeaker());
                 ps.setString(8, event.getSummary());
                 ps.setBoolean(9, event.isStatus());
@@ -706,7 +705,7 @@ public EventPost getAnEventByID(String eventID) throws SQLException {
         return check;
     }
 
-public List<EventPost> getAllOrgEvent(String memberOrgID) throws SQLException {
+    public List<EventPost> getAllOrgEvent(String memberOrgID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
