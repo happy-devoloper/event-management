@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import sample.util.DBUtils;
@@ -37,8 +38,8 @@ public class CommentDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_COMMENT);
-                ptm.setString(1, commentID);
-                ptm.setString(2, commentID);
+                ptm.setInt(1, Integer.parseInt(commentID));
+                ptm.setInt(2, Integer.parseInt(commentID));
 
                 if (ptm.executeUpdate() > 0) {
                     check = true;
@@ -71,7 +72,11 @@ public class CommentDAO {
                 ptm.setString(3, cmt.getContent());
                 ptm.setString(4, cmt.getUserID());
                 ptm.setString(5, cmt.getEventID());
-                ptm.setString(6, cmt.getReplyID());
+                if (!cmt.getReplyID().equals("0")) {
+                    ptm.setInt(6, Integer.parseInt(cmt.getReplyID()));
+                } else {
+                     ptm.setNull(6, Types.INTEGER);
+                }
 
                 if (ptm.executeUpdate() > 0) {
                     check = true;

@@ -41,6 +41,8 @@ public class CommentController extends HttpServlet {
             HttpSession session = request.getSession();
             user = (UserDTO) session.getAttribute("LOGIN_USER");
             String replyCommentID = request.getParameter("replyCommentID");
+            if(replyCommentID == null)
+                replyCommentID = "0";
             String content = request.getParameter("content");
             String eventID = request.getParameter("eventID");
 //            String action = request.getParameter("action");
