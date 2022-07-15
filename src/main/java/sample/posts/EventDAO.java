@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -45,7 +46,7 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
     private static final String ADD_AN_EVENT = "INSERT INTO tblEventPost\n"
             + "           (eventID, orgID, status, statusTypeID ,createDate ,takePlaceDate, content,\n"
             + "		   title, location ,imgUrl, eventTypeID, numberOfView, speaker, approvalDes, summary)\n"
-            + "     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)\n";
+            + "     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private static final String CHECK_EVENT_DUPLICATE = "SELECT eventID FROM tblEventPost where eventID = ?";
 
@@ -96,9 +97,7 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.orgID = ? AND tblEventPost.statusTypeID = ?";
 
-    private static final String UPDATE_STATUS_EVENT = "UPDATE tblEventPost\n"
-            + "   SET status = ?\n"
-            + " WHERE eventID = ?";
+    private static final String UPDATE_STATUS_EVENT = "UPDATE tblEventPost SET status = ? WHERE eventID = ?";
 
     private static final String GET_ALL_ORG_EVENT_BY_TITLE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, \n"
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
@@ -465,8 +464,9 @@ public EventPost getAnEventByID(String eventID) throws SQLException {
                 ps.setString(2, event.getOrgID());
                 ps.setBoolean(3, event.isStatus());
                 ps.setString(4, event.getStatusTypeID());
-                ps.setString(5, event.getCreateDate());
-                ps.setString(6, event.getTakePlaceDate());
+                
+                ps.setObject(5, LocalDate.parse(event.getCreateDate()));
+                ps.setObject(6, LocalDate.parse(event.getTakePlaceDate()));
                 ps.setString(7, event.getContent());
                 ps.setString(8, event.getTitle());
                 ps.setString(9, event.getLocation());
@@ -481,8 +481,8 @@ public EventPost getAnEventByID(String eventID) throws SQLException {
                     check = true;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();

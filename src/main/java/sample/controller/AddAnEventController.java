@@ -135,6 +135,7 @@ public class AddAnEventController extends HttpServlet {
             }
 
         } catch (Exception e) {
+            log("Error at Add Event Controller " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -45,7 +45,8 @@ public class DeleteAnEventController extends HttpServlet {
                     if (evtDao.updateStatusEventByID(eventID, false)) {
                         url = MOD_PAGE;
                     }
-                }
+                }  
+                
             }else{
                 url = "MainController?action=EventDetail&eventID=" + eventID;
             }

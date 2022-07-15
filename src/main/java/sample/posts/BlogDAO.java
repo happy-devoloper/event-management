@@ -365,7 +365,7 @@ public class BlogDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(DELETE_A_BLOG);
-                ps.setString(1, "0");
+                ps.setBoolean(1, false);
                 ps.setString(2, blogID);
 
                 if (ps.executeUpdate() > 0) {

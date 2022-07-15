@@ -55,8 +55,8 @@ public class UserDAO {
 
     private static final String SIGN_UP_BY_MANAGER = "INSERT INTO tblManagers (managerID, orgID) VALUES (?, ?)";
 
-    private static final String GET_ALL_MANAGER_ID_BY_EVENT = "SELECT managerID "
-            + "FROM tblEventPost eve, tblOrgPage org, tblManagers man "
+    private static final String GET_ALL_MANAGER_ID_BY_EVENT = "SELECT managerID \n"
+            + "FROM tblEventPost eve, tblOrgPage org, tblManagers man \n"
             + "WHERE eve.orgID = org.orgID AND org.orgID = man.orgID AND eve.eventID = ?";
 
     private static final String ADD_NOTIFICATION = "INSERT INTO tblUserNotification (userID, eventID, notiDate,content) VALUES (?, ?, ?, ?)";

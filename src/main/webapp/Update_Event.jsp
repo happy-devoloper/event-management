@@ -35,7 +35,7 @@
             response.sendRedirect("index.jsp");
             return;
         }
-        String pageType = (String)request.getAttribute("page");
+        String pageType = (String) request.getAttribute("page");
     %>
 
 
@@ -44,8 +44,9 @@
         <!-- partial:index.partial.html -->
         <div  class="container">
             <form action="MainController" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="page" value="<%=pageType%>">
+                <input type="hidden" name="eventID" value="<%=event.getId()%>">
 
-                <<input type="hidden" name="eventID" value="<%=event.getId()%>">
                 <div style="text-align: center">
                     <h1 class="Information ">Update Event</h1>
                 </div>
