@@ -27,7 +27,7 @@ public class OrganizationDAO {
 
     private static final String SEARCH_ORGANIZATION = "SELECT  orgID, orgName, createDate, description, imgUrl, email, status, tblOrgPage.statusTypeID, tblStatusType.statusTypeName\n"
             + "             FROM tblOrgPage, tblStatusType\n"
-            + "             WHERE (ufn_removeMark(orgName) like ? or orgName like ? or orgID like ?) AND tblStatusType.statusTypeID = tblOrgPage.statusTypeID";
+            + "             WHERE (ufn_removeMark(orgName) like ufn_removeMark(?) or orgName like ? or orgID like ?) AND tblStatusType.statusTypeID = tblOrgPage.statusTypeID";
 
     private static final String CREATE_ORGANIZATION = "INSERT INTO tblOrgPage (orgID, status, orgName, createDate, description, email, statusTypeID, imgUrl)\n"
             + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";

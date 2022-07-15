@@ -31,7 +31,7 @@ public class EventDAO {
     private static final String GET_ALL_EVENT_BY_TITLE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, \n"
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
-            + "            WHERE ufn_removeMark(tblEventPost.title) LIKE ? or title LIKE ?)\n"
+            + "            WHERE (ufn_removeMark(tblEventPost.title) LIKE ufn_removeMark(?) or title LIKE ?)\n"
             + "            and tblEventPost.eventTypeID = tblEventType.eventTypeID and \n"
             + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID";
 
@@ -103,7 +103,7 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
     private static final String GET_ALL_ORG_EVENT_BY_TITLE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, \n"
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
-            + "            WHERE (dbo.ufn_removeMark(tblEventPost.title) LIKE ? or title LIKE ?)\n"
+            + "            WHERE (dbo.ufn_removeMark(tblEventPost.title) LIKE ufn_removeMark(?) or title LIKE ?)\n"
             + "            and tblEventPost.eventTypeID = tblEventType.eventTypeID and \n"
             + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.orgID = ?";
 

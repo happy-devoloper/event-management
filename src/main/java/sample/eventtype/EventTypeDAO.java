@@ -21,7 +21,7 @@ public class EventTypeDAO {
     private static final String LIST_EVENT_TYPE = "SELECT eventTypeID, eventTypeName, status\n"
             + "FROM tblEventType";
         private static final String DELETE_EVENT_TYPE = "UPDATE tblEventType SET status = '0' WHERE eventTypeID = ?";
-    private static final String SEARCH_EVENT_TYPE = "SELECT eventTypeID, eventTypeName, status FROM tblEventType WHERE ufn_removeMark(eventTypeName) like ? OR eventTypeName like ?";
+    private static final String SEARCH_EVENT_TYPE = "SELECT eventTypeID, eventTypeName, status FROM tblEventType WHERE ufn_removeMark(eventTypeName) like ufn_removeMark(?) OR eventTypeName like ?";
     private static final String CREATE_EVENT_TYPE = "INSERT INTO tblEventType(eventTypeName, status) VALUES (?, ?)";
     private static final String UPDATE_EVENT_TYPE = "UPDATE tblEventType SET eventTypeName = ?, status = ? WHERE eventTypeID = ?";
 

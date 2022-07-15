@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.naming.NamingException;
-import sample.organization.OrganizationDTO;
 import sample.util.DBUtils;
 
 /**
@@ -39,15 +38,15 @@ public class UserDAO {
 
     private static final String GET_ALL_MANAGERS = "SELECT userID, fullName, password, tblUsers.email, tblUsers.status, roleID, gender, phone, avatarURL, tblOrgPage.orgID, tblUserTypes.typeID, tblUserTypes.typeName, tblOrgPage.orgName\n"
             + "FROM tblUsers, tblManagers, tblUserTypes, tblOrgPage\n"
-            + "WHERE tblUsers.userID = tblManagers.managerID AND tblUsers.typeID = tblUserTypes.typeID AND tblOrgPage.orgID = tblManagers.orgID AND tblUsers.RoleID != 'ADM'";
+            + "WHERE tblUsers.userID = tblManagers.managerID AND tblUsers.typeID = tblUserTypes.typeID AND tblOrgPage.orgID = tblManagers.orgID AND tblUsers.roleID != 'ADM'";
 
     private static final String SEARCH_USER = "SELECT userID, fullName, password, email, status, roleID, gender, phone, avatarUrl, tblUserTypes.typeID, tblUserTypes.typeName \n"
             + "FROM tblUsers, tblUserTypes\n"
-            + "WHERE (ufn_removeMark(fullName) like ? or fullName like ? or userID like ? or tblUsers.typeID like ? or tblUserTypes.typeName like ?) AND tblUsers.typeID = tblUserTypes.typeID AND roleID = 'US'";
+            + "WHERE (ufn_removeMark(fullName) like ufn_removeMark(?) or fullName like ? or userID like ? or tblUsers.typeID like ? or tblUserTypes.typeName like ?) AND tblUsers.typeID = tblUserTypes.typeID AND roleID = 'US'";
 
     private static final String SEARCH_MANAGER = "SELECT userID, fullName, password, tblUsers.email, tblUsers.status, roleID, gender, phone, avatarURL, tblOrgPage.orgID, tblUserTypes.typeID, tblUserTypes.typeName, tblOrgPage.orgName\n"
             + "from tblUsers, tblManagers, tblUserTypes, tblOrgPage\n"
-            + "WHERE tblUsers.userID = tblManagers.managerID AND tblUsers.typeID = tblUserTypes.typeID AND tblOrgPage.orgID = tblManagers.orgID AND (ufn_removeMark(fullName) like ? or fullName like ? or tblUsers.userID like ? or ufn_removeMark(tblOrgPage.orgName) like ? or tblOrgPage.orgID like ?)";
+            + "WHERE tblUsers.userID = tblManagers.managerID AND tblUsers.typeID = tblUserTypes.typeID AND tblOrgPage.orgID = tblManagers.orgID AND tblUsers.roleID != 'ADM' AND (ufn_removeMark(fullName) like ufn_removemark(?) or fullName like ? or tblUsers.userID like ? or ufn_removeMark(tblOrgPage.orgName) like ufn_removeMark(?) or tblOrgPage.orgName like ? or tblOrgPage.orgID like ?)";
 
     private static final String DELETE_USER = "UPDATE tblUsers SET status = '0' WHERE userID = ?";
 
@@ -81,9 +80,9 @@ public class UserDAO {
     private static final String GET_CLUB_MEMBER_BY_ORG = "SELECT userID, fullName, password, tblUsers.email, tblUsers.status, roleID, gender, phone, avatarURL, tblOrgPage.orgID, tblUserTypes.typeID, tblUserTypes.typeName, tblOrgPage.orgName\n"
             + "FROM tblUsers, tblManagers, tblUserTypes, tblOrgPage\n"
             + "WHERE tblUsers.userID = tblManagers.managerID AND tblUsers.typeID = tblUserTypes.typeID AND tblOrgPage.orgID = tblManagers.orgID AND tblManagers.orgID = ?";
-    
+
     public List<ManagerDTO> getManagerByOrg(String orgID) throws SQLException {
-         Connection conn = null;
+        Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         List<ManagerDTO> list = new ArrayList<>();
@@ -124,8 +123,7 @@ public class UserDAO {
         }
         return list;
     }
-    
-    
+
     public boolean createClubMemberWhenApprovedOrg(ManagerDTO manager) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -887,7 +885,9 @@ public class UserDAO {
             ptm.setString(2, "%" + search + "%");
             ptm.setString(3, "%" + search + "%");
             ptm.setString(4, "%" + search + "%");
-            ptm.setString(5, "%" + search + "%");
+            ptm.setString(5, "%" + search + "%");            
+            ptm.setString(6, "%" + search + "%");
+
 
             rs = ptm.executeQuery();
             while (rs.next()) {
