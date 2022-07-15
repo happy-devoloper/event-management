@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>F.E.M - FPT Event Admin</title>
         <!-- Favicon icon -->
-        <link rel="icon" type="image/png" sizes="16x16" href="./css_Statistic/images/Biểu-tượng-không-chữ.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./css_Statistic/images/Bi?u-t??ng-kh�ng-ch?.png.png">
         <link rel="stylesheet" href="./css_Statistic/vendor/chartist/css/chartist.min.css">
         <link href="./css_Statistic/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
         <link href="./css_Statistic/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
@@ -20,6 +20,8 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet">
+                <meta http-equiv="refresh" content="<%=session.getMaxInactiveInterval()%>" url="index.jsp" />
+
     </head>
 
     <% List<UserDTO> listFollower = (List<UserDTO>) request.getAttribute("listFollower");
