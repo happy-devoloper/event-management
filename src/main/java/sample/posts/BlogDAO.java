@@ -25,42 +25,42 @@ public class BlogDAO {
 
     private static final String CHECK_BLOG_DUPLICATE = "SELECT blogID FROM tblBlog where blogID = ?";
 
-    private static final String ADD_A_BLOG = "INSERT INTO [dbo].[tblBlog]\n"
-            + "           ([blogID]\n"
-            + "           ,[orgID]\n"
-            + "           ,[status]\n"
-            + "           ,[title]\n"
-            + "           ,[createDate]\n"
-            + "           ,[content]\n"
-            + "           ,[imgUrl]\n"
-            + "           ,[numberOfView]\n"
-            + "           ,[summary])\n"
+    private static final String ADD_A_BLOG = "INSERT INTO tblBlog\n"
+            + "           (blogID\n"
+            + "           ,orgID\n"
+            + "           ,status\n"
+            + "           ,title\n"
+            + "           ,createDate\n"
+            + "           ,content\n"
+            + "           ,imgUrl\n"
+            + "           ,numberOfView\n"
+            + "           ,summary)\n"
             + "     VALUES (?,?,?,?,?,?,?,?,?)";
 
-    private static final String UPDATE_A_BLOG = "UPDATE [dbo].[tblBlog]\n"
-            + "   SET [title] = ?\n"
-            + "      ,[content] = ?\n"
-            + "      ,[imgUrl] = ?\n"
-            + "      ,[summary] = ?\n"
+    private static final String UPDATE_A_BLOG = "UPDATE tblBlog\n"
+            + "   SET title = ?\n"
+            + "      ,content = ?\n"
+            + "      ,imgUrl = ?\n"
+            + "      ,summary = ?\n"
             + " WHERE blogID = ?";
 
-    private static final String UPDATE_A_BLOG_BY_MOD = "UPDATE [dbo].[tblBlog]\n"
-            + "   SET [title] = ?\n"
-            + "      ,[content] = ?\n"
-            + "      ,[imgUrl] = ?\n"
-            + "      ,[summary] = ?\n"
-            + "      ,[status] = ?\n"
+    private static final String UPDATE_A_BLOG_BY_MOD = "UPDATE tblBlog\n"
+            + "   SET title = ?\n"
+            + "      ,content = ?\n"
+            + "      ,imgUrl = ?\n"
+            + "      ,summary = ?\n"
+            + "      ,status = ?\n"
             + " WHERE blogID = ?";
 
-    private static final String DELETE_A_BLOG = "UPDATE [dbo].[tblBlog]\n"
-            + "   SET [status] = ?\n"
+    private static final String DELETE_A_BLOG = "UPDATE tblBlog\n"
+            + "   SET status = ?\n"
             + " WHERE blogID = ?";
 
     private static final String GET_ALL_ORG_BLOG_BY_TITLE = "SELECT blogID, tblBlog.orgID, tblBlog.status, title, tblBlog.createDate, content, tblBlog.imgUrl, numberOfView, summary, orgName \n"
             + "FROM tblBlog, tblOrgPage WHERE (ufn_removeMark(title) LIKE ufn_removeMark(?) OR title LIKE ?) AND tblBlog.orgID = ? AND tblBlog.orgID = tblOrgPage.orgID";
 
-    private static final String UPDATE_BLOG_STATUS = "UPDATE [dbo].[tblBlog]\n"
-            + " SET [status] = ?\n"
+    private static final String UPDATE_BLOG_STATUS = "UPDATE tblBlog\n"
+            + " SET status = ?\n"
             + " WHERE blogID = ?";
 
     public List<Blog> getAllBlog(String memberOrgID, String memberRoleID) throws SQLException {

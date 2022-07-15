@@ -42,34 +42,34 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
             + "            and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblOrgPage.orgID = tblEventPost.orgID and tblEventPost.eventID LIKE ?\n";
 
 
-    private static final String ADD_AN_EVENT = "INSERT INTO [dbo].[tblEventPost]\n"
-            + "           ([eventID], [orgID], [status], [statusTypeID] ,[createDate] ,[takePlaceDate], [content],\n"
-            + "		   [title], [location] ,[imgUrl], [eventTypeID], [numberOfView], [speaker], [approvalDes], [summary])\n"
+    private static final String ADD_AN_EVENT = "INSERT INTO tblEventPost\n"
+            + "           (eventID, orgID, status, statusTypeID ,createDate ,takePlaceDate, content,\n"
+            + "		   title, location ,imgUrl, eventTypeID, numberOfView, speaker, approvalDes, summary)\n"
             + "     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)\n";
 
     private static final String CHECK_EVENT_DUPLICATE = "SELECT eventID FROM tblEventPost where eventID = ?";
 
-    private static final String UPDATE_AN_EVENT = "UPDATE [dbo].[tblEventPost]\n"
-            + "   SET [takePlaceDate] = ?\n"
-            + "      ,[content] = ?\n"
-            + "      ,[title] = ?\n"
-            + "      ,[location] = ?\n"
-            + "      ,[imgUrl] = ?\n"
-            + "      ,[eventTypeID] = ?\n"
-            + "      ,[speaker] = ?\n"
-            + "      ,[summary] = ?\n"
+    private static final String UPDATE_AN_EVENT = "UPDATE tblEventPost\n"
+            + "   SET takePlaceDate = ?\n"
+            + "      ,content = ?\n"
+            + "      ,title = ?\n"
+            + "      ,location = ?\n"
+            + "      ,imgUrl = ?\n"
+            + "      ,eventTypeID = ?\n"
+            + "      ,speaker = ?\n"
+            + "      ,summary = ?\n"
             + " WHERE eventID = ?";
 
-    private static final String UPDATE_AN_EVENT_BY_MOD = "UPDATE [dbo].[tblEventPost]\n"
-            + "   SET [takePlaceDate] = ?\n"
-            + "      ,[content] = ?\n"
-            + "      ,[title] = ?\n"
-            + "      ,[location] = ?\n"
-            + "      ,[imgUrl] = ?\n"
-            + "      ,[eventTypeID] = ?\n"
-            + "      ,[speaker] = ?\n"
-            + "      ,[summary] = ?\n"
-            + "      ,[status] = ?\n"
+    private static final String UPDATE_AN_EVENT_BY_MOD = "UPDATE tblEventPost\n"
+            + "   SET takePlaceDate = ?\n"
+            + "      ,content = ?\n"
+            + "      ,title = ?\n"
+            + "      ,location = ?\n"
+            + "      ,imgUrl = ?\n"
+            + "      ,eventTypeID = ?\n"
+            + "      ,speaker = ?\n"
+            + "      ,summary = ?\n"
+            + "      ,status = ?\n"
             + " WHERE eventID = ?";
 
     private static final String GET_ALL_EVENT_TYPE = "SELECT eventTypeID, eventTypeName\n"
@@ -96,14 +96,14 @@ private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.org
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.orgID = ? AND tblEventPost.statusTypeID = ?";
 
-    private static final String UPDATE_STATUS_EVENT = "UPDATE [dbo].[tblEventPost]\n"
-            + "   SET [status] = ?\n"
+    private static final String UPDATE_STATUS_EVENT = "UPDATE tblEventPost\n"
+            + "   SET status = ?\n"
             + " WHERE eventID = ?";
 
     private static final String GET_ALL_ORG_EVENT_BY_TITLE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, \n"
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
-            + "            WHERE (dbo.ufn_removeMark(tblEventPost.title) LIKE ufn_removeMark(?) or title LIKE ?)\n"
+            + "            WHERE (ufn_removeMark(tblEventPost.title) LIKE ufn_removeMark(?) or title LIKE ?)\n"
             + "            and tblEventPost.eventTypeID = tblEventType.eventTypeID and \n"
             + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.orgID = ?";
 
