@@ -27,7 +27,7 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet">
     </head>
-        <meta http-equiv="refresh" content="<%=session.getMaxInactiveInterval()%>" url="index.jsp" />
+    <meta http-equiv="refresh" content="<%=session.getMaxInactiveInterval()%>" url="index.jsp" />
 
     <body>
         <%
@@ -244,17 +244,17 @@
                                 </li>
 
                                 <li><a href="MainController?action=ListBlog">Blog</a></li>
-                                <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID() %>">Statistic</a></li>
+                                <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID()%>">Statistic</a></li>
                                     <%
                                     } else if ("CLB".equals(user.getRoleID())) {
                                     %>
-                                  <li><a href="MainController?action=ListOrgEvent">Event</a></li>
+                                <li><a href="MainController?action=ListOrgEvent">Event</a></li>
                                 <li><a href="MainController?action=ListBlog">Blog</a></li>
                                 <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID()%>">Statistic</a></li>
                                     <% }%>
                             </ul>
                         </li>
-                        
+
                     </ul>
                     <div class="copyright">
                         <p><strong>FPT Event Management</strong> © 2022 F.E.M</p>
@@ -328,7 +328,7 @@
                             </div>      
 
 
-                            <form class="col-md-7" action="MainController" method="POST">        
+                            <form class="col-md-7" action="MainController" method="POST" enctype="multipart/form-data">        
                                 <div >
                                     <div class="p-3 py-5">
                                         <p class="text-danger"><%= success%></p>

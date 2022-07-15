@@ -108,18 +108,18 @@ public class UpdateManagerController extends HttpServlet {
 //                } else {
 //                    path = oldUser.getPicture();
 //                }
+                String path = oldUser.getPicture();
                 Part filePart = request.getPart("image");
-                String realPath = request.getServletContext().getRealPath("/Image");
-                String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                if (!Files.exists(Paths.get(realPath))) {
-                    Files.createDirectory(Paths.get(realPath));
-                }
-                String path;
-                if (!"".equals(filename)) {
-                    filePart.write(realPath + "/" + filename);
-                    path = "Image\\" + filename;
-                } else {
-                    path = oldUser.getPicture();
+                if (filePart != null) {
+                    String realPath = request.getServletContext().getRealPath("/Image");
+                    String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                    if (!Files.exists(Paths.get(realPath))) {
+                        Files.createDirectory(Paths.get(realPath));
+                    }
+                    if (!"".equals(filename)) {
+                        filePart.write(realPath + "/" + filename);
+                        path = "Image\\" + filename;
+                    } 
                 }
 
                 if (check == false) {
