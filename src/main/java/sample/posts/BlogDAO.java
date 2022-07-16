@@ -21,7 +21,7 @@ public class BlogDAO {
             + " FROM tblBlog, tblOrgPage WHERE tblBlog.orgID = tblOrgPage.orgID AND tblBlog.orgID = ?";
 
     private static final String GET_ALL_BLOG_BY_TITLE = "SELECT blogID, tblBlog.orgID, tblBlog.status, title, tblBlog.createDate, content, tblBlog.imgUrl, numberOfView, summary, orgName \n"
-            + "FROM tblBlog, tblOrgPage WHERE (ufn_removeMark(title) LIKE ufn_removeMark(?) OR title LIKE ?) AND tblBlog.orgID = tblOrgPage.orgID";
+            + "FROM tblBlog, tblOrgPage WHERE (ufn_removeMark(title) LIKE ufn_removeMark(?) OR title LIKE ? or ufn_removeMark(orgName) like ufn_removeMark(?) or orgName like ?) AND tblBlog.orgID = tblOrgPage.orgID";
 
     private static final String CHECK_BLOG_DUPLICATE = "SELECT blogID FROM tblBlog where blogID = ?";
 
@@ -57,7 +57,7 @@ public class BlogDAO {
             + " WHERE blogID = ?";
 
     private static final String GET_ALL_ORG_BLOG_BY_TITLE = "SELECT blogID, tblBlog.orgID, tblBlog.status, title, tblBlog.createDate, content, tblBlog.imgUrl, numberOfView, summary, orgName \n"
-            + "FROM tblBlog, tblOrgPage WHERE (ufn_removeMark(title) LIKE ufn_removeMark(?) OR title LIKE ?) AND tblBlog.orgID = ? AND tblBlog.orgID = tblOrgPage.orgID";
+            + "FROM tblBlog, tblOrgPage WHERE (ufn_removeMark(title) LIKE ufn_removeMark(?) OR title LIKE ? or ufn_removeMark(orgName) like ufn_removeMark(?) or orgName like ?) AND tblBlog.orgID = ? AND tblBlog.orgID = tblOrgPage.orgID";
 
     private static final String UPDATE_BLOG_STATUS = "UPDATE tblBlog\n"
             + " SET status = ?\n"
@@ -164,11 +164,17 @@ public class BlogDAO {
                     ps = conn.prepareStatement(GET_ALL_BLOG_BY_TITLE);
                     ps.setString(1, "%" + search + "%");
                     ps.setString(2, "%" + search + "%");
+                    ps.setString(3, "%" + search + "%");
+                    ps.setString(4, "%" + search + "%");
+
                 } else {
                     ps = conn.prepareStatement(GET_ALL_ORG_BLOG_BY_TITLE);
                     ps.setString(1, "%" + search + "%");
                     ps.setString(2, "%" + search + "%");
-                    ps.setString(3, memberOrgID);
+                    ps.setString(3, "%" + search + "%");
+                    ps.setString(4, "%" + search + "%");
+
+                    ps.setString(5, memberOrgID);
                 }
 
                 rs = ps.executeQuery();
