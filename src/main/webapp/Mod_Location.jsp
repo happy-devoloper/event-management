@@ -26,7 +26,6 @@
             rel="stylesheet">
 
         <link rel="stylesheet" href="./css_StatusLocation/styleOfStatus.css">
-        <meta http-equiv="refresh" content="<%=session.getMaxInactiveInterval()%>" url="index.jsp" />
 
         <style>
             .status {

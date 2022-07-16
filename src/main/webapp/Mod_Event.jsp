@@ -28,7 +28,6 @@
                 font-size: 35px;
             }
         </style>
-                <meta http-equiv="refresh" content="<%=session.getMaxInactiveInterval()%>" url="index.jsp" />
 
         
     </head>

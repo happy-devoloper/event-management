@@ -17,7 +17,6 @@
         <link rel="stylesheet" href="./css_FormCreate/css/all.css">
         <script src="https://your-site-or-cdn.com/fontawesome/v5.15.4/js/all.js" data-auto-replace-svg></script>
         <script src="https://use.fontawesome.com/releases/vVERSION/js/all.js" data-auto-replace-svg="nest"></script>
-        <meta http-equiv="refresh" content="<%=session.getMaxInactiveInterval()%>" url="index.jsp" />
 
     </head>
 

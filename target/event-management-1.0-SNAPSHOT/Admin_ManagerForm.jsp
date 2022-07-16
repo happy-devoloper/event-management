@@ -23,7 +23,6 @@
                 font-weight: bold;
             }
         </style>
-        <meta http-equiv="refresh" content="<%=session.getMaxInactiveInterval()%>" url="index.jsp" />
 
     </head>
     <body>
