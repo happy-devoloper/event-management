@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -47,16 +48,15 @@ public class AddAnEventController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        long millis = System.currentTimeMillis();
-        java.sql.Date nowDate = new java.sql.Date(millis);
+        request.setCharacterEncoding("utf-8");       
+        LocalDate now = LocalDate.now();
         String url = ERROR;
         String id;
         EventPostError evtError = new EventPostError();
         EventDAO evtDao = new EventDAO();
         UserDAO userDao = new UserDAO();
         HttpSession session = request.getSession();
-        UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+        ManagerDTO user = (ManagerDTO) session.getAttribute("LOGIN_USER");
         ManagerDTO manager = new ManagerDTO();
         UserNotification userNoti = new UserNotification();
         List<ManagerDTO> listManager = new ArrayList<>();
@@ -85,9 +85,9 @@ public class AddAnEventController extends HttpServlet {
             int numberOfView = 0;
             String speaker = request.getParameter("speaker");
             String summary = request.getParameter("summary");
-            Date createDate = nowDate;
+            LocalDate createDate = now;
 
-            Date takePlaceDateCheck = Date.valueOf(takePlaceDate);
+            LocalDate takePlaceDateCheck = LocalDate.parse(takePlaceDate);
 
             Part filePart = request.getPart("image");
             String realPath = request.getServletContext().getRealPath("/Image");
@@ -109,7 +109,7 @@ public class AddAnEventController extends HttpServlet {
                 status = true;
             }
 
-            if (createDate.after(takePlaceDateCheck)) {
+            if (createDate.isAfter(takePlaceDateCheck)) {
                 evtError.setTakePlaceDate("Takeplace date must be after today!");
                 request.setAttribute("ERROR", evtError);
 

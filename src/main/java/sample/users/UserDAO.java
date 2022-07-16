@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -59,7 +60,7 @@ public class UserDAO {
             + "FROM tblEventPost eve, tblOrgPage org, tblManagers man \n"
             + "WHERE eve.orgID = org.orgID AND org.orgID = man.orgID AND eve.eventID = ?";
 
-    private static final String ADD_NOTIFICATION = "INSERT INTO tblUserNotification (userID, eventID, notiDate,content) VALUES (?, ?, ?, ?)";
+    private static final String ADD_NOTIFICATION = "INSERT INTO tblUserNotification (userID, eventID, notiDate, content) VALUES (?, ?, ?, ?)";
 
     private static final String GET_USER_ID_FOLLOWER = "SELECT fl.userID "
             + "FROM tblEventPost eve, tblOrgPage org, tblOrg_Follower fl "
@@ -274,7 +275,8 @@ public class UserDAO {
                 ptm = conn.prepareStatement(ADD_NOTIFICATION);
                 ptm.setString(1, userNoti.getUserID());
                 ptm.setString(2, userNoti.getEventID());
-                ptm.setString(3, userNoti.getNotiDate());
+              //  ptm.setString(3, userNoti.getNotiDate());
+                ptm.setObject(3, LocalDate.parse(userNoti.getNotiDate()));
                 ptm.setString(4, userNoti.getContent());
 
                 if (ptm.executeUpdate() > 0) {
@@ -283,6 +285,7 @@ public class UserDAO {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (ptm != null) {
                 ptm.close();
@@ -885,9 +888,8 @@ public class UserDAO {
             ptm.setString(2, "%" + search + "%");
             ptm.setString(3, "%" + search + "%");
             ptm.setString(4, "%" + search + "%");
-            ptm.setString(5, "%" + search + "%");            
+            ptm.setString(5, "%" + search + "%");
             ptm.setString(6, "%" + search + "%");
-
 
             rs = ptm.executeQuery();
             while (rs.next()) {
