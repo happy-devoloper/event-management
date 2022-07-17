@@ -21,7 +21,7 @@
 
 ### Screenshots
 
-#### * Login Page
+* #### Login Page
 ![Login Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/Login-page.png)
 
 #### * Admin HomePage
