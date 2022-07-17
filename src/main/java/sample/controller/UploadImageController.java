@@ -6,7 +6,6 @@
 package sample.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.servlet.ServletException;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import sample.organization.OrganizationDAO;
-import sample.users.ManagerDTO;
 import sample.users.UserDAO;
 
 /**
