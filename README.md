@@ -39,7 +39,7 @@
 
 * There are 2 options to connect with Database: Postgresql and Microsoft SQL Server.
 
-### Databse
+#### Databse
 * You can find SQL Query on this folder - detail 
 
 ![Connection](https://github.com/happy-devoloper/event-management/blob/main/detail/images/Detail%20Folder.png)
