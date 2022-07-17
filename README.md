@@ -24,13 +24,13 @@
 * #### Login Page
 ![Login Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/Login-page.png)
 
-#### * Admin HomePage
+* #### Admin HomePage
 ![Admin Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/Admin-page.png)
 
-#### * Mod Page
+* #### Mod Page
 ![Mod Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/mod-page.png)
 
-#### * Club's Member HomePage
+* #### Club's Member HomePage
 ![Club's Member Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/club-page.png)
 
 ---------------
