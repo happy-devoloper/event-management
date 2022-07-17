@@ -19,16 +19,16 @@
 ### Screenshots
 
 #### Login Page
-![Login Page](https://github.com/happy-devoloper/math-util/blob/main/images/DDT%20with%20JUnit.png)
+![Login Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/Login-page.png)
 
 #### Admin HomePage
-![Admin Page](https://github.com/happy-devoloper/math-util/blob/main/images/DDT%20with%20JUnit.png)
+![Admin Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/Admin-page.png)
 
 #### Mod Page
-![Mod Page](https://github.com/happy-devoloper/math-util/blob/main/images/DDT%20with%20JUnit.png)
+![Mod Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/mod-page.png)
 
 #### Club's Member HomePage
-![Club's Member Page](https://github.com/happy-devoloper/math-util/blob/main/images/DDT%20with%20JUnit.png)
+![Club's Member Page](https://github.com/happy-devoloper/event-management/blob/main/detail/images/club-page.png)
 
 ---------------
 
@@ -39,13 +39,17 @@
 ### Databse
 * You can find SQL Query on this folder - detail 
 
-![Connection](https://github.com/happy-devoloper/math-util/blob/main/images/DDT%20with%20JUnit.png)
+![Connection](https://github.com/happy-devoloper/event-management/blob/main/detail/images/Detail%20Folder.png)
+
+* You will find 2 type of query - choose one
+
+![SQL Query](https://github.com/happy-devoloper/event-management/blob/main/detail/images/connection-type.png)
 
 
 #### Connect Type
 * Uncomment which one you want to connect.
 
-![Connection](https://github.com/happy-devoloper/math-util/blob/main/images/DDT%20with%20JUnit.png)
+![Connection](https://github.com/happy-devoloper/event-management/blob/main/detail/images/connection.png)
 
 
 #### © 2022 MacTaVish, Inc.
