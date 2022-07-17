@@ -1,8 +1,11 @@
 # Welcome to FPT-Event-Management Repository
 
+## Website: https://fem-admin.site/
+
 ## Overview
 
 ### You will find in this repo the following stuff:
+
 * Manage all object by Admin and Moderator role.
 * Can use both Database: Postgresql and SQL Server
 * Roles: 
@@ -12,8 +15,8 @@
 	* Moderator - which manage all events are on-going and blogs: 
 		- UserName: FPTU
 		- Password: 1
-	* Club's Member - which create new an event for their club:
-	-	 Can view in Admin Role
+	* Club's Member - which can create new an event for their club:
+		- Can view in Admin Role
 * ...
 
 ### Screenshots
