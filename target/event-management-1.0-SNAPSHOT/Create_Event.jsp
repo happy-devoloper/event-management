@@ -53,7 +53,7 @@
                     </div>                   
 
                     <div class="input-group input-group-icon">
-                        <input type="number" value="" name="participationLimit" placeholder="Number of Participant"/>
+                        <input type="number" value="" name="participationLimit" placeholder="Number of Participant" min="0"/>
                         <div class="input-icon"><i class="fa fa-user"></i></div>
                     </div> 
 

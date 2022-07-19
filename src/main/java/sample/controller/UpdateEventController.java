@@ -71,7 +71,8 @@ public class UpdateEventController extends HttpServlet {
                 eventType = request.getParameter("eventType");
                 speaker = request.getParameter("speaker");
                 summary = request.getParameter("summary");
-
+                int participationLimit = Integer.parseInt(request.getParameter("participationLimit"));
+                
                 Part filePart = request.getPart("image");
                 String realPath = request.getServletContext().getRealPath("/Image");
                 String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -80,7 +81,7 @@ public class UpdateEventController extends HttpServlet {
                 }
 
                 String path;
-                if ("".equals(filename)) {
+                if (!"".equals(filename)) {
                     Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                     filePart.write(realPath + "/" + filename);
                     path = "Image\\" + filename;
@@ -88,7 +89,7 @@ public class UpdateEventController extends HttpServlet {
                     path = evtDao.getAnEventByID(id).getImgUrl();
                 }
 
-                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary);
+                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary, participationLimit);
                 check = evtDao.updateAnEvent(event);
                 if (check == true) {
                     if ("Club_Event.jsp".equals(page)) {
@@ -108,6 +109,7 @@ public class UpdateEventController extends HttpServlet {
                     eventType = request.getParameter("eventType");
                     speaker = request.getParameter("speaker");
                     summary = request.getParameter("summary");
+                    int participationLimit = Integer.parseInt(request.getParameter("participationLimit"));
                     boolean status = Boolean.parseBoolean(request.getParameter("status"));
 
                     Part filePart = request.getPart("image");
@@ -126,7 +128,7 @@ public class UpdateEventController extends HttpServlet {
                         path = evtDao.getAnEventByID(id).getImgUrl();
                     }
 
-                    EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary, status);
+                    EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary, status, participationLimit);
                     check = evtDao.updateAnEventByAdmin(event);
 
                 } else {
@@ -145,7 +147,7 @@ public class UpdateEventController extends HttpServlet {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateEventController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.toString();
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

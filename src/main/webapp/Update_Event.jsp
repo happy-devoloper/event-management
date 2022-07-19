@@ -68,6 +68,10 @@
                         <div class="input-icon"><i class="fa fa-user"></i></div>
                     </div>
 
+                    <div class="input-group input-group-icon">
+                        <input type="number" value="<%=event.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="0"/>
+                        <div class="input-icon"><i class="fa fa-user"></i></div>
+                    </div> 
 
                     <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
 
@@ -175,13 +179,7 @@
         </div>
 
 
-        <div class="row">
-            <h4><i class="fa-solid fa-link" style="width: 25px"></i>Image</h4>
-            <div class="input-group input-group-icon">
-                <input type="file" accept=".jpg, .jpeg, .png" name="image" />
-                <div class="input-icon"><i class="fa-solid fa-link"></i></div>
-            </div>
-        </div>
+  
 
         <div class="flex-row-reverse">
             <div class="">
@@ -240,14 +238,20 @@
                 %>
             </div>
         </div>
-
+            
 
         <div class=" btn btn-danger" style="text-align: center">
             <a href="MainController?action=ListEvent">Cancel</a>
         </div>
 
         <% }%>
-
+     <div class="row">
+            <h4><i class="fa-solid fa-link" style="width: 25px"></i>Image</h4>
+            <div class="input-group input-group-icon">
+                <input type="file" accept=".jpg, .jpeg, .png" name="image" />
+                <div class="input-icon"><i class="fa-solid fa-link"></i></div>
+            </div>
+        </div>
 
         <button type="submit" style="cursor: pointer" class="login-box" name="action" value="UpdateEvent">
             Update Event

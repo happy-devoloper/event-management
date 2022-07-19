@@ -81,20 +81,22 @@ public class EventPost extends Post {
         this.participationLimit = participationLimit;
     }
 
-    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String id, String title, String content, String imgUrl, String summary) {
+    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String id, String title, String content, String imgUrl, String summary, int participationLimit) {
         super(id, title, content, imgUrl, summary);
         this.takePlaceDate = takePlaceDate;
         this.location = location;
         this.eventType = eventType;
         this.speaker = speaker;
+        this.participationLimit = participationLimit;
     }
 
-    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String id, String title, String content, String imgUrl, String summary, boolean status) {
+    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String id, String title, String content, String imgUrl, String summary, boolean status, int participationLimit) {
         super(id, title, content, imgUrl, summary, status);
         this.takePlaceDate = takePlaceDate;
         this.location = location;
         this.eventType = eventType;
         this.speaker = speaker;
+        this.participationLimit = participationLimit;
     }
 
     public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String approvalDes, String id, String orgID, String orgName, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status, int participationLimit) {

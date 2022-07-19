@@ -58,6 +58,7 @@ public class EventDAO {
             + "      ,eventTypeID = ?\n"
             + "      ,speaker = ?\n"
             + "      ,summary = ?\n"
+            + "      ,participationLimit = ?\n"
             + " WHERE eventID = ?";
 
     private static final String UPDATE_AN_EVENT_BY_MOD = "UPDATE tblEventPost\n"
@@ -70,6 +71,7 @@ public class EventDAO {
             + "      ,speaker = ?\n"
             + "      ,summary = ?\n"
             + "      ,status = ?\n"
+            + "      ,participationLimit = ?\n"
             + " WHERE eventID = ?";
 
     private static final String GET_ALL_EVENT_TYPE = "SELECT eventTypeID, eventTypeName\n"
@@ -515,7 +517,9 @@ public class EventDAO {
                 ps.setInt(6, Integer.parseInt(event.getEventType()));
                 ps.setString(7, event.getSpeaker());
                 ps.setString(8, event.getSummary());
-                ps.setString(9, event.getId());
+                ps.setInt(9, event.getParticipationLimit());
+                ps.setString(10, event.getId());
+                
 
                 int checkUpdate = ps.executeUpdate();
                 if (checkUpdate > 0) {
@@ -556,7 +560,9 @@ public class EventDAO {
                 ps.setString(7, event.getSpeaker());
                 ps.setString(8, event.getSummary());
                 ps.setBoolean(9, event.isStatus());
-                ps.setString(10, event.getId());
+                ps.setInt(10, event.getParticipationLimit());
+                ps.setString(11, event.getId());
+                
 
                 int checkUpdate = ps.executeUpdate();
                 if (checkUpdate > 0) {
@@ -564,7 +570,7 @@ public class EventDAO {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
