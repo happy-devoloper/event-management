@@ -37,15 +37,15 @@ public class EventDAO {
             + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID";
 
     private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.orgID, tblEventPost.createDate, takePlaceDate, content, title, location, tblEventPost.imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary,\n"
-            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblOrgPage.orgName\n"
+            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblOrgPage.orgName, participationLimit\n"
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblOrgPage\n"
             + "            WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID \n"
             + "            and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblOrgPage.orgID = tblEventPost.orgID and tblEventPost.eventID LIKE ?\n";
 
     private static final String ADD_AN_EVENT = "INSERT INTO tblEventPost\n"
             + "           (eventID, orgID, status, statusTypeID, content,\n"
-            + "		   title, location ,imgUrl, eventTypeID, numberOfView, speaker, approvalDes, summary, createDate ,takePlaceDate)\n"
-            + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + "		   title, location ,imgUrl, eventTypeID, numberOfView, speaker, approvalDes, summary, createDate ,takePlaceDate, participationLimit)\n"
+            + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String CHECK_EVENT_DUPLICATE = "SELECT eventID FROM tblEventPost where eventID = ?";
 
@@ -393,8 +393,9 @@ public class EventDAO {
                     String statusTypeName = rs.getString("statusTypeName");
                     String approvalDes = rs.getString("approvalDes");
                     String orgName = rs.getString("orgName");
+                    int participationLimit = rs.getInt("participationLimit");
 
-                    event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status);
+                    event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status, participationLimit);
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -476,6 +477,7 @@ public class EventDAO {
 
                 ps.setObject(14, LocalDate.parse(event.getCreateDate()));
                 ps.setObject(15, LocalDate.parse(event.getTakePlaceDate()));
+                ps.setInt(16, event.getParticipationLimit());
                 if (ps.executeUpdate() > 0) {
                     check = true;
                 }

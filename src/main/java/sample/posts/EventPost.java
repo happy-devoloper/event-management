@@ -16,6 +16,7 @@ public class EventPost extends Post {
     private String statusTypeName;
     private String approvalDes;
     private int numberOfParticipants;
+    private int participationLimit;
 
     public EventPost() {
     }
@@ -31,7 +32,7 @@ public class EventPost extends Post {
         this.statusTypeName = statusTypeName;
     }
 
-    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String id, String orgID, String title, String content, String createDate, String imgUrl, int numberOfView, String summary) {
+    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String id, String orgID, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, int participationLimit) {
         super(id, orgID, title, content, createDate, imgUrl, numberOfView, summary);
         this.takePlaceDate = takePlaceDate;
         this.location = location;
@@ -41,6 +42,7 @@ public class EventPost extends Post {
         this.locationName = locationName;
         this.statusTypeID = statusTypeID;
         this.statusTypeName = statusTypeName;
+        this.participationLimit = participationLimit;
     }
 
     public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String id, String orgID, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status) {
@@ -68,7 +70,7 @@ public class EventPost extends Post {
         this.approvalDes = approvalDes;
     }
 
-    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String statusTypeID, String approvalDes, String id, String orgID, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status) {
+    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String statusTypeID, String approvalDes, String id, String orgID, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status, int participationLimit) {
         super(id, orgID, title, content, createDate, imgUrl, numberOfView, summary, status);
         this.takePlaceDate = takePlaceDate;
         this.location = location;
@@ -76,6 +78,7 @@ public class EventPost extends Post {
         this.speaker = speaker;
         this.statusTypeID = statusTypeID;
         this.approvalDes = approvalDes;
+        this.participationLimit = participationLimit;
     }
 
     public EventPost(String takePlaceDate, String location, String eventType, String speaker, String id, String title, String content, String imgUrl, String summary) {
@@ -94,7 +97,7 @@ public class EventPost extends Post {
         this.speaker = speaker;
     }
 
-    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String approvalDes, String id, String orgID, String orgName, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status) {
+    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String approvalDes, String id, String orgID, String orgName, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status, int participationLimit) {
         super(id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status);
         this.takePlaceDate = takePlaceDate;
         this.location = location;
@@ -105,9 +108,10 @@ public class EventPost extends Post {
         this.statusTypeID = statusTypeID;
         this.statusTypeName = statusTypeName;
         this.approvalDes = approvalDes;
+        this.participationLimit = participationLimit;
     }
 
-    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String approvalDes, String id, String orgID, String orgName, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status, int numberOfParticipants) {
+    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String approvalDes, String id, String orgID, String orgName, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status, int numberOfParticipants, int participationLimit) {
         super(id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status);
         this.takePlaceDate = takePlaceDate;
         this.location = location;
@@ -119,6 +123,7 @@ public class EventPost extends Post {
         this.statusTypeName = statusTypeName;
         this.approvalDes = approvalDes;
         this.numberOfParticipants = numberOfParticipants;
+        this.participationLimit = participationLimit;
     }
 
     public String getTakePlaceDate() {
@@ -199,6 +204,14 @@ public class EventPost extends Post {
 
     public void setNumberOfParticipants(int numberOfParticipants) {
         this.numberOfParticipants = numberOfParticipants;
+    }
+
+    public int getParticipationLimit() {
+        return participationLimit;
+    }
+
+    public void setParticipationLimit(int participationLimit) {
+        this.participationLimit = participationLimit;
     }
     
 }

@@ -82,6 +82,7 @@ public class AddAnEventController extends HttpServlet {
             String title = request.getParameter("title");
             String location = request.getParameter("location");
             String eventType = request.getParameter("eventType");
+            int participationLimit = Integer.parseInt(request.getParameter("participationLimit"));
             int numberOfView = 0;
             String speaker = request.getParameter("speaker");
             String summary = request.getParameter("summary");
@@ -115,7 +116,7 @@ public class AddAnEventController extends HttpServlet {
 
             } else {
                 EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, statusTypeID, null,
-                        id, orgID, title, content, createDate.toString(), path, numberOfView, summary, status);
+                        id, orgID, title, content, createDate.toString(), path, numberOfView, summary, status, participationLimit);
                 boolean checkCreate = evtDao.createAnEvent(event);
                 if (checkCreate == true) {
                     if ("MOD".equals(manager.getRoleID())) {

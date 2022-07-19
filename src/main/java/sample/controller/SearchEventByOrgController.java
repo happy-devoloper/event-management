@@ -53,6 +53,7 @@ public class SearchEventByOrgController extends HttpServlet {
             request.setAttribute("checkSearch", "search");
             url = SEARCH;
         } catch (Exception e) {
+            log(e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

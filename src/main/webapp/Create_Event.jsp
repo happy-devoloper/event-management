@@ -52,6 +52,10 @@
                         <div class="input-icon"><i class="fa fa-user"></i></div>
                     </div>                   
 
+                    <div class="input-group input-group-icon">
+                        <input type="number" value="" name="participationLimit" placeholder="Number of Participant"/>
+                        <div class="input-icon"><i class="fa fa-user"></i></div>
+                    </div> 
 
                     <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
 

@@ -387,7 +387,7 @@
                                                         <div class="media-body">
 
                                                             <span class="fs-12 d-block mb-1"> <i class="fa-solid fa-users"></i> Participants</span>
-                                                            <span class="fs-16 text-black"><%=participants%> People</span>
+                                                            <span class="fs-16 text-black"><%=participants%>/<%=evt.getParticipationLimit() %> People</span>
 
                                                         </div>
                                                     </div>
