@@ -23,13 +23,13 @@ public class DBUtils {
 //        String url = "jdbc:postgresql://ec2-34-242-8-97.eu-west-1.compute.amazonaws.com:5432/df3n5hked56o4k?sslmode=require"; //encrypt=true;trustServerCertificate=true;";
 //        conn = DriverManager.getConnection(url, "xkzgjbnhefjign", "5fad21744f1f3750c9cb0ba80e1dd3f1f2adf579583b72a2a98dd34c017438be");
         //Connect Postgresql Local
-//        Class.forName("org.postgresql.Driver");
-//        String url = "jdbc:postgresql://localhost:5432/FPT-EVENT-MANAGEMENT"; //";
-//        conn = DriverManager.getConnection(url, "postgres", "1");
+        Class.forName("org.postgresql.Driver");
+        String url = "jdbc:postgresql://localhost:5432/FPT-EVENT-MANAGEMENT"; //";
+        conn = DriverManager.getConnection(url, "postgres", "1");
 //      Connect SQL Server
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=FPT_EVENT_MANAGEMENT; encrypt=true;trustServerCertificate=true;";
-        conn = DriverManager.getConnection(url, "sa", "1");       
+//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//        String url = "jdbc:sqlserver://localhost:1433;databaseName=FPT_EVENT_MANAGEMENT; encrypt=true;trustServerCertificate=true;";
+//        conn = DriverManager.getConnection(url, "sa", "1");       
         return conn;
     }
 }

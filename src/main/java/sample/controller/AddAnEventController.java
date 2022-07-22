@@ -48,7 +48,7 @@ public class AddAnEventController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");       
+        request.setCharacterEncoding("utf-8");
         LocalDate now = LocalDate.now();
         String url = ERROR;
         String id;
@@ -77,7 +77,6 @@ public class AddAnEventController extends HttpServlet {
                 statusTypeID = "PE";
             }
             String orgID = manager.getOrgID();
-            String takePlaceDate = request.getParameter("takePlaceDate");
             String content = request.getParameter("content");
             String title = request.getParameter("title");
             String location = request.getParameter("location");
@@ -88,7 +87,9 @@ public class AddAnEventController extends HttpServlet {
             String summary = request.getParameter("summary");
             LocalDate createDate = now;
 
-            LocalDate takePlaceDateCheck = LocalDate.parse(takePlaceDate);
+            String takePlaceDate = request.getParameter("takePlaceDate");
+            takePlaceDate = takePlaceDate.replace('T', ' ');
+            takePlaceDate += ":00";
 
             Part filePart = request.getPart("image");
             String realPath = request.getServletContext().getRealPath("/Image");
@@ -110,29 +111,23 @@ public class AddAnEventController extends HttpServlet {
                 status = true;
             }
 
-            if (createDate.isAfter(takePlaceDateCheck)) {
-                evtError.setTakePlaceDate("Takeplace date must be after today!");
-                request.setAttribute("ERROR", evtError);
+            EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, statusTypeID, null,
+                    id, orgID, title, content, createDate.toString(), path, numberOfView, summary, status, participationLimit);
+            boolean checkCreate = evtDao.createAnEvent(event);
+            if (checkCreate == true) {
+                if ("MOD".equals(manager.getRoleID())) {
+                    url = MOD_PAGE;
+                } else {
+                    String notiContent = manager.getOrgID() + " have a new post need to be approve. Check it out!";
+                    listManager = userDao.getAllManagersByRole("MOD");
 
-            } else {
-                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, statusTypeID, null,
-                        id, orgID, title, content, createDate.toString(), path, numberOfView, summary, status, participationLimit);
-                boolean checkCreate = evtDao.createAnEvent(event);
-                if (checkCreate == true) {
-                    if ("MOD".equals(manager.getRoleID())) {
-                        url = MOD_PAGE;
-                    } else {
-                        String notiContent = manager.getOrgID() + " have a new post need to be approve. Check it out!";
-                        listManager = userDao.getAllManagersByRole("MOD");
-
-                        for (ManagerDTO managerNoti : listManager) {
-                            userNoti = new UserNotification(managerNoti.getId(), id, createDate.toString(), notiContent);
-                            userDao.addNoti(userNoti);
-                        }
-                        url = CLB_PAGE;
+                    for (ManagerDTO managerNoti : listManager) {
+                        userNoti = new UserNotification(managerNoti.getId(), id, createDate.toString(), notiContent);
+                        userDao.addNoti(userNoti);
                     }
-
+                    url = CLB_PAGE;
                 }
+
             }
 
         } catch (Exception e) {

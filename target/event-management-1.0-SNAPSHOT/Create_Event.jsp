@@ -81,7 +81,9 @@
                 <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                 <p style="color: red"><%= evtError.getTakePlaceDate()%></p>
                 <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                    <input required="" type="date" value="" name="takePlaceDate" class="font-color"/>
+                    <!--<input required="" type="date" value="" name="takePlaceDate" class="font-color"/>-->
+                    <input required="" type="datetime-local" id="curdate" value="" name="takePlaceDate" class="font-color"/>
+
                     <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                 </div>
 
@@ -125,6 +127,12 @@
         </div>
         <!-- partial -->
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./css_FormCreate/script.js"></script>
+
+        <script>
+            var now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('curdate').min = now.toISOString().slice(0, 16);
+        </script>
 
     </body>
 </html>

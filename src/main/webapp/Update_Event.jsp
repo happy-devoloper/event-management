@@ -122,7 +122,11 @@
 
 
                 <% } else if (event.getOrgID().equals(user.getOrgID())) {%>
-
+                
+                <div class="input-group input-group-icon">
+                    <input type="number" value="<%=event.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="0"/>
+                    <div class="input-icon"><i class="fa fa-user"></i></div>
+                </div> 
 
                 <input type="hidden" name="FPT" value="FPT"/>
 
@@ -179,7 +183,7 @@
         </div>
 
 
-  
+
 
         <div class="flex-row-reverse">
             <div class="">
@@ -238,14 +242,14 @@
                 %>
             </div>
         </div>
-            
+
 
         <div class=" btn btn-danger" style="text-align: center">
             <a href="MainController?action=ListEvent">Cancel</a>
         </div>
 
         <% }%>
-     <div class="row">
+        <div class="row">
             <h4><i class="fa-solid fa-link" style="width: 25px"></i>Image</h4>
             <div class="input-group input-group-icon">
                 <input type="file" accept=".jpg, .jpeg, .png" name="image" />
