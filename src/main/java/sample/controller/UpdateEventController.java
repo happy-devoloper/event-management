@@ -65,6 +65,9 @@ public class UpdateEventController extends HttpServlet {
             if ("CLB".equals(user.getRoleID())) {
 
                 takePlaceDate = request.getParameter("takePlaceDate");
+                takePlaceDate = takePlaceDate.replace('T', ' ');
+                takePlaceDate += ":00";
+
                 content = request.getParameter("content");
                 title = request.getParameter("title");
                 location = request.getParameter("location");
@@ -72,7 +75,7 @@ public class UpdateEventController extends HttpServlet {
                 speaker = request.getParameter("speaker");
                 summary = request.getParameter("summary");
                 int participationLimit = Integer.parseInt(request.getParameter("participationLimit"));
-                
+
                 Part filePart = request.getPart("image");
                 String realPath = request.getServletContext().getRealPath("/Image");
                 String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -103,6 +106,9 @@ public class UpdateEventController extends HttpServlet {
             } else if ("MOD".equals(user.getRoleID())) {
                 if ("FPT".equals(FPT)) {
                     takePlaceDate = request.getParameter("takePlaceDate");
+                    takePlaceDate = takePlaceDate.replace('T', ' ');
+                    takePlaceDate += ":00";
+
                     content = request.getParameter("content");
                     title = request.getParameter("title");
                     location = request.getParameter("location");

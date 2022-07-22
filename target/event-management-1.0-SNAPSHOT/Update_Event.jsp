@@ -24,7 +24,8 @@
         List<EventLocation> listEvtLocation = (List<EventLocation>) request.getAttribute("listEventLocations");
 
         EventPost event = (EventPost) request.getAttribute("event");
-
+        event.setTakePlaceDate(event.getTakePlaceDate().replace(' ', 'T'));
+        
         EventPostError evtError = (EventPostError) request.getAttribute("ERROR");
         if (evtError == null) {
             evtError = new EventPostError();
@@ -122,11 +123,8 @@
 
 
                 <% } else if (event.getOrgID().equals(user.getOrgID())) {%>
-                
-                <div class="input-group input-group-icon">
-                    <input type="number" value="<%=event.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="0"/>
-                    <div class="input-icon"><i class="fa fa-user"></i></div>
-                </div> 
+
+
 
                 <input type="hidden" name="FPT" value="FPT"/>
 
@@ -140,7 +138,10 @@
                     <div class="input-icon"><i class="fa fa-user"></i></div>
                 </div>
 
-
+                <div class="input-group input-group-icon">
+                    <input type="number" value="<%=event.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="0"/>
+                    <div class="input-icon"><i class="fa fa-user"></i></div>
+                </div> 
 
                 <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
 
@@ -167,7 +168,7 @@
 
         <%= evtError.getTakePlaceDate()%>
         <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-            <input required="" type="date" value="<%=event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+            <input required="" type="datetime-local" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
             <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
         </div>
 
