@@ -27,9 +27,18 @@
                 vertical-align: middle;
                 font-size: 35px;
             }
+
+            .search-date {
+                border: none;
+                padding: 12px 30px;
+                border-radius: 15px;
+                font-size: 16px;
+                color: #B1B1B1;
+                cursor: pointer;
+            }
         </style>
 
-        
+
     </head>
 
     <body>
@@ -41,6 +50,12 @@
                 return;
             }
 
+            String beginDate = (String) request.getAttribute("fromdate");
+            String endDate = (String) request.getAttribute("enddate");
+            if (beginDate == null || endDate == null) {
+                beginDate = (java.time.LocalDate.now().toString());
+                endDate = (java.time.LocalDate.now().toString());
+            }
             List<UserNotification> listNoti = (List) request.getAttribute("USER_NOTIFICATION");
         %>
         %>
@@ -207,7 +222,7 @@
                                 </li>
 
                                 <li><a href="MainController?action=ListBlog">Blog</a></li>
-                                <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID() %>">Statistic</a></li>
+                                <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID()%>">Statistic</a></li>
                             </ul>
                         </li>
                         <li>
@@ -232,7 +247,6 @@
                     <!-- Add Order -->
 
                     <div class="d-flex flex-wrap mb-2 align-items-center justify-content-between">
-
                         <div class="event-tabs mb-3 mr-3">
                             <ul class="nav nav-tabs" role="tablist">
                                 <%
@@ -354,15 +368,27 @@
                             </ul>
                         </div>
 
-                        <div class="d-flex mb-3">
+                        <div class="d-flex mb-3">                          
 
 
                         </div>
+
+
                         <div class="mb-3 mr-3">
                             <h6 class="fs-16 text-black font-w600 mb-0"><%=listEvent.size()%> Event Has Posted</h6>
                             <span class="fs-14">Based your activate</span>
                         </div>
                     </div>
+
+                    <div class="d-flex flex-wrap mb-2 align-items-center justify-content-between">
+                        <form action="MainController" method="POST" class="mb-3">
+                            <input type="date" value="<%= beginDate %>" name="fromdate" class="search-date"> 
+                            <span style="font-size: 15px; font-weight: bold; margin: 0px 13px">to</span> 
+                            <input type="date" value="<%= endDate %>" name="enddate" class="search-date">
+                            <button style="padding: 10px 20px; margin-left: 15px" class="btn btn-primary" type="submit" name="action" value="SearchDate">Search</button>
+                        </form>
+                    </div>
+
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="tab-content">
@@ -448,7 +474,7 @@
 
 
                                                             <a href="MainController?action=EventTypeAndLocation&eventID=<%= listEvent.get(i).getId()%>&page=Club_Event.jsp" class="mr-4">
-                                                               <i class=" las la-pencil-alt scale-2"></i>
+                                                                <i class=" las la-pencil-alt scale-2"></i>
                                                             </a>
 
                                                             <a href="MainController?action=DeleteEvent&eventID=<%=listEvent.get(i).getId()%>&page=Club_Event.jsp">

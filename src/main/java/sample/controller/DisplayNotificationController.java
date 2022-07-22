@@ -55,7 +55,8 @@ public class DisplayNotificationController extends HttpServlet {
                         || "UpdateEvent".equals(action)
                         || "DeleteEvent".equals(action)
                         || "FilterEvent".equals(action)
-                        || "ListOrgEvent".equals(action)) {
+                        || "ListOrgEvent".equals(action)
+                        || "SearchDate".equals(action)) {
                     url = MOD_PAGE;
                 } else if ("EventDetail".equals(action) || "ApproveEvent".equals(action)
                         || "DeclineEvent".equals(action) || "Comment".equals(action)

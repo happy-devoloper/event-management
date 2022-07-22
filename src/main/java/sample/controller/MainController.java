@@ -32,6 +32,9 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String SEARCH_DATE = "SearchDate";
+    private static final String SEARCH_DATE_CONTROLLER = "SearchDateController";
+
     private static final String UPLOAD_IMAGE = "UploadImage";
     private static final String UPLOAD_IMAGE_CONTROLLER = "UploadImageController";
 
@@ -212,7 +215,7 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-  
+
             String action = request.getParameter("action");
             switch (action) {
                 case (SEARCH_ORG):
@@ -398,12 +401,15 @@ public class MainController extends HttpServlet {
 
                 case (FILTER_ORG):
                     url = FILTER_ORG_CONTROLLER;
-                    break;                   
+                    break;
                 case (UPLOAD_IMAGE):
                     url = UPLOAD_IMAGE_CONTROLLER;
                     break;
                 case (CLUB_FOLLOWER):
                     url = CLUB_FOLLOWER_CONTROLLER;
+                    break;
+                case (SEARCH_DATE):
+                    url = SEARCH_DATE_CONTROLLER;
                     break;
             }
         } catch (Exception e) {

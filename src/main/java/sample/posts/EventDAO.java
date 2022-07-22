@@ -119,6 +119,74 @@ public class EventDAO {
 
     private static final String GET_ALL_PARTICIPANTS_BY_EVENT_ID = "select fullName, email, phone, gender from tblParticipants, tblUsers where tblParticipants.userID = tblUsers.userID AND eventID = ?";
 
+    private static String SEARCH_DATE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
+            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
+            + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
+            + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
+            + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID \n"
+            + "AND tblEventPost.takePlaceDate between ? and ?";
+
+    public List<EventPost> searchEventByDate(String fromDate, String endDate, String orgID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<EventPost> listEvent = new ArrayList<>();
+
+        try {
+            conn = DBUtils.getConnection();
+            if ("FPT".equals(orgID)) {
+                ps = conn.prepareStatement(SEARCH_DATE);
+                ps.setObject(1, Timestamp.valueOf(fromDate + " 00:00:00"));
+                ps.setObject(2, Timestamp.valueOf(endDate + " 00:00:00"));
+            } else {
+                SEARCH_DATE += " AND tblEventPost.orgID = ?";
+                ps = conn.prepareStatement(SEARCH_DATE);
+                 ps.setObject(1, Timestamp.valueOf(fromDate + " 00:00:00"));
+                ps.setObject(2, Timestamp.valueOf(endDate + " 00:00:00"));
+                ps.setString(3, orgID);
+            }
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("eventID");
+                String createDate = rs.getString("createDate");
+                Date takePlaceDate = rs.getDate("takePlaceDate");
+                String content = rs.getString("content");
+                String title = rs.getString("title");
+                String location = rs.getString("location");
+                String imgUrl = rs.getString("imgUrl");
+                String orgIDOfEvent = rs.getString("orgID");
+                int numberOfView = rs.getInt("numberOfView");
+                String speaker = rs.getString("speaker");
+                String summary = rs.getString("summary");
+                Boolean status = rs.getBoolean("status");
+                String eventType = rs.getString("eventTypeID");
+                String eventTypeName = rs.getString("eventTypeName");
+                String locationName = rs.getString("locationName");
+                String statusTypeID = rs.getString("statusTypeID");
+                String statusTypeName = rs.getString("statusTypeName");
+                String approvalDes = rs.getString("approvalDes");
+
+                EventPost event = new EventPost(takePlaceDate.toString(), location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgIDOfEvent, title, content, createDate, imgUrl, numberOfView, summary, status);
+                listEvent.add(event);
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listEvent;
+    }
+
     public List<EventPost> getAllEventByType(String eventType, String roleID, String orgID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -181,12 +249,14 @@ public class EventDAO {
                     if (nowDate.before(takePlaceDate) && status == true) {
                         EventPost event = new EventPost(takePlaceDate.toString(), location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgIDOfEvent, title, content, createDate, imgUrl, numberOfView, summary, status);
                         listEvent.add(event);
+
                     }
                 }
 
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -291,9 +361,11 @@ public class EventDAO {
 
                 EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, title, content, createDate, imgUrl, numberOfView, summary, status);
                 listEvent.add(event);
+
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -345,11 +417,13 @@ public class EventDAO {
 
                     EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, title, content, createDate, imgUrl, numberOfView, summary, status);
                     listEvent.add(event);
+
                 }
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -399,10 +473,12 @@ public class EventDAO {
                     int participationLimit = rs.getInt("participationLimit");
 
                     event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status, participationLimit);
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -434,11 +510,13 @@ public class EventDAO {
                 }
                 if (checkID == null) {
                     check = false;
+
                 }
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -479,10 +557,9 @@ public class EventDAO {
                 ps.setString(13, event.getSummary());
 
                 ps.setObject(14, LocalDate.parse(event.getCreateDate()));
-                
-                
+
                 ps.setObject(15, Timestamp.valueOf(event.getTakePlaceDate()));
-                
+
                 ps.setInt(16, event.getParticipationLimit());
                 if (ps.executeUpdate() > 0) {
                     check = true;
@@ -523,15 +600,16 @@ public class EventDAO {
                 ps.setString(8, event.getSummary());
                 ps.setInt(9, event.getParticipationLimit());
                 ps.setString(10, event.getId());
-                
 
                 int checkUpdate = ps.executeUpdate();
                 if (checkUpdate > 0) {
                     check = true;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -566,7 +644,6 @@ public class EventDAO {
                 ps.setBoolean(9, event.isStatus());
                 ps.setInt(10, event.getParticipationLimit());
                 ps.setString(11, event.getId());
-                
 
                 int checkUpdate = ps.executeUpdate();
                 if (checkUpdate > 0) {
@@ -605,9 +682,11 @@ public class EventDAO {
 
                 EventType evtType = new EventType(eventTypeID, eventTypeName);
                 listTypes.add(evtType);
+
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -638,9 +717,11 @@ public class EventDAO {
 
                 EventLocation evtLocation = new EventLocation(locationID, locationName);
                 listLocations.add(evtLocation);
+
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -667,9 +748,11 @@ public class EventDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 total = rs.getInt("total");
+
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -699,10 +782,12 @@ public class EventDAO {
                 int checkUpdate = ps.executeUpdate();
                 if (checkUpdate > 0) {
                     check = true;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -751,9 +836,11 @@ public class EventDAO {
                 int numberOfParticipants = getNumberOfParticipants(id);
                 EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, "", title, content, createDate, imgUrl, numberOfView, summary, status, numberOfParticipants);
                 listEvent.add(event);
+
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -805,11 +892,13 @@ public class EventDAO {
 
                     EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, title, content, createDate, imgUrl, numberOfView, summary, status);
                     listEvent.add(event);
+
                 }
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -845,11 +934,13 @@ public class EventDAO {
 
                     UserDTO participants = new UserDTO("", name, "", email, true, "", "", gender, phoneNumber, "");
                     listUser.add(participants);
+
                 }
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (rs != null) {
                 rs.close();
