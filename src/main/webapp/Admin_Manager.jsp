@@ -9,12 +9,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <!--<meta http-equiv="refresh" content="<%=session.getMaxInactiveInterval()%>" url="index.jsp" />-->
         <title>F.E.M - FPT Event Admin</title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="./css_Admin/images/femLogo.png">
-        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
-        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">-->
+        <!--<link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
         <!-- Datatable -->
         <link href="./css_Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="./css_Admin/css/style.css" rel="stylesheet">
@@ -327,11 +326,11 @@
         ***********************************-->
         <!-- Required vendors -->
         <script src="./css_Admin/vendor/global/global.min.js"></script>
-        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>
+<!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
         <script src="./css_Admin/js/custom.min.js"></script>
         <script src="./css_Admin/js/deznav-init.js"></script>
-        <script src="./css_Admin/vendor/owl-carousel/owl.carousel.js"></script>
+        <!--<script src="./css_Admin/vendor/owl-carousel/owl.carousel.js"></script>-->
 
         <!-- Datatable -->
         <script src="./css_Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>

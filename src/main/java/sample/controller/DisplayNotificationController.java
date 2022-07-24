@@ -90,7 +90,8 @@ public class DisplayNotificationController extends HttpServlet {
                         || "CreateEvent".equals(action)
                         || "UpdateEvent".equals(action)
                         || "DeleteEvent".equals(action)
-                        || "FilterEvent".equals(action)) {
+                        || "FilterEvent".equals(action)
+                        || "SearchDate".equals(action)) {
                     url = CLB_PAGE;
                 } else if ("EventDetail".equals(action) || "Comment".equals(action)
                         || "ReplyComment".equals(action) || "DeleteComment".equals(action)) {

@@ -14,15 +14,24 @@
         <title>F.E.M - Organization Event Page</title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="./css_Admin/images/Biểu-tượng-không-chữ.png">
-        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
-        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+<!--        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
+        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
         <!-- Datatable -->
         <link href="./css_Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="./css_Admin/css/style.css" rel="stylesheet">
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet">
-
+        <style>
+            .search-date {
+                border: none;
+                padding: 12px 30px;
+                border-radius: 15px;
+                font-size: 16px;
+                color: #B1B1B1;
+                cursor: pointer;
+            }
+        </style>
     </head>
 
     <% List<EventPost> listEvent = (List) request.getAttribute("listEvent");
@@ -33,7 +42,12 @@
         }
 
         List<UserNotification> listNoti = (List) request.getAttribute("USER_NOTIFICATION");
-
+        String beginDate = (String) request.getAttribute("fromdate");
+        String endDate = (String) request.getAttribute("enddate");
+        if (beginDate == null || endDate == null) {
+            beginDate = (java.time.LocalDate.now().toString());
+            endDate = (java.time.LocalDate.now().toString());
+        }
     %>
 
     <body>
@@ -132,7 +146,7 @@
                                                             <img alt="image" width="50" src="<%=listNoti.get(i).getNotiImg()%>">
                                                         </div>
                                                         <div class="media-body">
-                                                            <a href="MainController?action=EventDetail&eventID=<%=listNoti.get(i).getEventID() %>">
+                                                            <a href="MainController?action=EventDetail&eventID=<%=listNoti.get(i).getEventID()%>">
                                                                 <h6 class="mb-1"><%=listNoti.get(i).getContent()%></h6>
                                                                 <small class="d-block"><%=listNoti.get(i).getNotiDate()%></small>
                                                             </a>
@@ -209,7 +223,7 @@
                                 <!--                                <li><a href="index.html">Dashboard</a></li>-->
                                 <li><a href="MainController?action=ListOrgEvent">Event</a></li>                               
                                 <li><a href="MainController?action=ListBlog">Blog</a></li>
-                                <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID() %>">Statistic</a></li>
+                                <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID()%>">Statistic</a></li>
 
                             </ul>
                         </li>
@@ -233,7 +247,7 @@
                 <!-- row -->
                 <div class="container-fluid">
                     <!-- Add Order -->
-             
+
                     <div class="d-flex flex-wrap mb-2 align-items-center justify-content-between">
 
                         <div class="event-tabs mb-3 mr-3">
@@ -349,6 +363,16 @@
                             <span class="fs-14">Based your activate</span>
                         </div>
                     </div>
+
+                    <div class="d-flex flex-wrap mb-2 align-items-center justify-content-between">
+                        <form action="MainController" method="POST" class="mb-3">
+                            <input type="date" value="<%= beginDate%>" name="fromdate" class="search-date"> 
+                            <span style="font-size: 15px; font-weight: bold; margin: 0px 13px">to</span> 
+                            <input type="date" value="<%= endDate%>" name="enddate" class="search-date">
+                            <button style="padding: 10px 20px; margin-left: 15px" class="btn btn-primary" type="submit" name="action" value="SearchDate">Search</button>
+                        </form>
+                    </div>
+
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="tab-content">
@@ -483,8 +507,8 @@
     ***********************************-->
         <!-- Required vendors -->
         <script src="./css_Admin/vendor/global/global.min.js"></script>
-        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>
+<!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
         <script src="./css_Admin/js/custom.min.js"></script>
         <script src="./css_Admin/js/deznav-init.js"></script>
 

@@ -14,9 +14,9 @@
         <title>F.E.M - Blog Detail Page</title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="./css_Admin/images/Biểu-tượng-không-chữ.png">
-        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
-        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-        <link href="./css_Admin/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+<!--        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
+        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
+        <!--<link href="./css_Admin/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">-->
         <link href="./css_Admin/css/style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -344,20 +344,20 @@
         ***********************************-->
         <!-- Required vendors -->
         <script src="./css_Admin/vendor/global/global.min.js"></script>
-        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>
+        <!--<script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>-->
+        <!--<script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
         <script src="./css_Admin/js/custom.min.js"></script>
         <script src="./css_Admin/js/deznav-init.js"></script>
-        <script src="./css_Admin/vendor/owl-carousel/owl.carousel.js"></script>
+        <!--<script src="./css_Admin/vendor/owl-capt>rousel/owl.carousel.js"></script>-->
 
         <!-- Chart piety plugin files -->
-        <script src="./css_Admin/vendor/peity/jquery.peity.min.js"></script>
+<!--        <script src="./css_Admin/vendor/peity/jquery.peity.min.js"></script>
 
-        <!-- Apex Chart -->
+         Apex Chart 
         <script src="./css_Admin/vendor/apexchart/apexchart.js"></script>
 
-        <!-- Dashboard 1 -->
-        <script src="./css_Admin/js/dashboard/event-detail.js"></script>
+         Dashboard 1 
+        <script src="./css_Admin/js/dashboard/event-detail.js"></script>-->
 
     </body>
 </html>

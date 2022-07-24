@@ -127,7 +127,7 @@ public class LocationDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_LOCATION);
-                ptm.setString(1, id);
+                ptm.setInt(1, Integer.parseInt(id));
                 if (ptm.executeUpdate() > 0) {
                     check = true;
                 }

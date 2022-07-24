@@ -28,6 +28,7 @@ sample\controller\SearchOrgController.class
 sample\users\ManagerDTO.class
 sample\users\UserDTO.class
 sample\controller\SearchEventByOrgController.class
+sample\controller\SearchDateController.class
 sample\controller\CreateManagerController.class
 sample\controller\DeleteEventTypeController.class
 sample\controller\NotificationController.class

@@ -126,6 +126,14 @@ public class EventDAO {
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID \n"
             + "AND tblEventPost.takePlaceDate between ? and ?";
 
+    private static String SEARCH_DATE_BY_ORG = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
+            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
+            + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
+            + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
+            + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID \n"
+            + "AND tblEventPost.takePlaceDate between ? and ?\n"
+            + " AND tblEventPost.orgID = ?";
+
     public List<EventPost> searchEventByDate(String fromDate, String endDate, String orgID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -136,15 +144,14 @@ public class EventDAO {
             conn = DBUtils.getConnection();
             if ("FPT".equals(orgID)) {
                 ps = conn.prepareStatement(SEARCH_DATE);
-                ps.setObject(1, Timestamp.valueOf(fromDate + " 00:00:00"));
-                ps.setObject(2, Timestamp.valueOf(endDate + " 00:00:00"));
+
             } else {
-                SEARCH_DATE += " AND tblEventPost.orgID = ?";
-                ps = conn.prepareStatement(SEARCH_DATE);
-                 ps.setObject(1, Timestamp.valueOf(fromDate + " 00:00:00"));
-                ps.setObject(2, Timestamp.valueOf(endDate + " 00:00:00"));
+                ps = conn.prepareStatement(SEARCH_DATE_BY_ORG);
                 ps.setString(3, orgID);
             }
+
+            ps.setObject(1, Timestamp.valueOf(fromDate + " 00:00:00"));
+            ps.setObject(2, Timestamp.valueOf(endDate + " 00:00:00"));
 
             rs = ps.executeQuery();
             while (rs.next()) {

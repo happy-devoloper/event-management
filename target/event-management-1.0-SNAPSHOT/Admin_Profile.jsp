@@ -17,11 +17,11 @@
         <title>F.E.M - FPT Event Admin</title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="./css_Admin/images/femLogo.png">
-        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
+        <!--<link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">-->
 
-        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+        <!--<link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
         <!-- Datatable -->
-        <link href="./css_Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+        <!--<link href="./css_Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">-->
         <link href="./css_Admin/css/style.css" rel="stylesheet">
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
@@ -432,14 +432,14 @@
     ***********************************-->
         <!-- Required vendors -->
         <script src="./css_Admin/vendor/global/global.min.js"></script>
-        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>
+<!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
         <script src="./css_Admin/js/custom.min.js"></script>
         <script src="./css_Admin/js/deznav-init.js"></script>
 
         <!-- Datatable -->
-        <script src="./css_Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script>
+        <!--<script src="./css_Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>-->
+<!--        <script>
             (function ($) {
                 var table = $('#example2').DataTable({
                     searching: false,
@@ -478,7 +478,7 @@
 
                 });
             })(jQuery);
-        </script>
+        </script>-->
     </body>
 
 </html>
