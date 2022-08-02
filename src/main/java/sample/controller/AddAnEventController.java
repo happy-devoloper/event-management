@@ -106,7 +106,6 @@ public class AddAnEventController extends HttpServlet {
             Boolean status;
             if ("MOD".equals(manager.getRoleID())) {
                 status = Boolean.parseBoolean(request.getParameter("status"));
-
             } else {
                 status = true;
             }

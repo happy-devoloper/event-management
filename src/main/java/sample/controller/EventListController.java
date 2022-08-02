@@ -24,13 +24,15 @@ import sample.posts.EventPost;
  */
 @WebServlet(name = "EventListController", urlPatterns = {"/EventListController"})
 public class EventListController extends HttpServlet {
+
     private static final String SUCCESS = "FilterEventController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String url = "error.jsp";
         List<EventPost> listEvent;
         String checkSearch = (String) request.getAttribute("checkSearch");
@@ -40,10 +42,17 @@ public class EventListController extends HttpServlet {
             if (checkSearch == null) {
                 listEvent = evtDao.getAllEvent();
                 request.setAttribute("listEvent", listEvent);
+
             } else {
                 listEvent = (List<EventPost>) request.getAttribute("listTitleSearch");
                 request.setAttribute("listEvent", listEvent);
             }
+
+            for (EventPost eventPost : listEvent) {
+                EventPost event = evtDao.getAnEventByID(eventPost.getId());
+                request.setAttribute("event_" + event.getId(), event);
+            }
+
             url = SUCCESS;
         } catch (SQLException ex) {
             Logger.getLogger(EventListController.class.getName()).log(Level.SEVERE, null, ex);

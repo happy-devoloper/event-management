@@ -24,8 +24,7 @@ import sample.posts.EventPost;
 @WebServlet(name = "EventTypeAndLocationController", urlPatterns = {"/EventTypeAndLocationController"})
 public class EventTypeAndLocationController extends HttpServlet {
 
-    private static final String CREATE = "Create_Event.jsp";
-    private static final String UPDATE = "Update_Event.jsp";
+    private static final String UPDATE = "DisplayNotificationController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,15 +45,7 @@ public class EventTypeAndLocationController extends HttpServlet {
             request.setAttribute("listEventTypes", listTypes);
             request.setAttribute("listEventLocations", listLocations);
             request.setAttribute("page", page);
-
-            eventID = request.getParameter("eventID");
-            if (eventID != null) {
-                event = evtDao.getAnEventByID(eventID);
-                request.setAttribute("event", event);
-                url = UPDATE;
-            } else {
-                url = CREATE;
-            }
+            url = UPDATE;
 
         } catch (Exception e) {
         } finally {

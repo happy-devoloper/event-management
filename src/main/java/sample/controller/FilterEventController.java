@@ -29,7 +29,7 @@ public class FilterEventController extends HttpServlet {
     private static final String APPROVED_PAGE = "Approved";
     private static final String DECLINED_PAGE = "Declined";
     private static final String ON_GOING_PAGE = "OnGoing";
-    private static final String GET_NOTI = "DisplayNotificationController";
+    private static final String EVENT_TYPE_AND_LOCATION = "EventTypeAndLocationController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -59,9 +59,15 @@ public class FilterEventController extends HttpServlet {
                 listEvent = eveDao.getAllEventByType("ON", user.getRoleID(), user.getOrgID());
                 request.setAttribute("listEvent", listEvent);
             }
+
+            if (listEvent != null) {
+                for (EventPost eventPost : listEvent) {
+                    EventPost event = eveDao.getAnEventByID(eventPost.getId());
+                    request.setAttribute("event_" + event.getId(), event);
+                }
+            }
             
-                url = GET_NOTI;
-            
+            url = EVENT_TYPE_AND_LOCATION;
 
         } catch (Exception e) {
             log("Error at FilterController " + e.toString());
