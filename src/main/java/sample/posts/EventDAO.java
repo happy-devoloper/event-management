@@ -454,7 +454,7 @@ public class EventDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(GET_AN_EVENT_BY_ID);
-                ps.setString(1, "%" + eventID + "%");
+                ps.setString(1, eventID);
 
                 rs = ps.executeQuery();
                 if (rs.next()) {
@@ -597,7 +597,7 @@ public class EventDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(UPDATE_AN_EVENT);
-                ps.setObject(1, LocalDate.parse(event.getTakePlaceDate()));
+                ps.setObject(1, Timestamp.valueOf(event.getTakePlaceDate()));
                 ps.setString(2, event.getContent());
                 ps.setString(3, event.getTitle());
                 ps.setInt(4, Integer.parseInt(event.getLocation()));

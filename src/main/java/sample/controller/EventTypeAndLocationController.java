@@ -48,6 +48,7 @@ public class EventTypeAndLocationController extends HttpServlet {
             url = UPDATE;
 
         } catch (Exception e) {
+            log("Error at EventTypeAndLocationController " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

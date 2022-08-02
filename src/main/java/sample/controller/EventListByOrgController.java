@@ -35,7 +35,7 @@ public class EventListByOrgController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");      
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         ManagerDTO user = (ManagerDTO) session.getAttribute("LOGIN_USER");
         UserDAO userDao = new UserDAO();
@@ -45,7 +45,7 @@ public class EventListByOrgController extends HttpServlet {
         try {
             EventDAO evtDao = new EventDAO();
             ManagerDTO manager = userDao.getManagerInfoByID(user.getId());
-            
+
             if (checkSearch == null) {
                 listEvent = evtDao.getAllOrgEvent(manager.getOrgID());
                 request.setAttribute("listEvent", listEvent);
@@ -55,7 +55,11 @@ public class EventListByOrgController extends HttpServlet {
                 request.setAttribute("listEvent", listEvent);
 
             }
-
+            for (EventPost eventPost : listEvent) {
+                EventPost event = evtDao.getAnEventByID(eventPost.getId());
+                request.setAttribute("event_" + event.getId(), event);
+            }
+            
             if (manager.getRoleID().equals("MOD")) {
                 url = MOD_PAGE;
             } else if (manager.getRoleID().equals("CLB")) {

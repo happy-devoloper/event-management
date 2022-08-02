@@ -79,16 +79,11 @@
                 evtError = new EventPostError();
             }
 
-            if (evtError == null) {
-                evtError = new EventPostError();
-            }
-
             if (user == null) {
                 response.sendRedirect("index.jsp");
                 return;
             }
 
-            String pageType = (String) request.getAttribute("page");
 
         %>
 
@@ -235,6 +230,8 @@
         Sidebar start
     ***********************************-->
 
+            <!--========== MODAL NEW EVENT ==============--> 
+
             <div class="modal fade bd-example-modal-lg" id="modalNewEvent">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -352,11 +349,15 @@
                 </div>
             </div>
 
+
+            <!--================ MODAL NEW EVENT ====================-->
+
+
             <div class="deznav">
                 <div class="deznav-scroll">
                     <!--<a href="MainController?action=EventTypeAndLocation" class="add-menu-sidebar">New Event</a>-->
 
-                    <a style="color: white" type="button" class="add-menu-sidebar" data-toggle="modal" data-target="#modalNewEvent">New Event</a>
+                    <a style="color: white" type="button" class="add-menu-sidebar" data-toggle="modal" data-target="#modalNewEvent">+ New Event</a>
 
                     <ul class="metismenu" id="menu">
                         <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

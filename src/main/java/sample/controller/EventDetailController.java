@@ -25,7 +25,7 @@ import sample.posts.EventPost;
 public class EventDetailController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "DisplayNotificationController";
+    private static final String SUCCESS = "EventTypeAndLocationController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
