@@ -31,7 +31,7 @@ import sample.users.UserDTO;
 public class EventListByOrgController extends HttpServlet {
 
     private static final String CLB_PAGE = "FilterEventController";
-    private static final String MOD_PAGE = "DisplayNotificationController";
+    private static final String MOD_PAGE = "EventTypeAndLocationController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

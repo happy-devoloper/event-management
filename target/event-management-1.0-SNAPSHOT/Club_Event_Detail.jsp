@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>F.E.M - Event Detail Page</title>
         <!-- Favicon icon -->
-         <link rel="stylesheet" href="./css_FormCreate/style.css">
+        <link rel="stylesheet" href="./css_FormCreate/style.css">
         <link rel="stylesheet" href="./css_FormCreate/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -33,6 +33,8 @@
         <!--<link href="./css_Admin/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">-->
         <link href="./css_Admin/css/style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+
     </head>
 
     <%EventPost evt = (EventPost) request.getAttribute("event");
@@ -302,8 +304,6 @@
 
 
 
-
-
                                                     <%
                                                         if (user.getRoleID().equals("MOD") && evt.getStatusTypeID().equals("PE")) {
                                                     %>                                                        
@@ -487,7 +487,34 @@
                                                                     </div>
                                                                 </div>
 
-                                                                        
+                                                                <% if ("MOD".equals(user.getRoleID())) { %>
+                                                                <div class="flex-row-reverse">
+                                                                    <div class="row">
+                                                                        <h4>Status</h4>
+                                                                        <%
+                                                                            if (evt.isStatus() == false) {
+                                                                        %>
+                                                                        <div class="input-group">
+                                                                            <input id="status-true" type="radio" name="status" value="true"/>
+                                                                            <label for="status-true">Active</label>
+                                                                            <input id="status-false" type="radio" name="status" checked="" value="false"/>
+                                                                            <label for="status-false">Inactive</label>
+                                                                        </div>
+                                                                        <%
+                                                                        } else {
+                                                                        %>
+                                                                        <div class="input-group">
+                                                                            <input id="status-true" type="radio" checked="" name="status" value="true"/>
+                                                                            <label for="status-true">Active</label>
+
+                                                                            <input id="status-false" type="radio" name="status"  value="false"/>
+                                                                            <label for="status-false">Inactive</label>
+                                                                        </div>
+                                                                        <%                     }
+                                                                        %>
+                                                                    </div>
+                                                                </div>
+                                                                <%} %>
 
                                                                 <div class="row">
                                                                     <button type="submit" style="cursor: pointer" class="login-box" name="action" value="UpdateEvent">
@@ -501,291 +528,337 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                                <% }%>
+                                            <% }%>
 
-                                                <!--================================================================-->
+                                            <!--================================================================-->
 
-                                                <!--===============================-->
+                                            <!--===============================-->
 
 
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                        <div class="media bg-light p-3 rounded align-items-center">	
-                                                            <div class="media-body">
-                                                                <span class="fs-12 d-block mb-1"><i class="fa-solid fa-eye"></i> Viewer</span>
-                                                                <span class="fs-16 text-black"><%=evt.getNumberOfView()%> View</span>
-                                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa-solid fa-eye"></i> Viewer</span>
+                                                            <span class="fs-16 text-black"><%=evt.getNumberOfView()%> View</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                        <div class="media bg-light p-3 rounded align-items-center">	
-                                                            <div class="media-body">
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
+                                                        <div class="media-body">
 
-                                                                <span class="fs-12 d-block mb-1"> <i class="fa-solid fa-users"></i> Participants</span>
-                                                                <span class="fs-16 text-black"><%=participants%>/<%=evt.getParticipationLimit()%> People</span>
+                                                            <span class="fs-12 d-block mb-1"> <i class="fa-solid fa-users"></i> Participants</span>
+                                                            <span class="fs-16 text-black"><%=participants%>/<%=evt.getParticipationLimit()%> People</span>
 
-                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                        <div class="media bg-light p-3 rounded align-items-center">	
-                                                            <div class="media-body">
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
+                                                        <div class="media-body">
 
-                                                                <span class="fs-12 d-block mb-1"> <i class="fa-solid fa-users"></i>Club</span>
-                                                                <span class="fs-16 text-black"><%=evt.getOrgName()%></span>
+                                                            <span class="fs-12 d-block mb-1"> <i class="fa-solid fa-users"></i>Club</span>
+                                                            <span class="fs-16 text-black"><%=evt.getOrgName()%></span>
 
-                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-5 col-md-12 col-xxl-12 mb-3">
-                                                        <div class="media bg-light p-3 rounded align-items-center">	
+                                                </div>
+                                                <div class="col-lg-5 col-md-12 col-xxl-12 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
 
-                                                            <div class="media-body">
-                                                                <span class="fs-12 d-block mb-1"><i class="fa-solid fa-location-dot"></i>  Location</span>
-                                                                <span class="fs-16 text-black"><%=evt.getLocationName()%></span>
-                                                            </div>
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa-solid fa-location-dot"></i>  Location</span>
+                                                            <span class="fs-16 text-black"><%=evt.getLocationName()%></span>
                                                         </div>
                                                     </div>
-
-
-                                                    <%if ("CLB".equals(user.getRoleID()) && "DE".equals(evt.getStatusTypeID())) {
-                                                    %>
-                                                    <div class="col-lg-5 col-md-12 col-xxl-12 mb-3">
-                                                        <div class="media bg-light p-3 rounded align-items-center">
-
-                                                            <div class="media-body">
-                                                                <span class="fs-12 d-block mb-1"><i class="fa-solid fa-circle-exclamation"></i> Decline Description</span>
-                                                                <span class="fs-16 text-black"><%=evt.getApprovalDes()%></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <%
-                                                        }
-                                                    %>   
                                                 </div>
 
-                                                <h4 class="fs-20 text-black font-w600">Event Summary</h4>
-                                                <p class="fs-14 mb-0"><%=evt.getSummary()%>
-                                                </p>
 
-                                                <br>
+                                                <%if ("CLB".equals(user.getRoleID()) && "DE".equals(evt.getStatusTypeID())) {
+                                                %>
+                                                <div class="col-lg-5 col-md-12 col-xxl-12 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">
 
-                                                <h4 class="fs-20 text-black font-w600">Event Description </h4>
-                                                <p class="fs-14 mb-0"><%=evt.getContent()%>
-                                                </p>
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa-solid fa-circle-exclamation"></i> Decline Description</span>
+                                                            <span class="fs-16 text-black"><%=evt.getApprovalDes()%></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <%
+                                                    }
+                                                %>   
                                             </div>
+
+                                            <h4 class="fs-20 text-black font-w600">Event Summary</h4>
+                                            <p class="fs-14 mb-0"><%=evt.getSummary()%>
+                                            </p>
+
+                                            <br>
+
+                                            <h4 class="fs-20 text-black font-w600">Event Description </h4>
+                                            <p class="fs-14 mb-0"><%=evt.getContent()%>
+                                            </p>
                                         </div>
-                                    </div>                               
-                                </div>
+                                    </div>
+                                </div>                               
+                            </div>
 
 
 
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="card event-detail-bx overflow-hidden ">
-                                            <div class="card-body">
-                                                <div class="comments">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card event-detail-bx overflow-hidden ">
+                                        <div class="card-body">
+                                            <div class="comments">
 
-                                                    <!-- Phần Mình Sẽ Comment -->
-                                                    <div class="comment-box add-comment header-right">
+                                                <!-- Phần Mình Sẽ Comment -->
+                                                <div class="comment-box add-comment header-right">
+                                                    <span>
+                                                        <img src="<%= user.getPicture()%>" style="border-radius: 1.25rem;" width="40" height="40">
+                                                    </span>
+                                                    <span class="commenter-name">
+                                                        <form action="MainController" method="POST">
+                                                            <input type="hidden" name="eventID" value="<%= evt.getId()%>" />
+                                                            <input type="text" placeholder="Add a public comment" name="content">
+                                                            <button type="submit" name="action" value="Comment" class="btn btn-primary">Comment</button>
+                                                            <button type="Reset" class="btn btn-default">Cancel</button>
+                                                        </form>
+
+                                                    </span>
+                                                </div>
+
+                                                <div class="comments-details">
+                                                    <span class="total-comments comments-sort"><%= listCmt.size()%> Comments</span>
+                                                </div>
+
+                                                <div class="accordion" id="myaccordion" />
+                                                <%
+                                                    int count = 0;
+
+                                                    if (listCmt
+                                                            != null) {
+                                                        for (CommentDTO cmt : listCmt) {
+                                                            if (cmt.getReplyID() == null) {
+                                                                String countString = "reply" + count;
+                                                                count++;
+                                                %>
+
+
+                                                <div class="comment-box header-right">
+                                                    <span class="commenter-pic header-profile">
+                                                        <img src="<%= cmt.getAvatarUrl()%>">
+                                                    </span>
+                                                    <span class="commenter-name">
+                                                        <a href="#"><%= cmt.getUserName()%> (<%= cmt.getUserRoleName()%>)</a> <span class="comment-time"><%= cmt.getTime()%></span>
+                                                    </span>
+
+                                                    <!-- +================ DeleteCOmment ============= -->
+
+                                                    <button class="commenter-edit" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <form action="MainController" method="POST">                                                
+                                                            <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
+                                                            <input type="hidden" name="commentID" value="<%= cmt.getCommentID()%>"/>
+                                                            <button name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
+                                                        </form>
+                                                    </div>
+
+                                                    <!-- ================================== -->
+
+
+                                                    <p class="comment-txt more"><%= cmt.getContent()%></p>
+                                                    <div class="comment-meta">
                                                         <span>
-                                                            <img src="<%= user.getPicture()%>" style="border-radius: 1.25rem;" width="40" height="40">
-                                                        </span>
-                                                        <span class="commenter-name">
-                                                            <form action="MainController" method="POST">
-                                                                <input type="hidden" name="eventID" value="<%= evt.getId()%>" />
-                                                                <input type="text" placeholder="Add a public comment" name="content">
-                                                                <button type="submit" name="action" value="Comment" class="btn btn-primary">Comment</button>
-                                                                <button type="Reset" class="btn btn-default">Cancel</button>
-                                                            </form>
-
+                                                            <a class="btn btn-outline-primary" data-toggle="collapse"
+                                                               href="#<%= countString%>" aria-expanded="false" data-parent="#myaccordion"
+                                                               >Reply</a>
                                                         </span>
                                                     </div>
 
-                                                    <div class="comments-details">
-                                                        <span class="total-comments comments-sort"><%= listCmt.size()%> Comments</span>
+
+                                                    <!-- REPLY COMMENT KHI ẤN REPLY -->
+                                                    <!-- mỗi ID có một popup khác nhau -->
+
+                                                    <div  class="collapse" id="<%= countString%>">
+                                                        <form action="MainController" method="POST" >
+                                                            <input type="hidden" name="eventID" value="<%= evt.getId()%>" />
+                                                            <input type="hidden" name="replyCommentID" value="<%= cmt.getCommentID()%>" />
+
+                                                            <div class="form-group">
+                                                                <label style="font-weight: bold" for="comment"><%= user.getName()%> (<%= user.getRoleID()%>)</label>
+                                                                <textarea name="content" class="form-control" rows="3"></textarea>
+                                                            </div>
+                                                            <button type="submit" name="action" value="ReplyComment" class="btn btn-outline-info">Send</button>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <%   for (CommentDTO cmtRep : listCmt) {
+                                                        if (cmt.getCommentID() != cmtRep.getCommentID()) {
+                                                            if ((cmt.getCommentID()).equals(cmtRep.getReplyID())) {
+                                                %>
+
+                                                <div class="comment-box replied header-right">
+                                                    <span class="commenter-pic header-profile">
+                                                        <img src="<%= cmtRep.getAvatarUrl()%>" class="img-fluid">
+                                                    </span>
+                                                    <span class="commenter-name">
+                                                        <a href="#"><%= cmtRep.getUserName()%> (<%= cmtRep.getUserRoleName()%>)</a> <span class="comment-time"><%= cmtRep.getTime()%></span>
+                                                    </span>
+
+                                                    <!-- +================ DeleteCOmment ============= -->
+
+                                                    <button class="commenter-edit" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <form action="MainController" method="POST">                                                
+                                                            <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
+                                                            <input type="hidden" name="commentID" value="<%= cmtRep.getCommentID()%>"/>
+                                                            <button name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
+                                                        </form>
                                                     </div>
 
-                                                    <div class="accordion" id="myaccordion" />
-                                                    <%
-                                                        int count = 0;
+                                                    <!-- ================================== -->
 
-                                                        if (listCmt
-                                                                != null) {
-                                                            for (CommentDTO cmt : listCmt) {
-                                                                if (cmt.getReplyID() == null) {
-                                                                    String countString = "reply" + count;
-                                                                    count++;
-                                                    %>
-
-
-                                                    <div class="comment-box header-right">
-                                                        <span class="commenter-pic header-profile">
-                                                            <img src="<%= cmt.getAvatarUrl()%>">
-                                                        </span>
-                                                        <span class="commenter-name">
-                                                            <a href="#"><%= cmt.getUserName()%> (<%= cmt.getUserRoleName()%>)</a> <span class="comment-time"><%= cmt.getTime()%></span>
-                                                        </span>
-
-                                                        <!-- +================ DeleteCOmment ============= -->
-
-                                                        <button class="commenter-edit" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
-
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <form action="MainController" method="POST">                                                
-                                                                <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
-                                                                <input type="hidden" name="commentID" value="<%= cmt.getCommentID()%>"/>
-                                                                <button name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
-                                                            </form>
-                                                        </div>
-
-                                                        <!-- ================================== -->
-
-
-                                                        <p class="comment-txt more"><%= cmt.getContent()%></p>
-                                                        <div class="comment-meta">
-                                                            <span>
-                                                                <a class="btn btn-outline-primary" data-toggle="collapse"
-                                                                   href="#<%= countString%>" aria-expanded="false" data-parent="#myaccordion"
-                                                                   >Reply</a>
-                                                            </span>
-                                                        </div>
-
-
-                                                        <!-- REPLY COMMENT KHI ẤN REPLY -->
-                                                        <!-- mỗi ID có một popup khác nhau -->
-
-                                                        <div  class="collapse" id="<%= countString%>">
-                                                            <form action="MainController" method="POST" >
-                                                                <input type="hidden" name="eventID" value="<%= evt.getId()%>" />
-                                                                <input type="hidden" name="replyCommentID" value="<%= cmt.getCommentID()%>" />
-
-                                                                <div class="form-group">
-                                                                    <label style="font-weight: bold" for="comment"><%= user.getName()%> (<%= user.getRoleID()%>)</label>
-                                                                    <textarea name="content" class="form-control" rows="3"></textarea>
-                                                                </div>
-                                                                <button type="submit" name="action" value="ReplyComment" class="btn btn-outline-info">Send</button>
-                                                            </form>
-
-                                                        </div>
+                                                    <p class="comment-txt more"><%= cmtRep.getContent()%></p>
+                                                    <div class="comment-meta">
                                                     </div>
+                                                </div>
 
-
-                                                    <%   for (CommentDTO cmtRep : listCmt) {
-                                                            if (cmt.getCommentID() != cmtRep.getCommentID()) {
-                                                                if ((cmt.getCommentID()).equals(cmtRep.getReplyID())) {
-                                                    %>
-
-                                                    <div class="comment-box replied header-right">
-                                                        <span class="commenter-pic header-profile">
-                                                            <img src="<%= cmtRep.getAvatarUrl()%>" class="img-fluid">
-                                                        </span>
-                                                        <span class="commenter-name">
-                                                            <a href="#"><%= cmtRep.getUserName()%> (<%= cmtRep.getUserRoleName()%>)</a> <span class="comment-time"><%= cmtRep.getTime()%></span>
-                                                        </span>
-
-                                                        <!-- +================ DeleteCOmment ============= -->
-
-                                                        <button class="commenter-edit" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
-
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <form action="MainController" method="POST">                                                
-                                                                <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
-                                                                <input type="hidden" name="commentID" value="<%= cmtRep.getCommentID()%>"/>
-                                                                <button name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
-                                                            </form>
-                                                        </div>
-
-                                                        <!-- ================================== -->
-
-                                                        <p class="comment-txt more"><%= cmtRep.getContent()%></p>
-                                                        <div class="comment-meta">
-                                                        </div>
-                                                    </div>
-
-                                                    <%
-                                                                            }
+                                                <%
                                                                         }
                                                                     }
                                                                 }
                                                             }
-                                                        }%>
-                                                </div>
+                                                        }
+                                                    }%>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
-
-
-                        </div>
-
-
-
-                        <div class="col-xl-5">
-                            <div class="row">
-                                <div class="col-xl-12 col-sm-6">
-                                    <img class="card-img img-fluid" src="<%= evt.getImgUrl()%>">
-                                </div>
                             </div>
-                        </div>
+                        </div> 
 
 
                     </div>
+
+
+
+                    <div class="col-xl-5">
+                        <div class="row">
+                            <div class="col-xl-12 col-sm-6">
+                                <img class="card-img img-fluid" src="<%= evt.getImgUrl()%>">
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
-            <!--**********************************
-                Content body end
-            ***********************************-->
-
-            <!--**********************************
-                Footer start
-            ***********************************-->
-            <div class="footer">
-                <div class="copyright">
-                    <p>© Best For Event Management Schedule
-                        &amp; Developed by <a href="http://dexignzone.com/" target="_blank">F.E.M</a> 2022</p>
-                </div>
-            </div>
-            <!--**********************************
-                Footer end
-            ***********************************-->
-
-            <!--**********************************
-       Support ticket button start
-    ***********************************-->
-
-            <!--**********************************
-               Support ticket button end
-            ***********************************-->
-
-
         </div>
         <!--**********************************
-            Main wrapper end
+            Content body end
         ***********************************-->
 
         <!--**********************************
-            Scripts
+            Footer start
         ***********************************-->
-        <!-- Required vendors -->
-        <script src="./css_Admin/vendor/global/global.min.js"></script>
-        <!--    <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-            <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
-        <script src="./css_Admin/js/custom.min.js"></script>
-        <script src="./css_Admin/js/deznav-init.js"></script>
-        <!--<script src="./css_Admin/vendor/owl-carousel/owl.carousel.js"></script>-->
+        <div class="footer">
+            <div class="copyright">
+                <p>© Best For Event Management Schedule
+                    &amp; Developed by <a href="http://dexignzone.com/" target="_blank">F.E.M</a> 2022</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
 
-        <!--     Chart piety plugin files 
-            <script src="./css_Admin/vendor/peity/jquery.peity.min.js"></script>
-        
-             Apex Chart 
-            <script src="./css_Admin/vendor/apexchart/apexchart.js"></script>
-        
-             Dashboard 1 
-            <script src="./css_Admin/js/dashboard/event-detail.js"></script>-->
+        <!--**********************************
+   Support ticket button start
+***********************************-->
 
-    </body>
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="./css_Admin/vendor/global/global.min.js"></script>
+    <!--    <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
+    <script src="./css_Admin/js/custom.min.js"></script>
+    <script src="./css_Admin/js/deznav-init.js"></script>
+    <!--<script src="./css_Admin/vendor/owl-carousel/owl.carousel.js"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <!--     Chart piety plugin files 
+        <script src="./css_Admin/vendor/peity/jquery.peity.min.js"></script>
+    
+         Apex Chart 
+        <script src="./css_Admin/vendor/apexchart/apexchart.js"></script>
+    
+         Dashboard 1 
+        <script src="./css_Admin/js/dashboard/event-detail.js"></script>-->
+    <%
+        String success = (String) request.getAttribute("SUCCESS");
+        String failed = (String) request.getAttribute("FAILED");
+
+        if ("success".equals(success)) {
+    %>
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "5000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+            "position-class": "toast-top-full-width"
+        }
+        toastr["success"]("Successfully!!").css("height", "50px");
+    </script>
+    <% } else if ("failed".equals(failed)) { %>
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "5000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+            "position-class": "toast-top-full-width"
+        }
+        toastr["error"]("Failed!!!").css("height", "50px");
+    </script>
+    <% }%>
+</body>
 </html>

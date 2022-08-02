@@ -27,6 +27,8 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+
         <style>
             .search-date {
                 border: none;
@@ -573,7 +575,7 @@
 
                                                     </td>
 
-                                            
+
                                                     <td class="text-center"><a href="MainController?action=EventDetail&eventID=<%=listEvent.get(i).getId()%>"
                                                                                class="btn btn-primary btn-sm light">View</a></td>
 
@@ -770,13 +772,14 @@
 
         <!-- Datatable -->
         <script src="./css_Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
-         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
         <script>
             var now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
             document.getElementById('curdate').min = now.toISOString().slice(0, 16);
         </script>
-        
+
         <script>
             (function ($) {
                 var table = $('#example2').DataTable({
@@ -817,6 +820,54 @@
                 });
             })(jQuery);
         </script>
+
+        <%
+            String success = (String) request.getAttribute("SUCCESS");
+            String failed = (String) request.getAttribute("FAILED");
+
+            if ("success".equals(success)) {
+        %>
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "position-class": "toast-top-full-width"
+            }
+            toastr["success"]("Successfully!!").css("height", "50px");
+        </script>
+        <% } else if ("failed".equals(failed)) { %>
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "position-class": "toast-top-full-width"
+            }
+            toastr["error"]("Failed!!!").css("height", "50px");
+        </script>
+        <% }%>
+
     </body>
 
 </html>

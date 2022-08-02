@@ -16,7 +16,9 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>F.E.M - FPT Event Admin</title>
 
-        <!--<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>-->
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'>
+
         <link rel="stylesheet" href="./css_FormCreate/style.css">
         <link rel="stylesheet" href="./css_FormCreate/css/all.css">
         <!--<script src="https://your-site-or-cdn.com/fontawesome/v5.15.4/js/all.js" data-auto-replace-svg></script>-->
@@ -33,6 +35,7 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
 
 
         <style>
@@ -124,7 +127,6 @@
             <!--**********************************
         Nav header end
     ***********************************-->
-
 
 
             <div class="header">
@@ -887,6 +889,7 @@
                                                                                 </div>
                                                                             </div>
 
+                                                                            <input type="hidden" name="page" value="Mod_Event.jsp">
                                                                             <div class="row">
                                                                                 <button type="submit" style="cursor: pointer" class="login-box" name="action" value="UpdateEvent">
                                                                                     Update Event
@@ -928,6 +931,8 @@
                         &amp; Developed by <a href="http://dexignzone.com/" target="_blank">F.E.M</a> 2022</p>
                 </div>
             </div>
+
+
             <!--**********************************
         Footer end
     ***********************************-->
@@ -959,8 +964,11 @@
 
         <!-- Datatable -->
         <script src="./css_Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>-->
+
         <!--<script src="./css_FormCreate/script.js"></script>-->
+        <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>-->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
         <script>
             var now = new Date();
@@ -968,6 +976,7 @@
             document.getElementById('curdate').min = now.toISOString().slice(0, 16);
         </script>
 
+        <%  %>
         <script>
             (function ($) {
                 var table = $('#example2').DataTable({
@@ -1007,7 +1016,55 @@
 
                 });
             })(jQuery);
+
         </script>
+
+        <%
+            String success = (String) request.getAttribute("SUCCESS");
+            String failed = (String) request.getAttribute("FAILED");
+
+            if ("success".equals(success)) {
+        %>
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "position-class": "toast-top-full-width"
+            }
+            toastr["success"]("Successfully!!").css("height", "50px");
+        </script>
+        <% } else if ("failed".equals(failed)) { %>
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "position-class": "toast-top-full-width"
+            }
+            toastr["error"]("Failed!!!").css("height", "50px");
+        </script>
+        <% }%>
     </body>
 
 </html>

@@ -95,13 +95,15 @@ public class UpdateEventController extends HttpServlet {
                 EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary, participationLimit);
                 check = evtDao.updateAnEvent(event);
                 if (check == true) {
+                     request.setAttribute("SUCCESS", "success");
                     if ("Club_Event.jsp".equals(page)) {
                         url = CLB_PAGE;
                     } else {
                         url = "MainController?action=EventDetail&eventID=" + id;
                     }
-
                 }
+                   else
+                    request.setAttribute("FAILED", "failed");
 
             } else if ("MOD".equals(user.getRoleID())) {
                 if ("FPT".equals(FPT)) {
@@ -143,13 +145,18 @@ public class UpdateEventController extends HttpServlet {
                 }
 
                 if (check == true) {
-                    if ("Club_Event.jsp".equals(page)) {
+                    request.setAttribute("SUCCESS", "success");
+                    if ("Mod_Event.jsp".equals(page)) {
                         url = MOD_PAGE;
                     } else {
                         url = "MainController?action=EventDetail&eventID=" + id;
                     }
                 }
+                else
+                    request.setAttribute("FAILED", "failed");
 
+                
+                
             }
 
         } catch (SQLException ex) {

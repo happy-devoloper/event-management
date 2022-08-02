@@ -114,6 +114,7 @@ public class AddAnEventController extends HttpServlet {
                     id, orgID, title, content, createDate.toString(), path, numberOfView, summary, status, participationLimit);
             boolean checkCreate = evtDao.createAnEvent(event);
             if (checkCreate == true) {
+                request.setAttribute("SUCCESSS", "success");
                 if ("MOD".equals(manager.getRoleID())) {
                     url = MOD_PAGE;
                 } else {
@@ -126,8 +127,9 @@ public class AddAnEventController extends HttpServlet {
                     }
                     url = CLB_PAGE;
                 }
-
             }
+               else
+                    request.setAttribute("FAILED", "failed");
 
         } catch (Exception e) {
             log("Error at Add Event Controller " + e.toString());
