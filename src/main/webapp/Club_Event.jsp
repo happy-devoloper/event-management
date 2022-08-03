@@ -1,3 +1,5 @@
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="sample.posts.EventPostError"%>
 <%@page import="sample.eventtype.EventType"%>
 <%@page import="sample.posts.EventLocation"%>
@@ -260,7 +262,7 @@
                                     </div>                   
 
                                     <div class="input-group input-group-icon">
-                                        <input type="number" value="" name="participationLimit" placeholder="Number of Participant" min="0"/>
+                                        <input type="number" value="" name="participationLimit" placeholder="Number of Participant" min="5"/>
                                         <div class="input-icon"><i class="fa fa-user"></i></div>
                                     </div> 
                                 </div>
@@ -595,6 +597,10 @@
                                                     EventPost event = (EventPost) request.getAttribute("event_" + listEvent.get(i).getId());
                                                     if (event != null) {
                                                         event.setTakePlaceDate(event.getTakePlaceDate().replace(' ', 'T'));
+
+                                                        LocalDateTime now = LocalDateTime.now();
+                                                        LocalDateTime takePlaceDate = LocalDateTime.parse(event.getTakePlaceDate());
+                                                        if (takePlaceDate.isAfter(now) && "PE".equals(event.getStatusTypeID())) { //  ĐƯỢC EDIT
                                                 %>
 
                                             <div class="modal fade bd-example-modal-lg" id="<%=listEvent.get(i).getId()%>">
@@ -618,7 +624,6 @@
 
                                                                 <input type="hidden" name="eventID" value="<%=event.getId()%>">
 
-
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
 
@@ -637,7 +642,7 @@
                                                                     </div>
 
                                                                     <div class="input-group input-group-icon">
-                                                                        <input type="number" value="<%=event.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="0"/>
+                                                                        <input type="number" value="<%=event.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="5"/>
                                                                         <div class="input-icon"><i class="fa fa-user"></i></div>
                                                                     </div> 
                                                                 </div>
@@ -667,7 +672,7 @@
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <%= evtError.getTakePlaceDate()%>
-                                                                    <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
+                                                                    <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">                                                               
                                                                         <input required="" type="datetime-local" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
@@ -713,14 +718,118 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <% } %>
+                                            </div>                
+                                            <% } else { //KHONG SUA DUOCC %> 
+                                            <div class="modal fade bd-example-modal-lg" id="<%=listEvent.get(i).getId()%>">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
 
-                                                <!--================================================================-->
+                                                        <div class="modal-header">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Update Event</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                </button>
+                                                            </div>
 
-                                                <%                    }
-                                                %>
+                                                        </div>
 
-                                                </tbody>
+                                                        <div class="modal-body" style="padding: 0px 60px;">                                                                            
+                                                            <form action="MainController" method="POST" enctype="multipart/form-data">
+                                                                <div style="text-align: center">
+                                                                    <h1 class="Information ">Update Event</h1>
+                                                                </div>
+
+                                                                <input type="hidden" name="eventID" value="<%=event.getId()%>">
+
+
+                                                                <div class="row form-group">
+                                                                    <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
+
+                                                                    <input type="hidden" name="FPT" value="FPT"/>
+
+                                                                    <div class="input-group input-group-icon">
+                                                                        <input disabled="" style="padding: 14px;
+                                                                               padding-left: 4.4em;" type="text" value="<%=event.getTitle()%>" name="title" placeholder=""/>
+                                                                        <div class="input-icon"><i class="fa-solid fa-id-card"></i></div>
+                                                                    </div>
+
+                                                                    <div class="input-group input-group-icon">
+                                                                        <input disabled="" style="padding: 14px;
+                                                                               padding-left: 4.4em;" type="text" value="<%=event.getSpeaker()%>" name="speaker" placeholder="Speaker"/>
+                                                                        <div class="input-icon"><i class="fa fa-user"></i></div>
+                                                                    </div>
+
+                                                                    <div class="input-group input-group-icon">
+                                                                        <input disabled="" type="number" value="<%=event.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="5"/>
+                                                                        <div class="input-icon"><i class="fa fa-user"></i></div>
+                                                                    </div> 
+                                                                </div>
+
+                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
+                                                                <div class="row">                                                                                
+                                                                    <select disabled="" name="location" class="md-6">
+                                                                        <option hidden="" selected="" value="<%=event.getLocation()%>"><%=event.getLocationName()%></option>
+                                                                        <%for (int j = 0; j < listEvtLocation.size(); j++) {
+                                                                        %>
+                                                                        <option value="<%=listEvtLocation.get(j).getLocationID()%>"><%=listEvtLocation.get(j).getLocaitonName()%></option>
+                                                                        <%
+                                                                            }
+                                                                        %>
+                                                                    </select>
+                                                                    <select disabled="" name="eventType" class="md-6">
+                                                                        <option hidden="" selected="" value="<%=event.getEventType()%>"><%=event.getEventTypeName()%></option>
+                                                                        <%for (int j = 0; j < listEvtType.size(); j++) {
+                                                                        %>
+                                                                        <option value="<%=listEvtType.get(j).getEventTypeID()%>"><%=listEvtType.get(j).getEventTypeName()%></option>
+                                                                        <%
+                                                                            }
+                                                                        %>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="row form-group">
+                                                                    <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
+                                                                    <%= evtError.getTakePlaceDate()%>
+                                                                    <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">                                                               
+                                                                        <input disabled="" type="datetime-local" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row">                                                                                   
+                                                                    <div class="form-group">
+                                                                        <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Summary</h4>
+                                                                        <div class="update-content form-group">
+                                                                            <textarea disabled="" name="summary" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                                      placeholder="Enter Event's Summary Here*"><%=event.getSummary()%></textarea>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Description</h4>
+                                                                        <div class="update-content">
+                                                                            <textarea disabled="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                                      placeholder="Enter Event's Description Here*"><%=event.getContent()%></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>        
+                                                                <div class="row justify-content-center">                                                                    
+                                                                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <% } %>
+                                            <!--================================================================-->
+
+                                            <%                    }
+                                                }
+                                            %>
+
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>

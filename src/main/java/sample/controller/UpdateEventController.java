@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -92,18 +93,23 @@ public class UpdateEventController extends HttpServlet {
                     path = evtDao.getAnEventByID(id).getImgUrl();
                 }
 
+                List<UserDTO> listParti = evtDao.getAllParticipantsByEventID(id);
+                if (listParti.size() > participationLimit) {
+                    check = false;
+                }
+
                 EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary, participationLimit);
                 check = evtDao.updateAnEvent(event);
-                if (check == true) {
-                     request.setAttribute("SUCCESS", "success");
+                if (check) {
+                    request.setAttribute("SUCCESS", "success");
                     if ("Club_Event.jsp".equals(page)) {
                         url = CLB_PAGE;
                     } else {
                         url = "MainController?action=EventDetail&eventID=" + id;
                     }
-                }
-                   else
+                } else {
                     request.setAttribute("FAILED", "failed");
+                }
 
             } else if ("MOD".equals(user.getRoleID())) {
                 if ("FPT".equals(FPT)) {
@@ -139,6 +145,11 @@ public class UpdateEventController extends HttpServlet {
                     EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary, status, participationLimit);
                     check = evtDao.updateAnEventByAdmin(event);
 
+                    List<UserDTO> listParti = evtDao.getAllParticipantsByEventID(id);
+                    if (listParti.size() > participationLimit) {
+                        check = false;
+                    }
+
                 } else {
                     boolean status = Boolean.parseBoolean(request.getParameter("status"));
                     check = evtDao.updateStatusEventByID(id, status);
@@ -151,12 +162,10 @@ public class UpdateEventController extends HttpServlet {
                     } else {
                         url = "MainController?action=EventDetail&eventID=" + id;
                     }
-                }
-                else
+                } else {
                     request.setAttribute("FAILED", "failed");
+                }
 
-                
-                
             }
 
         } catch (SQLException ex) {
