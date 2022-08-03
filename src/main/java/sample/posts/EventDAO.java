@@ -41,7 +41,7 @@ public class EventDAO {
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblOrgPage.orgName, participationLimit\n"
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblOrgPage\n"
             + "            WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID \n"
-            + "            and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblOrgPage.orgID = tblEventPost.orgID and tblEventPost.eventID LIKE ?\n";
+            + "            and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblOrgPage.orgID = tblEventPost.orgID and tblEventPost.eventID = ?\n";
 
     private static final String ADD_AN_EVENT = "INSERT INTO tblEventPost\n"
             + "           (eventID, orgID, status, statusTypeID, content,\n"
