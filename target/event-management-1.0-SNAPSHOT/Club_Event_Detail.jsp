@@ -262,7 +262,7 @@
 
                                                     <div class="media bg-light p-3 rounded align-items-center mr-3">
                                                         <div class="media-body mr-2">
-                                                            <span class="fs-12 d-block mb-1"><i class="fa-solid fa-circle-exclamation"></i> Approval status</span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-check-circle" aria-hidden="true"></i> Approval status</span>
                                                             <%
                                                                 if (evt.getStatusTypeName().equals("Approved")) {
                                                             %>
@@ -282,7 +282,7 @@
 
                                                     <div class="media bg-light p-3 rounded align-items-center mr-3">
                                                         <div class="media-body mr-2">
-                                                            <span class= "fs-12 d-block mb-1"><i class="fa-solid fa-circle-check"></i> Status</span>               
+                                                            <span class= "fs-12 d-block mb-1"><i class="fa fa-check-circle" aria-hidden="true"></i> Status</span>               
                                                             <%if (evt.isStatus()) {
                                                             %>
                                                             <span style="color: green; font-weight: bold">Active</span>
@@ -300,7 +300,8 @@
 
                                                     <div class="media bg-light p-3 rounded align-items-center mr-3">
                                                         <div class="media-body mr-2">
-                                                            <span class="fs-12 d-block mb-1"><i class="fa-solid fa-user"></i> Speaker</span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-user" aria-hidden="true"></i>
+                                                                Speaker</span>
                                                             <span class="fs-16 text-black"><%=evt.getSpeaker()%></span>
                                                         </div>                                                       
                                                     </div>
@@ -417,11 +418,12 @@
                                                                 <% if (user.getRoleID().equals("CLB") && "PE".equals(evt.getStatusTypeID())) {%>
 
                                                                 <div class="row form-group">
-                                                                    <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
+                                                                    <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
 
                                                                     <div class="input-group input-group-icon">
                                                                         <input required="" type="text" value="<%=evt.getTitle()%>" name="title" placeholder=""/>
-                                                                        <div class="input-icon"><i class="fa-solid fa-id-card"></i></div>
+                                                                        <div class="input-icon"><i class="fa fa-font" aria-hidden="true"></i>
+                                                                        </div>
                                                                     </div>
 
                                                                     <div class="input-group input-group-icon">
@@ -436,9 +438,9 @@
 
                                                                 </div>
 
-                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
+                                                                <h4><i class="fa fa-map-marker" aria-hidden="true"></i>Event's Type and Location</h4>
 
-                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot  Location</h4>
+                                                                <h4><i class="fa fa-map-marker" aria-hidden="true"></i>Event's Type, Slot  Location</h4>
                                                                 <div class="row">                                                                                
                                                                     <select name="slotID" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getSlotID()%>"><%=evt.getSlotTime()%></option>
@@ -502,14 +504,15 @@
                                                                 <% } else if (evt.getOrgID().equals(user.getOrgID())) { //FPTU %>
 
                                                                 <div class="row form-group">
-                                                                    <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
+                                                                    <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
 
                                                                     <input type="hidden" name="FPT" value="FPT"/>
 
                                                                     <div class="input-group input-group-icon">
                                                                         <input required="" style="padding: 14px;
                                                                                padding-left: 4.4em;" type="text" value="<%=evt.getTitle()%>" name="title" placeholder=""/>
-                                                                        <div class="input-icon"><i class="fa-solid fa-id-card"></i></div>
+                                                                        <div class="input-icon"><i class="fa fa-font" aria-hidden="true"></i>
+                                                                        </div>
                                                                     </div>
 
                                                                     <div class="input-group input-group-icon">
@@ -524,7 +527,9 @@
                                                                     </div> 
                                                                 </div>
 
-                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot  Location</h4>
+                                                                <h4><i class="fa fa-thumb-tack" aria-hidden="true"></i>
+
+                                                                    Event's Type, Slot  Location</h4>
                                                                 <div class="row">                                                                                
                                                                     <select name="slotID" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getSlotID()%>"><%=evt.getSlotTime()%></option>
@@ -719,14 +724,15 @@
                                                                 <% } else {%>
 
                                                                 <div class="row form-group">
-                                                                    <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
+                                                                    <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
 
                                                                     <input type="hidden" name="FPT" value="FPT"/>
 
                                                                     <div class="input-group input-group-icon">
                                                                         <input disabled="" style="padding: 14px;
                                                                                padding-left: 4.4em;" type="text" value="<%=evt.getTitle()%>" name="title" placeholder=""/>
-                                                                        <div class="input-icon"><i class="fa-solid fa-id-card"></i></div>
+                                                                        <div class="input-icon"><i class="fa fa-font" aria-hidden="true"></i>
+                                                                        </div>
                                                                     </div>
 
                                                                     <div class="input-group input-group-icon">
@@ -741,7 +747,8 @@
                                                                     </div> 
                                                                 </div>
 
-                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot  Location</h4>
+                                                                <h4><i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                                                                    Event's Type, Slot  Location</h4>
                                                                 <div class="row">                                                                                
                                                                     <select name="slotID" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getSlotID()%>"><%=evt.getSlotTime()%></option>
@@ -854,7 +861,7 @@
                                                 <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
                                                     <div class="media bg-light p-3 rounded align-items-center">	
                                                         <div class="media-body">
-                                                            <span class="fs-12 d-block mb-1"><i class="fa-solid fa-eye"></i> Viewer</span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-eye" aria-hidden="true"></i>  Viewer</span>
                                                             <span class="fs-16 text-black"><%=evt.getNumberOfView()%> View</span>
                                                         </div>
                                                     </div>
@@ -863,8 +870,9 @@
                                                     <div class="media bg-light p-3 rounded align-items-center">	
                                                         <div class="media-body">
 
-                                                            <span class="fs-12 d-block mb-1"> <i class="fa-solid fa-users"></i> Participants</span>
-                                                            <span class="fs-16 text-black"><%=participants%>/<%=evt.getParticipationLimit()%> People</span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-users" aria-hidden="true"></i>  Participants</span>
+                                                            <span class="fs-16 text-black"><%=participants%>/<%=evt.getParticipationLimit()%>
+                                                                People</span>
 
                                                         </div>
                                                     </div>
@@ -873,18 +881,38 @@
                                                     <div class="media bg-light p-3 rounded align-items-center">	
                                                         <div class="media-body">
 
-                                                            <span class="fs-12 d-block mb-1"> <i class="fa-solid fa-users"></i>Club</span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-address-book" aria-hidden="true"></i>
+                                                                Club</span>
                                                             <span class="fs-16 text-black"><%=evt.getOrgName()%></span>
 
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-5 col-md-12 col-xxl-12 mb-3">
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
                                                     <div class="media bg-light p-3 rounded align-items-center">	
 
                                                         <div class="media-body">
-                                                            <span class="fs-12 d-block mb-1"><i class="fa-solid fa-location-dot"></i>  Location</span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-map-marker" aria-hidden="true"></i>  Location</span>
                                                             <span class="fs-16 text-black"><%=evt.getLocationName()%></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
+
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-calendar" aria-hidden="true"></i>  Date</span>
+                                                            <span class="fs-16 text-black"><%=evt.getTakePlaceDate()%></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
+
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                                Time</span>
+                                                            <span class="fs-16 text-black"><%=evt.getSlotTime()%></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -892,11 +920,12 @@
 
                                                 <%if ("CLB".equals(user.getRoleID()) && "DE".equals(evt.getStatusTypeID())) {
                                                 %>
-                                                <div class="col-lg-5 col-md-12 col-xxl-12 mb-3">
+                                                <div class="col-lg-12 col-md-12 col-xxl-12 mb-12">
                                                     <div class="media bg-light p-3 rounded align-items-center">
 
                                                         <div class="media-body">
-                                                            <span class="fs-12 d-block mb-1"><i class="fa-solid fa-circle-exclamation"></i> Decline Description</span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                                                Decline Description</span>
                                                             <span class="fs-16 text-black"><%=evt.getApprovalDes()%></span>
                                                         </div>
                                                     </div>
@@ -906,7 +935,7 @@
                                                 %>   
                                             </div>
 
-                                            <h4 class="fs-20 text-black font-w600">Event Summary</h4>
+                                            <h4 style="margin-top: 10px" class="fs-20 text-black font-w600">Event Summary</h4>
                                             <p class="fs-14 mb-0"><%=evt.getSummary()%>
                                             </p>
 
