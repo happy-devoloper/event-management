@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +38,10 @@ public class EventDAO {
             + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID";
 
     private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.orgID, tblEventPost.createDate, takePlaceDate, content, title, location, tblEventPost.imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary,\n"
-            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblOrgPage.orgName, participationLimit\n"
-            + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblOrgPage\n"
+            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblOrgPage.orgName, participationLimit, tblSlot.slotID, slotTime\n"
+            + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblOrgPage, tblSlot\n"
             + "            WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID \n"
-            + "            and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblOrgPage.orgID = tblEventPost.orgID and tblEventPost.eventID = ?\n";
+            + "            and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblOrgPage.orgID = tblEventPost.orgID and tblSlot.slotID = tblEventPost.slotID and tblEventPost.eventID = ?\n";
 
     private static final String ADD_AN_EVENT = "INSERT INTO tblEventPost\n"
             + "           (eventID, orgID, status, statusTypeID, content,\n"
@@ -62,7 +61,6 @@ public class EventDAO {
             + "      ,summary = ?\n"
             + "      ,participationLimit = ?\n"
             + "      ,slotID = ?\n"
-            + "      ,slotTime = ?\n"
             + " WHERE eventID = ?";
 
     private static final String UPDATE_AN_EVENT_BY_MOD = "UPDATE tblEventPost\n"
@@ -77,7 +75,6 @@ public class EventDAO {
             + "      ,status = ?\n"
             + "      ,participationLimit = ?\n"
             + "      ,slotID = ?\n"
-            + "      ,slotTime = ?\n"
             + " WHERE eventID = ?";
 
     private static final String GET_ALL_EVENT_TYPE = "SELECT eventTypeID, eventTypeName\n"
@@ -144,7 +141,7 @@ public class EventDAO {
     private static final String GET_ALL_SLOT_TIME = "SELECT slotID, slotTime\n"
             + "	FROM tblSlot";
 
-    private static final String CHECK_AVALABLE_SLOT = "SELECT eventID FROM tblEventPost WHERE statusTypeID != 'DE' AND status = '1' AND takePlaceDate = ? AND location = ? AND tblEventPost.slotID = ?";
+    private static final String CHECK_AVALABLE_SLOT = "SELECT eventID FROM tblEventPost WHERE statusTypeID != 'DE' AND status = '1' AND takePlaceDate = ? AND location = ? AND tblEventPost.slotID = ? AND tblEventPost.eventID != ?";
 
     public boolean checkAvailableSlot(EventPost event) throws SQLException {
         Connection conn = null;
@@ -158,7 +155,8 @@ public class EventDAO {
             ps.setDate(1, java.sql.Date.valueOf(event.getTakePlaceDate()));
             ps.setInt(2, Integer.parseInt(event.getLocation()));
             ps.setInt(3, event.getSlotID());
-
+            ps.setString(4, event.getId());
+            
             rs = ps.executeQuery();
             if (rs.next()) {
                 check = false;
@@ -525,9 +523,10 @@ public class EventDAO {
                     String approvalDes = rs.getString("approvalDes");
                     String orgName = rs.getString("orgName");
                     int participationLimit = rs.getInt("participationLimit");
-
-                    event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status, participationLimit);
-
+                    int slotID = rs.getInt("slotID");
+                    String slotTime = rs.getString("slotTime");
+                    
+                    event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status, 0, participationLimit, slotID, slotTime);
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -654,8 +653,7 @@ public class EventDAO {
                 ps.setString(8, event.getSummary());
                 ps.setInt(9, event.getParticipationLimit());
                 ps.setInt(10, event.getSlotID());
-                ps.setString(11, event.getSlotTime());
-                ps.setString(12, event.getId());
+                ps.setString(11, event.getId());
 
                 int checkUpdate = ps.executeUpdate();
                 if (checkUpdate > 0) {
@@ -688,6 +686,7 @@ public class EventDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
+                
                 ps = conn.prepareStatement(UPDATE_AN_EVENT_BY_MOD);
                 ps.setObject(1, java.sql.Date.valueOf(event.getTakePlaceDate()));
                 ps.setString(2, event.getContent());
@@ -700,8 +699,7 @@ public class EventDAO {
                 ps.setBoolean(9, event.isStatus());
                 ps.setInt(10, event.getParticipationLimit());
                 ps.setInt(11, event.getSlotID());
-                ps.setString(12, event.getSlotTime());
-                ps.setString(11, event.getId());
+                ps.setString(12, event.getId());
 
                 int checkUpdate = ps.executeUpdate();
                 if (checkUpdate > 0) {

@@ -306,7 +306,7 @@
                                     <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Summary</h4>
                                     <div class="update-content form-group">
                                         <textarea  required="" name="summary" id="role" rows="10" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
-                                                  placeholder="Enter Event's Summary Here*"></textarea>
+                                                   placeholder="Enter Event's Summary Here*"></textarea>
                                     </div>
 
                                     <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Description</h4>
@@ -500,7 +500,6 @@
 
 
                     <div>
-
                         <form action="MainController" method="POST" >
                             <div class="row">
                                 <div class="col-md-5">
@@ -515,7 +514,6 @@
                             </div>
 
                         </form>
-
                     </div>
 
                     <br> 
@@ -541,10 +539,8 @@
                                             </thead>
                                             <tbody>
                                                 <%
-                                                    int count = 0;
                                                     for (int i = 0; i < listEvent.size(); i++) {
                                                 %>
-
 
                                                 <tr>
                                                     <td class="text-center"><%=listEvent.get(i).getId()%></td>                                                   
@@ -605,17 +601,15 @@
                                                                 <i class="las la-trash-alt scale-2 text-danger"></i>
                                                             </a>
                                                         </div>   
-                                                    </td>
-                                                </tr>
+                                                    
+                                                    <%
+                                                        EventPost event = (EventPost) request.getAttribute("event_" + listEvent.get(i).getId());
+                                                        if (event != null) {
 
-                                                <%
-                                                    EventPost event = (EventPost) request.getAttribute("event_" + listEvent.get(i).getId());
-                                                    if (event != null) {
-                                                       
-                                                        Date now = new Date(System.currentTimeMillis());
-                                                        Date takePlaceDate = Date.valueOf(event.getTakePlaceDate());
-                                                        if (takePlaceDate.after(now) && "PE".equals(event.getStatusTypeID())) { //  ĐƯỢC EDIT
-                                                %>
+                                                            Date now = new Date(System.currentTimeMillis());
+                                                            Date takePlaceDate = Date.valueOf(event.getTakePlaceDate());
+                                                            if (takePlaceDate.after(now) && "PE".equals(event.getStatusTypeID())) { //  ĐƯỢC EDIT
+%>
 
                                             <div class="modal fade bd-example-modal-lg" id="<%=listEvent.get(i).getId()%>">
                                                 <div class="modal-dialog modal-lg" role="document">
@@ -836,10 +830,14 @@
                                                     </div>
                                                 </div>
                                             </div> 
-                                            <% } %>
+                                            <% }
+                                                }%>
+                                        </td>
+                                            </tr>
+
                                             <!--================================================================-->
 
-                                            <%                    }
+                                            <%
                                                 }
                                             %>
 
@@ -959,6 +957,7 @@
         <%
             String success = (String) request.getAttribute("SUCCESS");
             String failed = (String) request.getAttribute("FAILED");
+            String dupSlot = (String) request.getAttribute("DUP_SLOT");
 
             if ("success".equals(success)) {
         %>
@@ -1000,6 +999,26 @@
                 "position-class": "toast-top-full-width"
             }
             toastr["error"]("Failed!!!").css("height", "50px");
+        </script>
+        <% } else if ("failed".equals(dupSlot)) { %>
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "position-class": "toast-top-full-width"
+            }
+            toastr["error"]("Location has been occupied!!").css("height", "50px");
         </script>
         <% }%>
 

@@ -297,7 +297,7 @@
                                 <div class="row">
                                     <select name="slotID" class="md-6">
                                         <option hidden="" selected="" disabled="">Select Slot Time</option>
-                                        <%for (int j = 0; j < listEvtType.size(); j++) {
+                                        <%for (int j = 0; j < listSlotTime.size(); j++) {
                                         %>
                                         <option value="<%=listSlotTime.get(j).getSlotID()%>"><%=listSlotTime.get(j).getSlotTime()%></option>
                                         <%
@@ -312,7 +312,7 @@
                                     <p style="color: red"><%= evtError.getTakePlaceDate()%></p>
                                     <div class="input-group input-group-icon " style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
                                         <!--<input required="" type="date" value="" name="takePlaceDate" class="font-color"/>-->
-                                        <input required="" type="date" id="curdate" value="" name="takePlaceDate" class="font-color"/>
+                                        <input required="" type="date" id="curdate" name="takePlaceDate" class="font-color"/>
 
                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                     </div>
@@ -671,12 +671,11 @@
                                                         <%
                                                             EventPost event = (EventPost) request.getAttribute("event_" + listEvent.get(i).getId());
                                                             if (event != null) {
-                                                                event.setTakePlaceDate(event.getTakePlaceDate().replace(' ', 'T'));
 
                                                                 Date now = new Date(System.currentTimeMillis());
                                                                 Date takePlaceDate = Date.valueOf(event.getTakePlaceDate());
                                                                 if (takePlaceDate.after(now)) { //  ĐƯỢC EDIT
-                                                        %>
+%>
 
                                                         <div class="modal fade bd-example-modal-lg" id="<%=listEvent.get(i).getId()%>">
                                                             <div class="modal-dialog modal-lg" role="document">
@@ -749,9 +748,9 @@
 
                                                                             </div>
                                                                             <div class="row">
-                                                                                <select name="slotID" class="md-6">
+                                                                                 <select name="slotID" class="md-6">
                                                                                     <option hidden="" selected="" value="<%=event.getSlotID()%>"><%=event.getSlotTime()%></option>
-                                                                                    <%for (int j = 0; j < listEvtType.size(); j++) {
+                                                                                    <%for (int j = 0; j < listSlotTime.size(); j++) {
                                                                                     %>
                                                                                     <option value="<%=listSlotTime.get(j).getSlotID()%>"><%=listSlotTime.get(j).getSlotTime()%></option>
                                                                                     <%
@@ -1116,11 +1115,11 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
-        <script>
-            var now = new Date();
-            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-            document.getElementById('curdate').min = now.toISOString().slice(0, 16);
-        </script>
+        <!--        <script>
+                    var now = new Date();
+                    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                    document.getElementById('curdate').min = now.toISOString().slice(0, 16);
+                </script>-->
 
         <%  %>
         <script>
@@ -1181,7 +1180,7 @@
                 "preventDuplicates": false,
                 "showDuration": "300",
                 "hideDuration": "1000",
-                "timeOut": "2000",
+                "timeOut": "5000",
                 "extendedTimeOut": "5000",
                 "showEasing": "swing",
                 "hideEasing": "linear",
@@ -1201,7 +1200,7 @@
                 "preventDuplicates": false,
                 "showDuration": "300",
                 "hideDuration": "1000",
-                "timeOut": "2000",
+                "timeOut": "5000",
                 "extendedTimeOut": "5000",
                 "showEasing": "swing",
                 "hideEasing": "linear",
@@ -1221,7 +1220,7 @@
                 "preventDuplicates": false,
                 "showDuration": "300",
                 "hideDuration": "1000",
-                "timeOut": "2000",
+                "timeOut": "5000",
                 "extendedTimeOut": "5000",
                 "showEasing": "swing",
                 "hideEasing": "linear",
@@ -1232,6 +1231,11 @@
             toastr["error"]("Location has been occupied!!").css("height", "50px");
         </script>
         <% }%>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <input type="text" id="datepicker" name="event_date" class="datepicker">
+
     </body>
 
 </html>

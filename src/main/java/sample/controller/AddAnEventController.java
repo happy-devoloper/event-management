@@ -135,6 +135,11 @@ public class AddAnEventController extends HttpServlet {
                 }
             } else {
                 request.setAttribute("DUP_SLOT", "failed");
+                if ("MOD".equals(manager.getRoleID())) {
+                    url = MOD_PAGE;
+                } else {
+                    url = CLB_PAGE;
+                }
             }
 
         } catch (Exception e) {

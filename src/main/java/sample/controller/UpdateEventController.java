@@ -66,8 +66,7 @@ public class UpdateEventController extends HttpServlet {
             if ("CLB".equals(user.getRoleID())) {
 
                 takePlaceDate = request.getParameter("takePlaceDate");
-                takePlaceDate = takePlaceDate.replace('T', ' ');
-                takePlaceDate += ":00";
+               
 
                 content = request.getParameter("content");
                 title = request.getParameter("title");
@@ -98,24 +97,36 @@ public class UpdateEventController extends HttpServlet {
                     check = false;
                 }
 
-                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary, participationLimit);
-                check = evtDao.updateAnEvent(event);
-                if (check) {
-                    request.setAttribute("SUCCESS", "success");
+                int slotID = Integer.parseInt(request.getParameter("slotID"));
+
+                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, "", "", "", "", "", id, "", "", title, content, "", path, 0, summary, true, 0, participationLimit, slotID, "");
+
+                if (evtDao.checkAvailableSlot(event)) {
+                    check = evtDao.updateAnEvent(event);
+                    if (check) {
+                        request.setAttribute("SUCCESS", "success");
+                        if ("Club_Event.jsp".equals(page)) {
+                            url = CLB_PAGE;
+                        } else {
+                            url = "MainController?action=EventDetail&eventID=" + id;
+                        }
+                    } else {
+                        request.setAttribute("FAILED", "failed");
+                    }
+
+                } else {
+                    request.setAttribute("DUP_SLOT", "failed");
                     if ("Club_Event.jsp".equals(page)) {
                         url = CLB_PAGE;
                     } else {
                         url = "MainController?action=EventDetail&eventID=" + id;
                     }
-                } else {
-                    request.setAttribute("FAILED", "failed");
                 }
 
             } else if ("MOD".equals(user.getRoleID())) {
                 if ("FPT".equals(FPT)) {
                     takePlaceDate = request.getParameter("takePlaceDate");
-                    takePlaceDate = takePlaceDate.replace('T', ' ');
-                    takePlaceDate += ":00";
+                   
 
                     content = request.getParameter("content");
                     title = request.getParameter("title");
@@ -142,8 +153,21 @@ public class UpdateEventController extends HttpServlet {
                         path = evtDao.getAnEventByID(id).getImgUrl();
                     }
 
-                    EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, id, title, content, path, summary, status, participationLimit);
-                    check = evtDao.updateAnEventByAdmin(event);
+                    int slotID = Integer.parseInt(request.getParameter("slotID"));
+                    EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, "", "", "", "", "", id, "", "", title, content, "", path, 0, summary, status, 0, participationLimit, slotID, "");
+
+                    if (evtDao.checkAvailableSlot(event)) {
+                        if (evtDao.updateAnEventByAdmin(event)) {
+                            check = true;
+                        }
+                    } else {
+                        request.setAttribute("DUP_SLOT", "failed");
+                        if ("Mod_Event.jsp".equals(page)) {
+                            url = MOD_PAGE;
+                        } else {
+                            url = "MainController?action=EventDetail&eventID=" + id;
+                        }
+                    }
 
                     List<UserDTO> listParti = evtDao.getAllParticipantsByEventID(id);
                     if (listParti.size() > participationLimit) {
