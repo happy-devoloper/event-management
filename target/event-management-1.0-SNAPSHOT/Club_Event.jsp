@@ -304,13 +304,13 @@
                                 <div class="row">
                                     <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Summary</h4>
                                     <div class="update-content form-group">
-                                        <textarea required="" name="summary" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                        <textarea  required="" name="summary" id="role" rows="10" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                   placeholder="Enter Event's Summary Here*"></textarea>
                                     </div>
 
                                     <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Description</h4>
                                     <div class="update-content">
-                                        <textarea required="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                        <textarea required="" name="content" id="role" rows= "10" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                   placeholder="Enter Event's Description Here*"></textarea>
                                     </div>
                                 </div>
@@ -324,7 +324,7 @@
                                     </div>
                                 </div>                               
 
-                                <div class="row">
+                                <div class="row justify-content-center modal-footer">
                                     <button type="submit" style="cursor: pointer" class="login-box" name="action" value="CreateEvent">
                                         Create Event
                                     </button>
@@ -497,14 +497,28 @@
                         </div>
                     </div>
 
-                    <div class="d-flex flex-wrap mb-2 align-items-center justify-content-between">
-                        <form action="MainController" method="POST" class="mb-3">
-                            <input type="date" value="<%= beginDate%>" name="fromdate" class="search-date"> 
-                            <span style="font-size: 15px; font-weight: bold; margin: 0px 13px">to</span> 
-                            <input type="date" value="<%= endDate%>" name="enddate" class="search-date">
-                            <button style="padding: 10px 20px; margin-left: 15px" class="btn btn-primary" type="submit" name="action" value="SearchDate">Search</button>
+
+                    <div>
+
+                        <form action="MainController" method="POST" >
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <input type="date" value="<%= beginDate%>" name="fromdate" class="search-date">
+
+                                </div>
+                                <div class="col-md-1"><span style="font-size: 15px; font-weight: bold; display: flex; justify-content: center; padding-top: 15px ">to</span></div>
+
+                                <div class="col-md-5"><input type="date" value="<%= endDate%>" name="enddate" class="search-date"> </div>
+                                <div class="col-md-1"><button style="padding: 10px 20px; margin-left: 15px" class="btn btn-primary" type="submit" name="action" value="SearchDate">Search</button></div>
+
+                            </div>
+
                         </form>
+
                     </div>
+
+                    <br> 
+
 
                     <div class="row">
                         <div class="col-xl-12">
@@ -586,7 +600,7 @@
 
                                                             <a type="button" class="mr-4" data-toggle="modal" data-target="#<%=listEvent.get(i).getId()%>"><i class=" las la-pencil-alt scale-2"></i></a>
 
-                                                            <a href="MainController?action=DeleteEvent&eventID=<%=listEvent.get(i).getId()%>&page=Club_Event.jsp">
+                                                            <a onclick="return check();" href="MainController?action=DeleteEvent&eventID=<%=listEvent.get(i).getId()%>&page=Club_Event.jsp">
                                                                 <i class="las la-trash-alt scale-2 text-danger"></i>
                                                             </a>
                                                         </div>   
@@ -707,7 +721,7 @@
 
                                                                 <input type="hidden" value="Club_Event.jsp" name="page">
 
-                                                                <div class="row">
+                                                                <div class="row modal-footer justify-content-center">
                                                                     <button type="submit" style="cursor: pointer" class="login-box" name="action" value="UpdateEvent">
                                                                         Update Event
                                                                     </button>
@@ -801,7 +815,7 @@
                                                                     <div class="form-group">
                                                                         <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Summary</h4>
                                                                         <div class="update-content form-group">
-                                                                            <textarea disabled="" name="summary" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                            <textarea disabled="" name="summary" id="role" rows="9" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                       placeholder="Enter Event's Summary Here*"><%=event.getSummary()%></textarea>
                                                                         </div>
                                                                     </div>
@@ -809,12 +823,12 @@
                                                                     <div class="form-group">
                                                                         <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Description</h4>
                                                                         <div class="update-content">
-                                                                            <textarea disabled="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                            <textarea disabled="" name="content" id="role" rows="9" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                       placeholder="Enter Event's Description Here*"><%=event.getContent()%></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>        
-                                                                <div class="row justify-content-center">                                                                    
+                                                                <div class="row modal-footer justify-content-center">                                                                    
                                                                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </form>
@@ -873,6 +887,18 @@
         Scripts
     ***********************************-->
         <!-- Required vendors -->
+
+        <script>
+            function check() {
+                if (confirm("Are you sure to remove this event?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+
+
         <script src="./css_Admin/vendor/global/global.min.js"></script>
         <!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
                 <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->

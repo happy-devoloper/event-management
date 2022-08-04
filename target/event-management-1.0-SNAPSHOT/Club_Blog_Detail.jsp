@@ -14,8 +14,8 @@
         <title>F.E.M - Blog Detail Page</title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="./css_Admin/images/Biểu-tượng-không-chữ.png">
-<!--        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
-        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
+        <!--        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
+                <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
         <!--<link href="./css_Admin/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">-->
         <link href="./css_Admin/css/style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -248,7 +248,7 @@
                                                         <div class="dropdown-menu dropdown-menu-right">
 
                                                             <a class="dropdown-item" href="MainController?action=UpdateBlog&id=<%=blog.getId()%>">Edit</a>
-                                                            <a class="dropdown-item" href="MainController?action=DeleteBlog&blogID=<%=blog.getId()%>">Delete</a>
+                                                            <a onclick="return check();" class="dropdown-item" href="MainController?action=DeleteBlog&blogID=<%=blog.getId()%>">Delete</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -343,6 +343,17 @@
             Scripts
         ***********************************-->
         <!-- Required vendors -->
+        <script>
+            function check() {
+                if (confirm("Are you sure to remove this event?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+
+
         <script src="./css_Admin/vendor/global/global.min.js"></script>
         <!--<script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>-->
         <!--<script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
@@ -351,13 +362,13 @@
         <!--<script src="./css_Admin/vendor/owl-capt>rousel/owl.carousel.js"></script>-->
 
         <!-- Chart piety plugin files -->
-<!--        <script src="./css_Admin/vendor/peity/jquery.peity.min.js"></script>
-
-         Apex Chart 
-        <script src="./css_Admin/vendor/apexchart/apexchart.js"></script>
-
-         Dashboard 1 
-        <script src="./css_Admin/js/dashboard/event-detail.js"></script>-->
+        <!--        <script src="./css_Admin/vendor/peity/jquery.peity.min.js"></script>
+        
+                 Apex Chart 
+                <script src="./css_Admin/vendor/apexchart/apexchart.js"></script>
+        
+                 Dashboard 1 
+                <script src="./css_Admin/js/dashboard/event-detail.js"></script>-->
 
     </body>
 </html>

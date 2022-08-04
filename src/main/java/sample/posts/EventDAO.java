@@ -117,7 +117,9 @@ public class EventDAO {
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
             + "            WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.statusTypeID = ?\n";
 
-    private static final String GET_ALL_PARTICIPANTS_BY_EVENT_ID = "select fullName, email, phone, gender from tblParticipants, tblUsers where tblParticipants.userID = tblUsers.userID AND eventID = ?";
+    private static final String GET_ALL_PARTICIPANTS_BY_EVENT_ID = "select fullName, email, phone, gender, participantcheck from tblParticipants, tblUsers where tblParticipants.status = '1' AND tblParticipants.userID = tblUsers.userID AND eventID = ?";
+
+    private static final String GET_ALL_ACTUAL_PARTICIPANTS_BY_EVENT_ID = "select fullName, email, phone, gender from tblParticipants, tblUsers where tblParticipants.status = '1' AND tblParticipants.userID = tblUsers.userID AND participantCheck = '1' AND eventID = ?";
 
     private static final String SEARCH_DATE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
             + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
@@ -125,7 +127,7 @@ public class EventDAO {
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID \n"
             + "AND tblEventPost.takePlaceDate between ? and ?";
-
+    
     private static final String SEARCH_DATE_BY_ORG = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
             + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
             + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
@@ -133,8 +135,7 @@ public class EventDAO {
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID \n"
             + "AND tblEventPost.takePlaceDate between ? and ?\n"
             + " AND tblEventPost.orgID = ?";
-    
-    
+
     public List<EventPost> searchEventByDate(String fromDate, String endDate, String orgID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -842,7 +843,7 @@ public class EventDAO {
                 String approvalDes = rs.getString("approvalDes");
 
                 int numberOfParticipants = getNumberOfParticipants(id);
-                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, "", title, content, createDate, imgUrl, numberOfView, summary, status, numberOfParticipants);
+                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, "", title, content, createDate, imgUrl, numberOfView, summary, status, numberOfParticipants, numberOfParticipants);
                 listEvent.add(event);
 
             }
@@ -931,6 +932,49 @@ public class EventDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(GET_ALL_PARTICIPANTS_BY_EVENT_ID);
+                ps.setString(1, eventID);
+
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString("fullName");
+                    String email = rs.getString("email");
+                    String phoneNumber = rs.getString("phone");
+                    String gender = rs.getString("gender");
+                    boolean participantCheck = rs.getBoolean("participantCheck");
+
+                    UserDTO participants = new UserDTO("", name, "", email, participantCheck, "", "", gender, phoneNumber, "");
+                    listUser.add(participants);
+
+                }
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listUser;
+    }
+
+    public List<UserDTO> getAllActualParticipantsByEventID(String eventID) throws SQLException {
+        List<UserDTO> listUser = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ps = conn.prepareStatement(GET_ALL_ACTUAL_PARTICIPANTS_BY_EVENT_ID);
                 ps.setString(1, eventID);
 
                 rs = ps.executeQuery();

@@ -39,15 +39,23 @@ public class DeleteAnEventController extends HttpServlet {
             if ("Club_Event.jsp".equals(page)) {
                 if (user.getRoleID().equals("CLB")) {
                     if (evtDao.updateStatusEventByID(eventID, false)) {
+                        request.setAttribute("SUCCESS", "success");
                         url = CLB_PAGE;
                     }
                 } else if (user.getRoleID().equals("MOD")) {
                     if (evtDao.updateStatusEventByID(eventID, false)) {
+                        request.setAttribute("SUCCESS", "success");
                         url = MOD_PAGE;
                     }
-                }  
-                
-            }else{
+                }
+
+            } else {
+
+                if (evtDao.updateStatusEventByID(eventID, false)) {
+                    request.setAttribute("SUCCESS", "success");
+
+                }
+
                 url = "MainController?action=EventDetail&eventID=" + eventID;
             }
 

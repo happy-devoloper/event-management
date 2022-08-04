@@ -52,6 +52,7 @@ sample\controller\SearchEventTypeController.class
 sample\controller\EventListController.class
 sample\posts\EventPost.class
 sample\controller\ListLocationController.class
+sample\ticket\TicketDTO.class
 sample\controller\DeleteManagerController.class
 sample\controller\ClubStatisticController.class
 sample\controller\DisplayNotificationController.class
@@ -82,5 +83,6 @@ sample\controller\LogoutController.class
 sample\controller\MainController.class
 sample\controller\UpdateLocationController.class
 sample\eventtype\EventType.class
+sample\ticket\TicketDAO.class
 sample\controller\UpdateEventController.class
 sample\controller\FilterEventController.class

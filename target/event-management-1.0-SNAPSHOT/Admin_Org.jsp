@@ -437,7 +437,7 @@
                                                         <div class="d-flex">
                                                             <a href="MainController?action=UpdateOrg&id=<%= list.getOrgID()%>"
                                                                class="btn btn-info btn-sm light px-4">Update</a>
-                                                            <a href="MainController?action=DeleteOrg&id=<%= list.getOrgID()%>"
+                                                            <a onclick="return check();" href="MainController?action=DeleteOrg&id=<%= list.getOrgID()%>"
                                                                class="btn btn-danger  btn-sm light ml-2 px-4">Delete</a>
                                                         </div>
                                                     </td>
@@ -475,8 +475,8 @@
                                                                                 <% List<ManagerDTO> listMan = (List) request.getAttribute("LIST_MANAGER_" + list.getOrgID()); %>
 
                                                                                 <textarea readonly="" style="color: black" class="form-control" id="myInput" rows="10" cols="50">
-<% if (listMan != null) { %><% for (ManagerDTO man : listMan) {%><%= man.getId()%> 
-<% } %><% } %>                                                                                                    
+                                                                                    <% if (listMan != null) { %><% for (ManagerDTO man : listMan) {%><%= man.getId()%> 
+                                                                                    <% } %><% } %>                                                                                                    
                                                                                 </textarea>     
                                                                             </div>
 
@@ -552,6 +552,17 @@
         Scripts
     ***********************************-->
         <!-- Required vendors -->
+        
+        <script>
+            function check() {
+                if (confirm("Are you sure to remove this club?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+
         <script src="./css_Admin/vendor/global/global.min.js"></script>
         <!--                                    <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
                                             <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->

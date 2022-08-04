@@ -33,6 +33,7 @@
         <!--<link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
         <!--<link href="./css_Admin/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">-->
         <link href="./css_Admin/css/style.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     </head>
 
@@ -48,6 +49,8 @@
         List<EventType> listEvtType = (List<EventType>) request.getAttribute("listEventTypes");
         List<EventLocation> listEvtLocation = (List<EventLocation>) request.getAttribute("listEventLocations");
     %>
+
+
 
     <body>
 
@@ -190,7 +193,7 @@
             ***********************************-->
             <div class="deznav">
                 <div class="deznav-scroll">
-                    <a href="MainController?action=EventTypeAndLocation" class="add-menu-sidebar">+ New Event</a>
+                    
                     <ul class="metismenu" id="menu">
                         <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                                 <i class="flaticon-381-networking"></i>
@@ -370,7 +373,7 @@
                                                         <div class="dropdown-menu dropdown-menu-right">
 
                                                             <a type="button" class="dropdown-item" data-toggle="modal" data-target="#updateEvent">Edit</a>
-                                                            <a class="dropdown-item" href="MainController?action=DeleteEvent&eventID=<%=evt.getId()%>">Delete</a>
+                                                            <a onclick="return check();" class="dropdown-item" href="MainController?action=DeleteEvent&eventID=<%=evt.getId()%>">Delete</a>
                                                             <a class="dropdown-item" href="MainController?action=ListParticipants&eventID=<%=evt.getId()%>">List Participants</a>
                                                             <a class="dropdown-item" href="MainController?action=ListFeedbacks&eventID=<%=evt.getId()%>">List Feedback</a>
 
@@ -385,7 +388,7 @@
                                                     LocalDateTime now = LocalDateTime.now();
                                                     LocalDateTime takePlaceDate = LocalDateTime.parse(evt.getTakePlaceDate());
                                                     if (takePlaceDate.isAfter(now)) { //  ĐƯỢC EDIT
-                                            %>
+%>
 
                                             <div class="modal fade bd-example-modal-lg" id="updateEvent">
                                                 <div class="modal-dialog modal-lg" role="document">
@@ -408,7 +411,7 @@
 
                                                                 <input type="hidden" name="eventID" value="<%=evt.getId()%>">
 
-                                                                <% if (user.getRoleID().equals("CLB") || "PE".equals(evt.getStatusTypeID())) {%>
+                                                                <% if (user.getRoleID().equals("CLB") && "PE".equals(evt.getStatusTypeID())) {%>
 
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
@@ -457,7 +460,7 @@
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input required="" type="date" value="<%=evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input required="" type="datetime-local" value="<%=evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
                                                                 </div>
@@ -466,7 +469,7 @@
                                                                     <div class="form-group">
                                                                         <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Summary</h4>
                                                                         <div class="update-content form-group">
-                                                                            <textarea required="" name="summary" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                            <textarea required="" name="summary" id="role" rows="9" style="width: 710px; height:300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                       placeholder="Enter Event's Summary Here*"><%=evt.getSummary()%></textarea>
                                                                         </div>
                                                                     </div>
@@ -474,14 +477,13 @@
                                                                     <div class="form-group">
                                                                         <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Description</h4>
                                                                         <div class="update-content">
-                                                                            <textarea required="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                            <textarea required="" name="content" id="role" rows="9" style="width: 710px; height:300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                       placeholder="Enter Event's Description Here*"><%=evt.getContent()%></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
                                                                 <% } else if (evt.getOrgID().equals(user.getOrgID())) { //FPTU %>
-
 
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
@@ -623,8 +625,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <input type="hidden" name="page" value="Mod_Event.jsp">
-                                                                <div class="row">
+                                                                <div class="row modal-footer justify-content-center">
                                                                     <button type="submit" style="cursor: pointer" class="login-box" name="action" value="UpdateEvent">
                                                                         Update Event
                                                                     </button>
@@ -790,7 +791,7 @@
 
                                                                 <% } %>
 
-                                                                <div class="row justify-content-center">                                                                   
+                                                                <div class="row justify-content-center modal-footer">                                                                   
                                                                     <button  class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </form>
@@ -799,7 +800,8 @@
                                                 </div>
                                             </div>
 
-                                            <% } }%>
+                                            <% }
+                                                }%>
 
 
 
@@ -936,7 +938,7 @@
                                                         <form action="MainController" method="POST">                                                
                                                             <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
                                                             <input type="hidden" name="commentID" value="<%= cmt.getCommentID()%>"/>
-                                                            <button name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
+                                                            <button  onclick="return checkCmt();" name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
                                                         </form>
                                                     </div>
 
@@ -1071,6 +1073,25 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
+
+    <script>
+        function check() {
+            if (confirm("Are you sure to remove this event?") === false) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkCmt() {
+            if (confirm("Are you sure to remove this comment?") === false) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+
     <script src="./css_Admin/vendor/global/global.min.js"></script>
     <!--    <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
@@ -1086,12 +1107,18 @@
     
          Dashboard 1 
         <script src="./css_Admin/js/dashboard/event-detail.js"></script>-->
+
+    <script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script> 
+
     <%
         String success = (String) request.getAttribute("SUCCESS");
         String failed = (String) request.getAttribute("FAILED");
 
         if ("success".equals(success)) {
     %>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    
     <script>
         toastr.options = {
             "closeButton": true,

@@ -42,16 +42,37 @@ public class ClubStatisticController extends HttpServlet {
         List<UserDTO> listFollower = new ArrayList<>();
         List<EventPost> listEvent = new ArrayList<>();
         List<UserDTO> listParticipants = new ArrayList<>();
+        List<UserDTO> listActualParticipants = new ArrayList<>();
+
         OrganizationDAO orgDAO = new OrganizationDAO();
         EventDAO evtDAO = new EventDAO();
         String url = "error.jsp";
         try {
             String orgID = request.getParameter("orgID");
+            double totalParticipants = 0;
+            double totalActualParticipants = 0;
             listFollower = orgDAO.getAllOrgFollowers(orgID);
             listEvent = evtDAO.getAllOrgEvent(orgID);
             request.setAttribute("listFollower", listFollower);
             request.setAttribute("listEvent", listEvent);
-            listParticipants = evtDAO.getAllParticipantsByEventID(orgID);
+
+            for (EventPost evt : listEvent) {
+                listParticipants = evtDAO.getAllParticipantsByEventID(evt.getId());
+                listActualParticipants = evtDAO.getAllActualParticipantsByEventID(evt.getId());
+
+                totalParticipants += listParticipants.size();
+                totalActualParticipants += listActualParticipants.size();
+            }
+
+            double participationPercentage = (totalActualParticipants / totalParticipants) * 100;
+            if (totalParticipants == 0) {
+                participationPercentage = 0;
+            }
+
+            request.setAttribute("participationPercentage", participationPercentage);
+            request.setAttribute("totalParticipants", totalParticipants);
+            request.setAttribute("totalActualParticipants", totalActualParticipants);
+
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at ListLocationController " + e.toString());

@@ -172,7 +172,7 @@
 
                     <div class="d-flex flex-wrap mb-2 align-items-center justify-content-between">
                         <div class="mb-3">
-                            <h6 class="fs-16 text-black font-w600 mb-0"><%= listManagers.size() %> Total Club's Member</h6>
+                            <h6 class="fs-16 text-black font-w600 mb-0"><%= listManagers.size()%> Total Club's Member</h6>
                             <span class="fs-14">Based your preferences</span>
                         </div>
                         <div class="event-tabs mb-3">
@@ -187,15 +187,15 @@
 
                             </ul>
                         </div>
-                         <div class="mb-3 d-flex flex-row-reverse">
-                        <a href="MainController?action=dataType&page=Admin_ManagerForm.jsp" class="btn btn-primary text-nowrap"><i
-                                class="fa fa-file-text scale5 mr-3" aria-hidden="true"></i>Create Club's Member</a>
-                    </div>
+                        <div class="mb-3 d-flex flex-row-reverse">
+                            <a href="MainController?action=dataType&page=Admin_ManagerForm.jsp" class="btn btn-primary text-nowrap"><i
+                                    class="fa fa-file-text scale5 mr-3" aria-hidden="true"></i>Create Club's Member</a>
+                        </div>
                     </div>
 
 
                     <!--=================== CREATE CLUB'S MEMBER ====================-->
-                   
+
 
                     <!--===================================================================-->
 
@@ -236,9 +236,9 @@
                                             </td>
                                             <td><%= list.getGender()%></td>
                                             <% if (list.getEmail() == null || list.getEmail() == "" || list.getEmail().isEmpty()) {
-                                                        list.setEmail("");
-                                                    }
-                                                %>
+                                                    list.setEmail("");
+                                                }
+                                            %>
                                             <td><%= list.getEmail()%></td>
                                             <td><%= list.getPhoneNumber()%></td>
 
@@ -270,7 +270,7 @@
                                                     <a href="MainController?action=UpdateManager&id=<%= list.getId()%>&page=Admin_ManagerForm.jsp" class="mr-4">
                                                         <i class="las la-pencil-alt scale-2"></i>
                                                     </a>
-                                                    <a href="MainController?action=DeleteManager&id=<%= list.getId()%>">
+                                                    <a onclick="return check();" href="MainController?action=DeleteManager&id=<%= list.getId()%>">
                                                         <i class="las la-trash-alt scale-2 text-danger"></i>
                                                     </a>
                                                 </div>
@@ -325,9 +325,18 @@
             Scripts
         ***********************************-->
         <!-- Required vendors -->
+        <script>
+            function check() {
+                if (confirm("Are you sure to remove this account?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
         <script src="./css_Admin/vendor/global/global.min.js"></script>
-<!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
+        <!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+                <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
         <script src="./css_Admin/js/custom.min.js"></script>
         <script src="./css_Admin/js/deznav-init.js"></script>
         <!--<script src="./css_Admin/vendor/owl-carousel/owl.carousel.js"></script>-->

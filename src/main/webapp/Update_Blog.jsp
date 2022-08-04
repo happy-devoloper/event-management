@@ -104,12 +104,12 @@
 
         <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Blog Summary</h4>
         <div class="update-content">
-            <textarea required="" name="summary" id="role" cols="30" rows="9" style="width: 480px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+            <textarea required="" name="summary" id="role" cols="30" rows="9" style="width: 480px; height:300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                       placeholder="Enter Blog's Summary Here*"><%=blog.getSummary()%></textarea>
         </div>
         <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Blog Description</h4>
         <div class="update-content">
-            <textarea required="" name="content" id="role" cols="30" rows="9" style="width: 480px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+            <textarea required="" name="content" id="role" cols="30" rows="9" style="width: 480px; height:300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                       placeholder="Enter Blog's Description Here*"><%=blog.getContent()%></textarea>
         </div>
 
@@ -168,6 +168,8 @@
     </form>
 </div>
 <!-- partial -->
+
+
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./css_FormCreate/script.js"></script>
 
 </body>

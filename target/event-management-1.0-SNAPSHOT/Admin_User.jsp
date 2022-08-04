@@ -12,8 +12,8 @@
         <title>F.E.M - FPT Event Admin</title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="./css_Admin/images/Biểu-tượng-không-chữ.png">
-<!--        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
-        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
+        <!--        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
+                <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
         <!-- Datatable -->
         <link href="./css_Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="./css_Admin/css/style.css" rel="stylesheet">
@@ -265,7 +265,7 @@
                                                     <a href="MainController?action=UpdateUser&id=<%= list.getId()%>&page=Admin_UserForm.jsp" class="mr-4">
                                                         <i class="las la-pencil-alt scale-2"></i>
                                                     </a>
-                                                    <a href="MainController?action=DeleteUser&id=<%= list.getId()%>">
+                                                    <a onclick="return check();" href="MainController?action=DeleteUser&id=<%= list.getId()%>">
                                                         <i class="las la-trash-alt scale-2 text-danger"></i>
                                                     </a>
                                                 </div>
@@ -318,9 +318,19 @@
             Scripts
         ***********************************-->
         <!-- Required vendors -->
+        <script>
+            function check() {
+                if (confirm("Are you sure to remove this user?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+
         <script src="./css_Admin/vendor/global/global.min.js"></script>
-<!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
+        <!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+                <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
         <script src="./css_Admin/js/custom.min.js"></script>
         <script src="./css_Admin/js/deznav-init.js"></script>
         <!--<script src="./css_Admin/vendor/owl-carousel/owl.carousel.js"></script>-->

@@ -16,8 +16,8 @@
         <!-- Favicon icon -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="icon" type="image/png" sizes="16x16" href="./css_Admin/images/Biểu-tượng-không-chữ.png">
-<!--        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
-        <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
+        <!--        <link rel="stylesheet" href="./css_Admin/vendor/chartist/css/chartist.min.css">
+                <link href="./css_Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">-->
         <!-- Datatable -->
         <link href="./css_Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="./css_Admin/css/style.css" rel="stylesheet">
@@ -218,7 +218,7 @@
                                 </li>
 
                                 <li><a href="MainController?action=ListBlog">Blog</a></li>
-                                <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID() %>">Statistic</a></li>
+                                <li><a href="MainController?action=ClubStatistic&orgID=<%=user.getOrgID()%>">Statistic</a></li>
                             </ul>
                         </li>
                         <li>
@@ -426,7 +426,7 @@
 
 
 
-                                                            <a href="MainController?action=DeleteLocation&id=<%= listLocation.get(i).getLocationID()%>"
+                                                            <a onclick="return check();" href="MainController?action=DeleteLocation&id=<%= listLocation.get(i).getLocationID()%>"
                                                                class="btn btn-danger  btn-sm light ml-2 px-4">Delete</a>
                                                         </div>
                                                     </td>
@@ -478,53 +478,64 @@
         Scripts
     ***********************************-->
         <!-- Required vendors -->
+
+        <script>
+            function check() {
+                if (confirm("Are you sure to remove this location?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+
         <script src="./css_Admin/vendor/global/global.min.js"></script>
-<!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
+        <!--        <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+                <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
         <script src="./css_Admin/js/custom.min.js"></script>
         <script src="./css_Admin/js/deznav-init.js"></script>
         <script src="./css_StatusLocation/script.js"></script>
         <!-- Datatable -->
         <script src="./css_Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
         <script>
-            (function ($) {
-                var table = $('#example2').DataTable({
-                    searching: false,
-                    paging: true,
-                    select: false,
-                    //info: false,         
-                    lengthChange: false
+                    (function ($) {
+                        var table = $('#example2').DataTable({
+                            searching: false,
+                            paging: true,
+                            select: false,
+                            //info: false,         
+                            lengthChange: false
 
-                });
-                var table = $('#example3').DataTable({
-                    searching: false,
-                    paging: true,
-                    select: false,
-                    //info: false,         
-                    lengthChange: false
+                        });
+                        var table = $('#example3').DataTable({
+                            searching: false,
+                            paging: true,
+                            select: false,
+                            //info: false,         
+                            lengthChange: false
 
-                });
-                var table = $('#example4').DataTable({
-                    searching: false,
-                    paging: true,
-                    select: false,
-                    //info: false,         
-                    lengthChange: false
+                        });
+                        var table = $('#example4').DataTable({
+                            searching: false,
+                            paging: true,
+                            select: false,
+                            //info: false,         
+                            lengthChange: false
 
-                });
-                var table = $('#example5').DataTable({
-                    searching: false,
-                    paging: true,
-                    select: false,
-                    //info: false,         
-                    lengthChange: false
+                        });
+                        var table = $('#example5').DataTable({
+                            searching: false,
+                            paging: true,
+                            select: false,
+                            //info: false,         
+                            lengthChange: false
 
-                });
-                $('#example tbody').on('click', 'tr', function () {
-                    var data = table.row(this).data();
+                        });
+                        $('#example tbody').on('click', 'tr', function () {
+                            var data = table.row(this).data();
 
-                });
-            })(jQuery);
+                        });
+                    })(jQuery);
         </script>
     </body>
 

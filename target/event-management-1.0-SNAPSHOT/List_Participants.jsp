@@ -25,7 +25,10 @@
                 padding: 8px;
             }
 
-            tr{background-color: #f2f2f2; border-bottom: 1px solid white}
+            tr{
+                background-color: #f2f2f2;
+                border-bottom: 1px solid white
+            }
 
             th {
                 background-color: #FC8272;
@@ -53,11 +56,11 @@
                     Back!
                 </a>
 
-                    <button class="btn"  onclick="exportData()" class="brand-logo" style="font-size: 15pt; color: white; background-color: #FC8272">
+                <button class="btn"  onclick="exportData()" class="brand-logo" style="font-size: 15pt; color: white; background-color: #FC8272">
                     Export To Excel!
                 </button> 
             </div>
-                                </br>
+            </br>
 
             <table id="tblListParicipants" class="m-md-auto" style="border-radius: 10px;">
                 <tr>
@@ -66,6 +69,8 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Gender</th>
+                    <th>Attend</th>
+
                 </tr>
 
                 <%for (int i = 0; i < listParticipants.size(); i++) {
@@ -77,13 +82,24 @@
                     <td><%=listParticipants.get(i).getEmail()%></td>
                     <td><%=listParticipants.get(i).getPhoneNumber()%></td>
                     <td><%=listParticipants.get(i).getGender()%></td>
+                    <% if (listParticipants.get(i).isStatus() == true) {
+                    %>
+                    <td>Yes</td>
+                    <%
+                    } else {
+                    %>
+                    <td>No</td>    
+                    <%
+                        }
+                    %>
+
 
                 </tr>
                 <%
                     }
                 %>
             </table>
-            
+
         </div>
         <br>
 

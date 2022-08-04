@@ -80,6 +80,8 @@ public class AddAnEventController extends HttpServlet {
             String content = request.getParameter("content");
             String title = request.getParameter("title");
             String location = request.getParameter("location");
+            
+            
             String eventType = request.getParameter("eventType");
             int participationLimit = Integer.parseInt(request.getParameter("participationLimit"));
             int numberOfView = 0;

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,17 +26,9 @@ public class BlogDAO {
 
     private static final String CHECK_BLOG_DUPLICATE = "SELECT blogID FROM tblBlog where blogID = ?";
 
-    private static final String ADD_A_BLOG = "INSERT INTO tblBlog\n"
-            + "           (blogID\n"
-            + "           ,orgID\n"
-            + "           ,status\n"
-            + "           ,title\n"
-            + "           ,createDate\n"
-            + "           ,content\n"
-            + "           ,imgUrl\n"
-            + "           ,numberOfView\n"
-            + "           ,summary)\n"
-            + "     VALUES (?,?,?,?,?,?,?,?,?)";
+    private static final String ADD_A_BLOG = "INSERT INTO public.tblblog(\n"
+            + "	blogid, orgid, status, title, createdate, content, imgurl, numberofview, summary)\n"
+            + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static final String UPDATE_A_BLOG = "UPDATE tblBlog\n"
             + "   SET title = ?\n"
@@ -262,7 +255,7 @@ public class BlogDAO {
                 ps.setString(2, blog.getOrgID());
                 ps.setBoolean(3, blog.isStatus());
                 ps.setString(4, blog.getTitle());
-                ps.setString(5, blog.getCreateDate());
+                ps.setObject(5, LocalDate.parse(blog.getCreateDate()));
                 ps.setString(6, blog.getContent());
                 ps.setString(7, blog.getImgUrl());
                 ps.setInt(8, blog.getNumberOfView());
