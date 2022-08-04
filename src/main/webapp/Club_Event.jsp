@@ -1,3 +1,4 @@
+<%@page import="sample.slot.SlotTime"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.LocalDateTime"%>
@@ -60,6 +61,7 @@
         }
         List<EventType> listEvtType = (List<EventType>) request.getAttribute("listEventTypes");
         List<EventLocation> listEvtLocation = (List<EventLocation>) request.getAttribute("listEventLocations");
+        List<SlotTime> listSlotTime = (List<SlotTime>) request.getAttribute("listSlotTime");
 
         EventPostError evtError = (EventPostError) request.getAttribute("ERROR");
         if (evtError == null) {
@@ -268,28 +270,40 @@
                                     </div> 
                                 </div>
 
-                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
-
-                                <div class="row">
-                                    <select name="location" class="md-6">
-                                        <option hidden="" selected="" disabled="">Select Event Location</option>
-                                        <%for (int i = 0; i < listEvtLocation.size(); i++) {
+                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot & Location</h4>
+                                <div class="row">                                                                                
+                                    <select name="slotID" class="md-6" required="">
+                                        <option hidden="" value="" selected="" disabled="">Select Event Slot</option>
+                                        <%for (int j = 0; j < listEvtType.size(); j++) {
                                         %>
-                                        <option value="<%=listEvtLocation.get(i).getLocationID()%>"><%=listEvtLocation.get(i).getLocaitonName()%></option>
+                                        <option value="<%=listSlotTime.get(j).getSlotID()%>"><%=listSlotTime.get(j).getSlotTime()%></option>
                                         <%
                                             }
                                         %>
                                     </select>
-                                    <select name="eventType" class="md-6">
-                                        <option hidden="" selected="" disabled="">Select Event Type</option>
-                                        <%for (int i = 0; i < listEvtType.size(); i++) {
+                                    <select name="eventType" class="md-6" required="">
+                                        <option hidden="" value="" selected="" disabled="">Select Event Type</option>
+                                        <%for (int j = 0; j < listEvtType.size(); j++) {
                                         %>
-                                        <option value="<%=listEvtType.get(i).getEventTypeID()%>"><%=listEvtType.get(i).getEventTypeName()%></option>
+                                        <option value="<%=listEvtType.get(j).getEventTypeID()%>"><%=listEvtType.get(j).getEventTypeName()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+
+                                </div>
+                                <div class="row">
+                                    <select style="width: 100%" name="location" required="">
+                                        <option hidden="" value="" selected="" disabled="">Select Event Location</option>
+                                        <%for (int j = 0; j < listEvtLocation.size(); j++) {
+                                        %>
+                                        <option value="<%=listEvtLocation.get(j).getLocationID()%>"><%=listEvtLocation.get(j).getLocaitonName()%></option>
                                         <%
                                             }
                                         %>
                                     </select>
                                 </div>
+
 
                                 <div class="form-group row">
                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
@@ -655,13 +669,13 @@
                                                                     </div> 
                                                                 </div>
 
-                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
+                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot  Location</h4>
                                                                 <div class="row">                                                                                
-                                                                    <select name="location" class="md-6">
-                                                                        <option hidden="" selected="" value="<%=event.getLocation()%>"><%=event.getLocationName()%></option>
-                                                                        <%for (int j = 0; j < listEvtLocation.size(); j++) {
+                                                                    <select name="slotID" class="md-6">
+                                                                        <option hidden="" selected="" value="<%=event.getSlotID()%>"><%=event.getSlotTime()%></option>
+                                                                        <%for (int j = 0; j < listEvtType.size(); j++) {
                                                                         %>
-                                                                        <option value="<%=listEvtLocation.get(j).getLocationID()%>"><%=listEvtLocation.get(j).getLocaitonName()%></option>
+                                                                        <option value="<%=listSlotTime.get(j).getSlotID()%>"><%=listSlotTime.get(j).getSlotTime()%></option>
                                                                         <%
                                                                             }
                                                                         %>
@@ -671,6 +685,18 @@
                                                                         <%for (int j = 0; j < listEvtType.size(); j++) {
                                                                         %>
                                                                         <option value="<%=listEvtType.get(j).getEventTypeID()%>"><%=listEvtType.get(j).getEventTypeName()%></option>
+                                                                        <%
+                                                                            }
+                                                                        %>
+                                                                    </select>
+
+                                                                </div>
+                                                                <div class="row">
+                                                                    <select style="width: 100%" name="location">
+                                                                        <option hidden="" selected="" value="<%=event.getLocation()%>"><%=event.getLocationName()%></option>
+                                                                        <%for (int j = 0; j < listEvtLocation.size(); j++) {
+                                                                        %>
+                                                                        <option value="<%=listEvtLocation.get(j).getLocationID()%>"><%=listEvtLocation.get(j).getLocaitonName()%></option>
                                                                         <%
                                                                             }
                                                                         %>
@@ -773,22 +799,34 @@
                                                                     </div> 
                                                                 </div>
 
-                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
+                                                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot  Location</h4>
                                                                 <div class="row">                                                                                
-                                                                    <select disabled="" name="location" class="md-6">
-                                                                        <option hidden="" selected="" value="<%=event.getLocation()%>"><%=event.getLocationName()%></option>
-                                                                        <%for (int j = 0; j < listEvtLocation.size(); j++) {
+                                                                    <select name="slotID" class="md-6">
+                                                                        <option hidden="" selected="" value="<%=event.getSlotID()%>"><%=event.getSlotTime()%></option>
+                                                                        <%for (int j = 0; j < listEvtType.size(); j++) {
                                                                         %>
-                                                                        <option value="<%=listEvtLocation.get(j).getLocationID()%>"><%=listEvtLocation.get(j).getLocaitonName()%></option>
+                                                                        <option value="<%=listSlotTime.get(j).getSlotID()%>"><%=listSlotTime.get(j).getSlotTime()%></option>
                                                                         <%
                                                                             }
                                                                         %>
                                                                     </select>
-                                                                    <select disabled="" name="eventType" class="md-6">
+                                                                    <select name="eventType" class="md-6">
                                                                         <option hidden="" selected="" value="<%=event.getEventType()%>"><%=event.getEventTypeName()%></option>
                                                                         <%for (int j = 0; j < listEvtType.size(); j++) {
                                                                         %>
                                                                         <option value="<%=listEvtType.get(j).getEventTypeID()%>"><%=listEvtType.get(j).getEventTypeName()%></option>
+                                                                        <%
+                                                                            }
+                                                                        %>
+                                                                    </select>
+
+                                                                </div>
+                                                                <div class="row">
+                                                                    <select style="width: 100%" name="location">
+                                                                        <option hidden="" selected="" value="<%=event.getLocation()%>"><%=event.getLocationName()%></option>
+                                                                        <%for (int j = 0; j < listEvtLocation.size(); j++) {
+                                                                        %>
+                                                                        <option value="<%=listEvtLocation.get(j).getLocationID()%>"><%=listEvtLocation.get(j).getLocaitonName()%></option>
                                                                         <%
                                                                             }
                                                                         %>
