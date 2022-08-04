@@ -374,8 +374,8 @@
                                         %>                                     
 
                                         <div class="items">
-                                            <div style="width: 450px" class="image-bx ">
-                                                <img style="width:450px; height: 400px" src="<%=listEvent.get(i).getImgUrl()%>" alt="">
+                                            <div style="height: 1000px"  class="image-bx ">
+                                                <img src="<%=listEvent.get(i).getImgUrl()%>" alt="">
                                                 <div class="info">
                                                     <p class="fs-18 font-w600">
                                                         <a href="MainController?action=EventDetail&eventID=<%=listEvent.get(i).getId()%>" class="text-black">
@@ -419,7 +419,7 @@
     ***********************************-->
             <div class="footer">
                 <div class="copyright">
-                    <p>© Best For Event Management Schedule
+                    <p>Â© Best For Event Management Schedule
                         &amp; Developed by <a href="http://dexignzone.com/" target="_blank">F.E.M</a> 2022</p>
                 </div>
             </div>
