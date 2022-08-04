@@ -251,9 +251,9 @@
                                 <div style="text-align: center">
                                     <h1 class="Information ">Add Event</h1>
                                 </div>
-
+                                <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
                                 <div class="row form-group">
-                                    <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
+
                                     <div class="input-group input-group-icon">
                                         <input required="" type="text" value="" name="title" placeholder="Title"/>
                                         <div class="input-icon"><i class="fa-solid fa-id-card"></i></div>
@@ -270,7 +270,7 @@
                                     </div> 
                                 </div>
 
-                                <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot & Location</h4>
+                                <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Event's Type, Slot & Location</h4>
                                 <div class="row">                                                                                
                                     <select name="slotID" class="md-6" required="">
                                         <option hidden="" value="" selected="" disabled="">Select Event Slot</option>
@@ -304,9 +304,9 @@
                                     </select>
                                 </div>
 
-
+                                <h4 style="margin-top: 20px"><i class="fa fa-calendar" aria-hidden="true"></i> Take Place Date</h4>
                                 <div class="form-group row">
-                                    <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
+
                                     <p style="color: red"><%= evtError.getTakePlaceDate()%></p>
                                     <div class="input-group input-group-icon " style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
                                         <!--<input required="" type="date" value="" name="takePlaceDate" class="font-color"/>-->
@@ -317,13 +317,13 @@
                                 </div>
 
                                 <div class="row">
-                                    <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Summary</h4>
+                                    <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Summary</h4>
                                     <div class="update-content form-group">
                                         <textarea  required="" name="summary" id="role" rows="10" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                    placeholder="Enter Event's Summary Here*"></textarea>
                                     </div>
 
-                                    <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Description</h4>
+                                    <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Description</h4> 
                                     <div class="update-content">
                                         <textarea required="" name="content" id="role" rows= "10" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                   placeholder="Enter Event's Description Here*"></textarea>
@@ -332,7 +332,7 @@
 
 
                                 <div class="row form-group">
-                                    <h4><i class="fa-solid fa-link" style="width: 25px"></i>Image</h4>
+                                    <h4><i class="fa fa-file-image-o" aria-hidden="true"></i> Image</h4>
                                     <div class="input-group input-group-icon">
                                         <input type="file" accept=".jpg, .jpeg, .png" name="image" />
                                         <div class="input-icon"><i class="fa-solid fa-link"></i></div>
@@ -625,7 +625,7 @@
                                                                 Date now = new Date(System.currentTimeMillis());
                                                                 Date takePlaceDate = Date.valueOf(event.getTakePlaceDate());
                                                                 if (takePlaceDate.after(now) && "PE".equals(event.getStatusTypeID())) { //  ĐƯỢC EDIT
-                                                        %>
+%>
 
                                                         <div class="modal fade bd-example-modal-lg" id="<%=listEvent.get(i).getId()%>">
                                                             <div class="modal-dialog modal-lg" role="document">
@@ -647,9 +647,9 @@
                                                                             </div>
 
                                                                             <input type="hidden" name="eventID" value="<%=event.getId()%>">
+                                                                            <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
 
                                                                             <div class="row form-group">
-                                                                                <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
 
                                                                                 <input type="hidden" name="FPT" value="FPT"/>
 
@@ -671,7 +671,7 @@
                                                                                 </div> 
                                                                             </div>
 
-                                                                            <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot  Location</h4>
+                                                                            <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Event's Type, Slot  Location</h4>
                                                                             <div class="row">                                                                                
                                                                                 <select name="slotID" class="md-6">
                                                                                     <option hidden="" selected="" value="<%=event.getSlotID()%>"><%=event.getSlotTime()%></option>
@@ -706,7 +706,7 @@
                                                                             </div>
 
                                                                             <div class="row form-group">
-                                                                                <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
+                                                                                <h4 style="margin-top: 20px"><i class="fa fa-calendar" aria-hidden="true"></i> Take Place Date</h4>
                                                                                 <%= evtError.getTakePlaceDate()%>
                                                                                 <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">                                                               
                                                                                     <input required="" type="date" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
@@ -715,9 +715,10 @@
 
                                                                             </div>
 
-                                                                            <div class="row">                                                                                   
+                                                                            <div class="row">       
+                                                                                <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Summary</h4>
+
                                                                                 <div class="form-group">
-                                                                                    <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Summary</h4>
                                                                                     <div class="update-content form-group">
                                                                                         <textarea required="" name="summary" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                                   placeholder="Enter Event's Summary Here*"><%=event.getSummary()%></textarea>
@@ -725,7 +726,7 @@
                                                                                 </div>
 
                                                                                 <div class="form-group">
-                                                                                    <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Description</h4>
+                                                                                    <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Description</h4>  
                                                                                     <div class="update-content">
                                                                                         <textarea required="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                                   placeholder="Enter Event's Description Here*"><%=event.getContent()%></textarea>
@@ -734,7 +735,7 @@
                                                                             </div>
 
                                                                             <div class="row">
-                                                                                <h4><i class="fa-solid fa-link" style="width: 25px"></i>Image</h4>
+                                                                                <h4><i class="fa fa-file-image-o" aria-hidden="true"></i> Image</h4>
                                                                                 <div class="input-group input-group-icon">
                                                                                     <input type="file" accept=".jpg, .jpeg, .png" name="image" />
                                                                                     <div class="input-icon"><i class="fa-solid fa-link"></i></div>
@@ -777,9 +778,9 @@
 
                                                                             <input type="hidden" name="eventID" value="<%=event.getId()%>">
 
+                                                                            <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
 
                                                                             <div class="row form-group">
-                                                                                <h4><i class="fa-solid fa-users" style="width: 25px"></i>Event's Information</h4>
 
                                                                                 <input type="hidden" name="FPT" value="FPT"/>
 
@@ -801,7 +802,7 @@
                                                                                 </div> 
                                                                             </div>
 
-                                                                            <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type, Slot  Location</h4>
+                                                                            <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Event's Type, Slot  Location</h4>
                                                                             <div class="row">                                                                                
                                                                                 <select name="slotID" class="md-6">
                                                                                     <option hidden="" selected="" value="<%=event.getSlotID()%>"><%=event.getSlotTime()%></option>
@@ -834,9 +835,9 @@
                                                                                     %>
                                                                                 </select>
                                                                             </div>
+                                                                            <h4 style="margin-top: 20px"><i class="fa fa-calendar" aria-hidden="true"></i> Take Place Date</h4>
 
                                                                             <div class="row form-group">
-                                                                                <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                                 <%= evtError.getTakePlaceDate()%>
                                                                                 <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">                                                               
                                                                                     <input disabled="" type="date" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
@@ -845,26 +846,27 @@
 
                                                                             </div>
 
-                                                                            <div class="row">                                                                                   
-                                                                                <div class="form-group">
-                                                                                    <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Summary</h4>
-                                                                                    <div class="update-content form-group">
-                                                                                        <textarea disabled="" name="summary" id="role" rows="9" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
-                                                                                                  placeholder="Enter Event's Summary Here*"><%=event.getSummary()%></textarea>
-                                                                                    </div>
-                                                                                </div>
+                                                                            <div class="row">       
+                                                                                <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Summary</h4>                                                                        <div class="update-content form-group">
 
-                                                                                <div class="form-group">
-                                                                                    <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event Description</h4>
-                                                                                    <div class="update-content">
-                                                                                        <textarea disabled="" name="content" id="role" rows="9" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
-                                                                                                  placeholder="Enter Event's Description Here*"><%=event.getContent()%></textarea>
+                                                                                    <div class="form-group">
+                                                                                        <div class="update-content form-group">
+                                                                                            <textarea disabled="" name="summary" id="role" rows="9" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                                                      placeholder="Enter Event's Summary Here*"><%=event.getSummary()%></textarea>
+                                                                                        </div>
                                                                                     </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Description</h4>
+                                                                                        <div class="update-content">
+                                                                                            <textarea disabled="" name="content" id="role" rows="9" style="width: 710px; height: 300px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                                                      placeholder="Enter Event's Description Here*"><%=event.getContent()%></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>        
+                                                                                <div class="row modal-footer justify-content-center">                                                                    
+                                                                                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                                 </div>
-                                                                            </div>        
-                                                                            <div class="row modal-footer justify-content-center">                                                                    
-                                                                                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                            </div>
                                                                         </form>
                                                                     </div>
                                                                 </div>
