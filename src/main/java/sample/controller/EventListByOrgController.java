@@ -53,7 +53,6 @@ public class EventListByOrgController extends HttpServlet {
             } else {
                 listEvent = (List<EventPost>) request.getAttribute("listTitleSearch");
                 request.setAttribute("listEvent", listEvent);
-
             }
             for (EventPost eventPost : listEvent) {
                 EventPost event = evtDao.getAnEventByID(eventPost.getId());
