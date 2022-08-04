@@ -16,6 +16,7 @@ import sample.eventtype.EventType;
 import sample.posts.EventDAO;
 import sample.posts.EventLocation;
 import sample.posts.EventPost;
+import sample.slot.SlotTime;
 
 /**
  *
@@ -35,13 +36,17 @@ public class EventTypeAndLocationController extends HttpServlet {
         String url = "error.jsp";
         List<EventType> listTypes;
         List<EventLocation> listLocations;
+        List<SlotTime> listSlotTime;
         EventPost event;
         EventDAO evtDao = new EventDAO();
         String eventID;
         try {
+            listSlotTime = evtDao.getAllSlotTime();
             listTypes = evtDao.getAllEventType();
             listLocations = evtDao.getAllEventLocation();
             String page = request.getParameter("page");
+            
+            request.setAttribute("listSlotTime", listSlotTime);
             request.setAttribute("listEventTypes", listTypes);
             request.setAttribute("listEventLocations", listLocations);
             request.setAttribute("page", page);

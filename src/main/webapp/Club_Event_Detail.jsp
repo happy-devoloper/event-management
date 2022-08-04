@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="sample.posts.EventLocation"%>
 <%@page import="sample.eventtype.EventType"%>
@@ -385,9 +386,9 @@
                                             <!--============ UPDATE EVENT ============-->                                           
                                             <%    if (evt != null) {
                                                     evt.setTakePlaceDate(evt.getTakePlaceDate().replace(' ', 'T'));
-                                                    LocalDateTime now = LocalDateTime.now();
-                                                    LocalDateTime takePlaceDate = LocalDateTime.parse(evt.getTakePlaceDate());
-                                                    if (takePlaceDate.isAfter(now)) { //  ĐƯỢC EDIT
+                                                    Date now = new Date(System.currentTimeMillis());
+                                                    Date takePlaceDate = Date.valueOf(evt.getTakePlaceDate());
+                                                    if (takePlaceDate.after(now)) { //  ĐƯỢC EDIT
 %>
 
                                             <div class="modal fade bd-example-modal-lg" id="updateEvent">
@@ -460,7 +461,7 @@
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input required="" type="datetime-local" value="<%=evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input required="" type="date" value="<%=evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
                                                                 </div>
@@ -533,7 +534,7 @@
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input required="" type="datetime-local" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input required="" type="date" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 
@@ -738,7 +739,7 @@
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input disabled="" type="datetime-local" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input disabled="" type="date" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 

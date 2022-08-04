@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="sample.posts.EventPostError"%>
@@ -295,7 +296,7 @@
                                     <p style="color: red"><%= evtError.getTakePlaceDate()%></p>
                                     <div class="input-group input-group-icon " style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
                                         <!--<input required="" type="date" value="" name="takePlaceDate" class="font-color"/>-->
-                                        <input required="" type="datetime-local" id="curdate" value="" name="takePlaceDate" class="font-color"/>
+                                        <input required="" type="date" id="curdate" value="" name="takePlaceDate" class="font-color"/>
 
                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                     </div>
@@ -610,11 +611,10 @@
                                                 <%
                                                     EventPost event = (EventPost) request.getAttribute("event_" + listEvent.get(i).getId());
                                                     if (event != null) {
-                                                        event.setTakePlaceDate(event.getTakePlaceDate().replace(' ', 'T'));
-
-                                                        LocalDateTime now = LocalDateTime.now();
-                                                        LocalDateTime takePlaceDate = LocalDateTime.parse(event.getTakePlaceDate());
-                                                        if (takePlaceDate.isAfter(now) && "PE".equals(event.getStatusTypeID())) { //  ĐƯỢC EDIT
+                                                       
+                                                        Date now = new Date(System.currentTimeMillis());
+                                                        Date takePlaceDate = Date.valueOf(event.getTakePlaceDate());
+                                                        if (takePlaceDate.after(now) && "PE".equals(event.getStatusTypeID())) { //  ĐƯỢC EDIT
                                                 %>
 
                                             <div class="modal fade bd-example-modal-lg" id="<%=listEvent.get(i).getId()%>">
@@ -687,7 +687,7 @@
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <%= evtError.getTakePlaceDate()%>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">                                                               
-                                                                        <input required="" type="datetime-local" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input required="" type="date" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 
@@ -805,7 +805,7 @@
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <%= evtError.getTakePlaceDate()%>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">                                                               
-                                                                        <input disabled="" type="datetime-local" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input disabled="" type="date" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 

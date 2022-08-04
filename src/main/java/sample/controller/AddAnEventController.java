@@ -89,8 +89,6 @@ public class AddAnEventController extends HttpServlet {
             LocalDate createDate = now;
 
             String takePlaceDate = request.getParameter("takePlaceDate");
-            takePlaceDate = takePlaceDate.replace('T', ' ');
-            takePlaceDate += ":00";
 
             Part filePart = request.getPart("image");
             String realPath = request.getServletContext().getRealPath("/Image");
@@ -111,8 +109,14 @@ public class AddAnEventController extends HttpServlet {
                 status = true;
             }
 
-            EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, statusTypeID, null,
-                    id, orgID, title, content, createDate.toString(), path, numberOfView, summary, status, participationLimit);
+            int slotID = Integer.parseInt(request.getParameter("slotID"));      
+            
+            
+            
+            EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, "", "", statusTypeID, "", "", id, orgID, "", title, content, createDate.toString() , path, numberOfView, summary, status, 0, participationLimit, slotID, "");
+            
+            //HAM CHECK
+           
             boolean checkCreate = evtDao.createAnEvent(event);
             if (checkCreate == true) {
                 request.setAttribute("SUCCESSS", "success");

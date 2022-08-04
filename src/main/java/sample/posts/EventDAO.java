@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sample.eventtype.EventType;
+import sample.slot.SlotTime;
 import sample.users.UserDTO;
 import sample.util.DBUtils;
 
@@ -60,6 +61,8 @@ public class EventDAO {
             + "      ,speaker = ?\n"
             + "      ,summary = ?\n"
             + "      ,participationLimit = ?\n"
+            + "      ,slotID = ?\n"
+            + "      ,slotTime = ?\n"
             + " WHERE eventID = ?";
 
     private static final String UPDATE_AN_EVENT_BY_MOD = "UPDATE tblEventPost\n"
@@ -73,6 +76,8 @@ public class EventDAO {
             + "      ,summary = ?\n"
             + "      ,status = ?\n"
             + "      ,participationLimit = ?\n"
+            + "      ,slotID = ?\n"
+            + "      ,slotTime = ?\n"
             + " WHERE eventID = ?";
 
     private static final String GET_ALL_EVENT_TYPE = "SELECT eventTypeID, eventTypeName\n"
@@ -88,8 +93,8 @@ public class EventDAO {
             + "  Where eventID = ?";
 
     private static final String GET_ALL_EVENT_BY_ORG = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
-            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
-            + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
+            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, slotId, slotTime\n"
+            + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.orgID = ? ";
 
@@ -127,7 +132,7 @@ public class EventDAO {
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID \n"
             + "AND tblEventPost.takePlaceDate between ? and ?";
-    
+
     private static final String SEARCH_DATE_BY_ORG = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
             + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
             + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
@@ -136,6 +141,10 @@ public class EventDAO {
             + "AND tblEventPost.takePlaceDate between ? and ?\n"
             + " AND tblEventPost.orgID = ?";
 
+    private static final String GET_ALL_SLOT_TIME = "SELECT slotid, slottime\n"
+            + "	FROM tblslot";
+
+    //statusTypeID = PE va AP, location = ?, slot = ?, takePlaceDate = ?, status = true => tra ve true
     public List<EventPost> searchEventByDate(String fromDate, String endDate, String orgID) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -599,7 +608,7 @@ public class EventDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(UPDATE_AN_EVENT);
-                ps.setObject(1, Timestamp.valueOf(event.getTakePlaceDate()));
+                ps.setObject(1, java.sql.Date.valueOf(event.getTakePlaceDate()));
                 ps.setString(2, event.getContent());
                 ps.setString(3, event.getTitle());
                 ps.setInt(4, Integer.parseInt(event.getLocation()));
@@ -608,7 +617,9 @@ public class EventDAO {
                 ps.setString(7, event.getSpeaker());
                 ps.setString(8, event.getSummary());
                 ps.setInt(9, event.getParticipationLimit());
-                ps.setString(10, event.getId());
+                ps.setInt(10, event.getSlotID());
+                ps.setString(11, event.getSlotTime());
+                ps.setString(12, event.getId());
 
                 int checkUpdate = ps.executeUpdate();
                 if (checkUpdate > 0) {
@@ -652,6 +663,8 @@ public class EventDAO {
                 ps.setString(8, event.getSummary());
                 ps.setBoolean(9, event.isStatus());
                 ps.setInt(10, event.getParticipationLimit());
+                ps.setInt(11, event.getSlotID());
+                ps.setString(12, event.getSlotTime());
                 ps.setString(11, event.getId());
 
                 int checkUpdate = ps.executeUpdate();
@@ -841,9 +854,11 @@ public class EventDAO {
                 String statusTypeID = rs.getString("statusTypeID");
                 String statusTypeName = rs.getString("statusTypeName");
                 String approvalDes = rs.getString("approvalDes");
+                int slotID = rs.getInt("slotID");
+                String slotTime = rs.getString("slotTime");
 
                 int numberOfParticipants = getNumberOfParticipants(id);
-                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, "", title, content, createDate, imgUrl, numberOfView, summary, status, numberOfParticipants, numberOfParticipants);
+                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, "", title, content, createDate, imgUrl, numberOfView, summary, status, numberOfParticipants, numberOfParticipants, slotID, slotTime);
                 listEvent.add(event);
 
             }
@@ -1006,4 +1021,40 @@ public class EventDAO {
         }
         return listUser;
     }
+
+    public List<SlotTime> getAllSlotTime() throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<SlotTime> slotTimeList = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ps = conn.prepareStatement(GET_ALL_SLOT_TIME);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    int slotID = rs.getInt("slotId");
+                    String slotName = rs.getString("slotName");
+                    SlotTime slotTime = new SlotTime(slotID, slotName);
+                    slotTimeList.add(slotTime);
+                }
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return slotTimeList;
+    }
+
 }
