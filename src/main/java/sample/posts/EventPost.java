@@ -17,6 +17,7 @@ public class EventPost extends Post {
     private String approvalDes;
     private int numberOfParticipants;
     private int participationLimit;
+    private String slot;
 
     public EventPost() {
     }
