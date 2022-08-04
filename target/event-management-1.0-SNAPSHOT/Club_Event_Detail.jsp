@@ -1173,25 +1173,9 @@
                 <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
             <script src="./css_Admin/js/custom.min.js"></script>
             <script src="./css_Admin/js/deznav-init.js"></script>
-            <!--<script src="./css_Admin/vendor/owl-carousel/owl.carousel.js"></script>-->
-
-            <!--     Chart piety plugin files 
-                <script src="./css_Admin/vendor/peity/jquery.peity.min.js"></script>
-            
-                 Apex Chart 
-                <script src="./css_Admin/vendor/apexchart/apexchart.js"></script>
-            
-                 Dashboard 1 
-                <script src="./css_Admin/js/dashboard/event-detail.js"></script>-->
+   
 
             <script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script> 
-
-            <%
-                String success = (String) request.getAttribute("SUCCESS");
-                String failed = (String) request.getAttribute("FAILED");
-
-                if ("success".equals(success)) {
-            %>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
