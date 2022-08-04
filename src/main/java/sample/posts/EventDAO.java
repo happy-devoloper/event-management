@@ -31,11 +31,11 @@ public class EventDAO {
             + "                        WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblSlot.slotID = tblEventPost.slotID";
 
     private static final String GET_ALL_EVENT_BY_TITLE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, \n"
-            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblSlot.slotID, slotTime\n"
+            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblEventPost.slotID, slotTime\n"
             + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
             + "            WHERE (ufn_removeMark(tblEventPost.title) LIKE ufn_removeMark(?) or title LIKE ?)\n"
             + "            and tblEventPost.eventTypeID = tblEventType.eventTypeID and \n"
-            + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblSlotID.slotID = tblEventPost.slotID";
+            + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblSlot.slotID = tblEventPost.slotID";
 
     private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.orgID, tblEventPost.createDate, takePlaceDate, content, title, location, tblEventPost.imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary,\n"
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblOrgPage.orgName, participationLimit, tblSlot.slotID, slotTime\n"
@@ -104,11 +104,11 @@ public class EventDAO {
     private static final String UPDATE_STATUS_EVENT = "UPDATE tblEventPost SET status = ? WHERE eventID = ?";
 
     private static final String GET_ALL_ORG_EVENT_BY_TITLE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, \n"
-            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
-            + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
+            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblEventPost.slotID, slotTime\n"
+            + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
             + "            WHERE (ufn_removeMark(tblEventPost.title) LIKE ufn_removeMark(?) or title LIKE ?)\n"
             + "            and tblEventPost.eventTypeID = tblEventType.eventTypeID and \n"
-            + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.orgID = ?";
+            + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblSlot.slotID = tblEventPost.slotID AND tblEventPost.orgID = ?";
 
     private static final String APPROVE_EVENT = "UPDATE tblEventPost SET statusTypeID = ? WHERE eventID = ?";
 
@@ -953,8 +953,10 @@ public class EventDAO {
                     String statusTypeID = rs.getString("statusTypeID");
                     String statusTypeName = rs.getString("statusTypeName");
                     String approvalDes = rs.getString("approvalDes");
-
-                    EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, title, content, createDate, imgUrl, numberOfView, summary, status);
+                    int slotID = rs.getInt("slotID");
+                    String slotTime = rs.getString("slotTime");
+                    EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, "", title, content, createDate, imgUrl, numberOfView, summary, status, 0, 0, slotID, slotTime);
+                    
                     listEvent.add(event);
 
                 }
