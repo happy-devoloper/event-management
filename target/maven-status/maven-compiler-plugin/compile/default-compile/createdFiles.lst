@@ -1,5 +1,6 @@
 sample\controller\AddAnEventController.class
 sample\controller\CreateEventTypeController.class
+sample\slot\SlotTime.class
 sample\controller\AdminOrgPageController.class
 sample\controller\SearchEventController.class
 sample\feedback\EventFeedback.class

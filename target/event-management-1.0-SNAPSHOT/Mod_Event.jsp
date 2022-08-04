@@ -1,3 +1,4 @@
+<%@page import="sample.slot.SlotTime"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="sample.posts.EventPostError"%>
@@ -78,7 +79,7 @@
 
             List<EventType> listEvtType = (List<EventType>) request.getAttribute("listEventTypes");
             List<EventLocation> listEvtLocation = (List<EventLocation>) request.getAttribute("listEventLocations");
-
+            List<SlotTime> listSlotTime = (List<SlotTime>) request.getAttribute("listSlotTime");
             EventPostError evtError = (EventPostError) request.getAttribute("ERROR");
             if (evtError == null) {
                 evtError = new EventPostError();
@@ -292,6 +293,19 @@
                                         %>
                                     </select>
                                 </div>
+
+                                <div class="row">
+                                    <select name="slotID" class="md-6">
+                                        <option hidden="" selected="" disabled="">Select Slot Time</option>
+                                        <%for (int j = 0; j < listEvtType.size(); j++) {
+                                        %>
+                                        <option value="<%=listSlotTime.get(j).getSlotID()%>"><%=listSlotTime.get(j).getSlotTime()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+
 
                                 <div class="form-group row">
                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
@@ -732,6 +746,18 @@
                                                                                         }
                                                                                     %>
                                                                                 </select>
+
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <select name="slotID" class="md-6">
+                                                                                    <option hidden="" selected="" value="<%=event.getSlotID()%>"><%=event.getSlotTime()%></option>
+                                                                                    <%for (int j = 0; j < listEvtType.size(); j++) {
+                                                                                    %>
+                                                                                    <option value="<%=listSlotTime.get(j).getSlotID()%>"><%=listSlotTime.get(j).getSlotTime()%></option>
+                                                                                    <%
+                                                                                        }
+                                                                                    %>
+                                                                                </select>
                                                                             </div>
 
                                                                             <div class="row form-group">
@@ -1142,6 +1168,7 @@
         <%
             String success = (String) request.getAttribute("SUCCESS");
             String failed = (String) request.getAttribute("FAILED");
+            String dupSlot = (String) request.getAttribute("DUP_SLOT");
 
             if ("success".equals(success)) {
         %>
@@ -1183,6 +1210,26 @@
                 "position-class": "toast-top-full-width"
             }
             toastr["error"]("Failed!!!").css("height", "50px");
+        </script>
+        <% } else if ("failed".equals(dupSlot)) { %>
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "position-class": "toast-top-full-width"
+            }
+            toastr["error"]("Location has been occupied!!").css("height", "50px");
         </script>
         <% }%>
     </body>

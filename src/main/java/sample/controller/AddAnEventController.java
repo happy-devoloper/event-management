@@ -80,7 +80,7 @@ public class AddAnEventController extends HttpServlet {
             String content = request.getParameter("content");
             String title = request.getParameter("title");
             String location = request.getParameter("location");
-            
+
             String eventType = request.getParameter("eventType");
             int participationLimit = Integer.parseInt(request.getParameter("participationLimit"));
             int numberOfView = 0;
@@ -109,32 +109,33 @@ public class AddAnEventController extends HttpServlet {
                 status = true;
             }
 
-            int slotID = Integer.parseInt(request.getParameter("slotID"));      
-            
-            
-            
-            EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, "", "", statusTypeID, "", "", id, orgID, "", title, content, createDate.toString() , path, numberOfView, summary, status, 0, participationLimit, slotID, "");
-            
-            //HAM CHECK
-           
-            boolean checkCreate = evtDao.createAnEvent(event);
-            if (checkCreate == true) {
-                request.setAttribute("SUCCESSS", "success");
-                if ("MOD".equals(manager.getRoleID())) {
-                    url = MOD_PAGE;
-                } else {
-                    String notiContent = manager.getOrgID() + " have a new post need to be approve. Check it out!";
-                    listManager = userDao.getAllManagersByRole("MOD");
+            int slotID = Integer.parseInt(request.getParameter("slotID"));
 
-                    for (ManagerDTO managerNoti : listManager) {
-                        userNoti = new UserNotification(managerNoti.getId(), id, createDate.toString(), notiContent);
-                        userDao.addNoti(userNoti);
+            EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, "", "", statusTypeID, "", "", id, orgID, "", title, content, createDate.toString(), path, numberOfView, summary, status, 0, participationLimit, slotID, "");
+
+            //HAM CHECK
+            if (evtDao.checkAvailableSlot(event)) {
+                boolean checkCreate = evtDao.createAnEvent(event);
+                if (checkCreate == true) {
+                    request.setAttribute("SUCCESSS", "success");
+                    if ("MOD".equals(manager.getRoleID())) {
+                        url = MOD_PAGE;
+                    } else {
+                        String notiContent = manager.getOrgID() + " have a new post need to be approve. Check it out!";
+                        listManager = userDao.getAllManagersByRole("MOD");
+
+                        for (ManagerDTO managerNoti : listManager) {
+                            userNoti = new UserNotification(managerNoti.getId(), id, createDate.toString(), notiContent);
+                            userDao.addNoti(userNoti);
+                        }
+                        url = CLB_PAGE;
                     }
-                    url = CLB_PAGE;
-                }
-            }
-               else
+                } else {
                     request.setAttribute("FAILED", "failed");
+                }
+            } else {
+                request.setAttribute("DUP_SLOT", "failed");
+            }
 
         } catch (Exception e) {
             log("Error at Add Event Controller " + e.toString());

@@ -93,7 +93,7 @@ public class EventDAO {
             + "  Where eventID = ?";
 
     private static final String GET_ALL_EVENT_BY_ORG = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
-            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, slotId, slotTime\n"
+            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblEventPost.slotId, slotTime\n"
             + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.orgID = ? ";
@@ -141,8 +141,44 @@ public class EventDAO {
             + "AND tblEventPost.takePlaceDate between ? and ?\n"
             + " AND tblEventPost.orgID = ?";
 
-    private static final String GET_ALL_SLOT_TIME = "SELECT slotid, slottime\n"
-            + "	FROM tblslot";
+    private static final String GET_ALL_SLOT_TIME = "SELECT slotID, slotTime\n"
+            + "	FROM tblSlot";
+
+    private static final String CHECK_AVALABLE_SLOT = "SELECT eventID FROM tblEventPost WHERE statusTypeID != 'DE' AND status = '1' AND takePlaceDate = ? AND location = ? AND tblEventPost.slotID = ?";
+
+    public boolean checkAvailableSlot(EventPost event) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean check = true;
+        try {
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(CHECK_AVALABLE_SLOT);
+
+            ps.setDate(1, java.sql.Date.valueOf(event.getTakePlaceDate()));
+            ps.setInt(2, Integer.parseInt(event.getLocation()));
+            ps.setInt(3, event.getSlotID());
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                check = false;
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 
     //statusTypeID = PE va AP, location = ?, slot = ?, takePlaceDate = ?, status = true => tra ve true
     public List<EventPost> searchEventByDate(String fromDate, String endDate, String orgID) throws SQLException {
@@ -161,8 +197,8 @@ public class EventDAO {
                 ps.setString(3, orgID);
             }
 
-            ps.setObject(1, Timestamp.valueOf(fromDate + " 00:00:00"));
-            ps.setObject(2, Timestamp.valueOf(endDate + " 00:00:00"));
+            ps.setObject(1, java.sql.Date.valueOf(fromDate));
+            ps.setObject(2, java.sql.Date.valueOf(endDate));
 
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -576,7 +612,7 @@ public class EventDAO {
 
                 ps.setObject(14, LocalDate.parse(event.getCreateDate()));
 
-                ps.setObject(15, Timestamp.valueOf(event.getTakePlaceDate()));
+                ps.setObject(15, java.sql.Date.valueOf(event.getTakePlaceDate()));
 
                 ps.setInt(16, event.getParticipationLimit());
                 if (ps.executeUpdate() > 0) {
@@ -653,7 +689,7 @@ public class EventDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(UPDATE_AN_EVENT_BY_MOD);
-                ps.setObject(1, Timestamp.valueOf(event.getTakePlaceDate()));
+                ps.setObject(1, java.sql.Date.valueOf(event.getTakePlaceDate()));
                 ps.setString(2, event.getContent());
                 ps.setString(3, event.getTitle());
                 ps.setInt(4, Integer.parseInt(event.getLocation()));
@@ -1034,15 +1070,13 @@ public class EventDAO {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     int slotID = rs.getInt("slotId");
-                    String slotName = rs.getString("slotName");
-                    SlotTime slotTime = new SlotTime(slotID, slotName);
-                    slotTimeList.add(slotTime);
+                    String slotTime = rs.getString("slotTime");
+                    slotTimeList.add(new SlotTime(slotID, slotTime));
                 }
             }
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EventDAO.class
-                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
