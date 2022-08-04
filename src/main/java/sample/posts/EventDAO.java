@@ -124,15 +124,15 @@ public class EventDAO {
     private static final String GET_ALL_ACTUAL_PARTICIPANTS_BY_EVENT_ID = "select fullName, email, phone, gender from tblParticipants, tblUsers where tblParticipants.status = '1' AND tblParticipants.userID = tblUsers.userID AND participantCheck = '1' AND eventID = ?";
 
     private static final String SEARCH_DATE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
-            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblSlot.slotID, slotTime\n"
-            + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
+            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblEventPost.slotID, slotTime\n"
+            + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.slotID = tblSlot.slotID\n"
             + "AND tblEventPost.takePlaceDate between ? and ?";
 
     private static final String SEARCH_DATE_BY_ORG = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
-            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblSlot.slotID, slotTime\n"
-            + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
+            + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblEventPost.slotID, slotTime\n"
+            + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
             + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.slotID = tblSlot.slotID\n"
             + "AND tblEventPost.takePlaceDate between ? and ?\n"
