@@ -17,7 +17,8 @@ public class EventPost extends Post {
     private String approvalDes;
     private int numberOfParticipants;
     private int participationLimit;
-    private String slot;
+    private int slotID;
+    private String slotTime;
 
     public EventPost() {
     }
@@ -114,7 +115,7 @@ public class EventPost extends Post {
         this.participationLimit = participationLimit;
     }
 
-    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String approvalDes, String id, String orgID, String orgName, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status, int numberOfParticipants, int participationLimit) {
+    public EventPost(String takePlaceDate, String location, String eventType, String speaker, String eventTypeName, String locationName, String statusTypeID, String statusTypeName, String approvalDes, String id, String orgID, String orgName, String title, String content, String createDate, String imgUrl, int numberOfView, String summary, boolean status, int numberOfParticipants, int participationLimit, int slotID, String slotTime) {
         super(id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status);
         this.takePlaceDate = takePlaceDate;
         this.location = location;
@@ -127,6 +128,8 @@ public class EventPost extends Post {
         this.approvalDes = approvalDes;
         this.numberOfParticipants = numberOfParticipants;
         this.participationLimit = participationLimit;
+        this.slotID = slotID;
+        this.slotTime = slotTime;
     }
 
     public String getTakePlaceDate() {
@@ -215,6 +218,22 @@ public class EventPost extends Post {
 
     public void setParticipationLimit(int participationLimit) {
         this.participationLimit = participationLimit;
+    }
+
+    public int getSlotID() {
+        return slotID;
+    }
+
+    public void setSlotID(int slotID) {
+        this.slotID = slotID;
+    }
+
+    public String getSlotTime() {
+        return slotTime;
+    }
+
+    public void setSlotTime(String slotTime) {
+        this.slotTime = slotTime;
     }
     
 }
