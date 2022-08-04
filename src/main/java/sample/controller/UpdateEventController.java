@@ -187,6 +187,7 @@ public class UpdateEventController extends HttpServlet {
                         url = "MainController?action=EventDetail&eventID=" + id;
                     }
                 } else {
+                    if(request.getAttribute("DUP_SLOT") == null)
                     request.setAttribute("FAILED", "failed");
                 }
 
