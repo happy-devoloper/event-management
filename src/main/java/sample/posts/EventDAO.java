@@ -293,15 +293,17 @@ public class EventDAO {
                 String eventTypeName = rs.getString("eventTypeName");
                 String locationName = rs.getString("locationName");
                 String statusTypeID = rs.getString("statusTypeID");
+                String statusTypeName = rs.getString("statusTypeName");
+
                 int slotID = rs.getInt("slotID");
                 String slotTime = rs.getString("slotTime");
 
                 if (!eventType.equals(onGoing)) {
-                    EventPost event = new EventPost(takePlaceDate.toString(), location, eventType, speaker, eventTypeName, locationName, statusTypeID, "", "", id, orgIDOfEvent, "", title, content, createDate, imgUrl, numberOfView, summary, status, 0, 0, slotID, slotTime);
+                    EventPost event = new EventPost(takePlaceDate.toString(), location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, "", id, orgIDOfEvent, "", title, content, createDate, imgUrl, numberOfView, summary, status, 0, 0, slotID, slotTime);
                     listEvent.add(event);
                 } else {
                     if (nowDate.before(takePlaceDate) && status == true) {
-                        EventPost event = new EventPost(takePlaceDate.toString(), location, eventType, speaker, eventTypeName, locationName, statusTypeID, "", "", id, orgIDOfEvent, "", title, content, createDate, imgUrl, numberOfView, summary, status, 0, 0, slotID, slotTime);
+                        EventPost event = new EventPost(takePlaceDate.toString(), location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, "", id, orgIDOfEvent, "", title, content, createDate, imgUrl, numberOfView, summary, status, 0, 0, slotID, slotTime);
                         listEvent.add(event);
 
                     }
