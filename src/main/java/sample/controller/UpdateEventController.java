@@ -115,7 +115,7 @@ public class UpdateEventController extends HttpServlet {
                     }
 
                 } else {
-                    request.setAttribute("DUP_SLOT", "failed");
+                    request.setAttribute("DUP_SLOT", "dupSlot");
                     if ("Club_Event.jsp".equals(page)) {
                         url = CLB_PAGE;
                     } else {
@@ -161,7 +161,7 @@ public class UpdateEventController extends HttpServlet {
                             check = true;
                         }
                     } else {
-                        request.setAttribute("DUP_SLOT", "failed");
+                        request.setAttribute("DUP_SLOT", "dupSlot");
                         if ("Mod_Event.jsp".equals(page)) {
                             url = MOD_PAGE;
                         } else {

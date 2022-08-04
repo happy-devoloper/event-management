@@ -117,7 +117,7 @@ public class AddAnEventController extends HttpServlet {
             if (evtDao.checkAvailableSlot(event)) {
                 boolean checkCreate = evtDao.createAnEvent(event);
                 if (checkCreate == true) {
-                    request.setAttribute("SUCCESSS", "success");
+                    request.setAttribute("SUCCESS", "success");
                     if ("MOD".equals(manager.getRoleID())) {
                         url = MOD_PAGE;
                     } else {
@@ -134,7 +134,7 @@ public class AddAnEventController extends HttpServlet {
                     request.setAttribute("FAILED", "failed");
                 }
             } else {
-                request.setAttribute("DUP_SLOT", "failed");
+                request.setAttribute("DUP_SLOT", "dupSlot");
                 if ("MOD".equals(manager.getRoleID())) {
                     url = MOD_PAGE;
                 } else {

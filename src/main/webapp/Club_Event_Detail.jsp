@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="sample.slot.SlotTime"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.time.LocalDateTime"%>
@@ -478,7 +479,7 @@
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input required="" type="date" value="<%=evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%=evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
                                                                 </div>
@@ -566,7 +567,7 @@
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input required="" type="date" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 
@@ -785,7 +786,7 @@
                                                                 <div class="row form-group">
                                                                     <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input disabled="" type="date" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input disabled="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 
@@ -1182,6 +1183,7 @@
     <%
         String success = (String) request.getAttribute("SUCCESS");
         String failed = (String) request.getAttribute("FAILED");
+        String dupSlot = (String) request.getAttribute("DUP_SLOT");
 
         if ("success".equals(success)) {
     %>
@@ -1226,6 +1228,26 @@
             "position-class": "toast-top-full-width"
         }
         toastr["error"]("Failed!!!").css("height", "50px");
+    </script>
+    <% } else if ("dupSlot".equals(dupSlot)) { %>
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "5000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+            "position-class": "toast-top-full-width"
+        }
+        toastr["error"]("Location has been occupied!!").css("height", "50px");
     </script>
     <% }%>
 </body>

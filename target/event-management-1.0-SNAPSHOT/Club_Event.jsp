@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="sample.slot.SlotTime"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.time.LocalDateTime"%>
@@ -310,7 +311,7 @@
                                     <p style="color: red"><%= evtError.getTakePlaceDate()%></p>
                                     <div class="input-group input-group-icon " style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
                                         <!--<input required="" type="date" value="" name="takePlaceDate" class="font-color"/>-->
-                                        <input required="" type="date" id="curdate" value="" name="takePlaceDate" class="font-color"/>
+                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="" name="takePlaceDate" class="font-color"/>
 
                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                     </div>
@@ -709,7 +710,7 @@
                                                                                 <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                                 <%= evtError.getTakePlaceDate()%>
                                                                                 <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">                                                               
-                                                                                    <input required="" type="date" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                                    <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                                     <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                                 </div>
 
@@ -1040,7 +1041,7 @@
             }
             toastr["error"]("Failed!!!").css("height", "50px");
         </script>
-        <% } else if ("failed".equals(dupSlot)) { %>
+        <% } else if ("dupSlot".equals(dupSlot)) { %>
         <script>
             toastr.options = {
                 "closeButton": true,

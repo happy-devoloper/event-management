@@ -53,13 +53,13 @@
                     Back!
                 </a>
 
-                <a class="btn"  href="#!" class="brand-logo" style="font-size: 15pt; color: white; background-color: #FC8272">
+                <button class="btn"  onclick="exportData()" class="brand-logo" style="font-size: 15pt; color: white; background-color: #FC8272">
                     Export To Excel!
-                </a> 
+                </button> 
             </div>
             </br>
 
-            <table class="m-md-auto" style="border-radius: 10px;">
+            <table class="m-md-auto" id="tblFeedbacks" style="border-radius: 10px;">
                 <tr>
                     <th>Feedback ID</th>
                     <th>Event ID</th>
@@ -85,7 +85,7 @@
         <script>
             function exportData() {
                 /* Get the HTML data using Element by Id */
-                var table = document.getElementById("tblListParicipants");
+                var table = document.getElementById("tblFeedbacks");
 
                 /* Declaring array variable */
                 var rows = [];
