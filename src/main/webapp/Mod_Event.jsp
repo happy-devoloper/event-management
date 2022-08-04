@@ -736,7 +736,7 @@
                                                                             <div class="row">                                                                                
                                                                                 <select name="slotID" class="md-6">
                                                                                     <option hidden="" selected="" value="<%=event.getSlotID()%>"><%=event.getSlotTime()%></option>
-                                                                                    <%for (int j = 0; j < listEvtType.size(); j++) {
+                                                                                    <%for (int j = 0; j < listSlotTime.size(); j++) {
                                                                                     %>
                                                                                     <option value="<%=listSlotTime.get(j).getSlotID()%>"><%=listSlotTime.get(j).getSlotTime()%></option>
                                                                                     <%
