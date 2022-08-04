@@ -273,26 +273,7 @@
 
                                 <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
 
-                                <div class="row">
-                                    <select name="location" class="md-6">
-                                        <option hidden="" selected="" disabled="">Select Event Location</option>
-                                        <%for (int i = 0; i < listEvtLocation.size(); i++) {
-                                        %>
-                                        <option value="<%=listEvtLocation.get(i).getLocationID()%>"><%=listEvtLocation.get(i).getLocaitonName()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                    <select name="eventType" class="md-6">
-                                        <option hidden="" selected="" disabled="">Select Event Type</option>
-                                        <%for (int i = 0; i < listEvtType.size(); i++) {
-                                        %>
-                                        <option value="<%=listEvtType.get(i).getEventTypeID()%>"><%=listEvtType.get(i).getEventTypeName()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                </div>
+           
 
                                 <div class="row">
                                     <select name="slotID" class="md-6">
@@ -604,6 +585,7 @@
                                                 <tr>
                                                     <th class="text-center">EventID</th>
                                                     <th class="text-center">Take Place Date</th>
+                                                    <th class="text-center">Time</th>
                                                     <th class="text-center">Club</th>
                                                     <th style="width: 250px" class="text-center">Event Title</th>
                                                     <th class="text-center">Event Type</th>
@@ -623,6 +605,7 @@
                                                 <tr>
                                                     <td class="text-center">#<%=listEvent.get(i).getId()%></td>
                                                     <td class="text-center"><%=listEvent.get(i).getTakePlaceDate()%></td>
+                                                    <td class="text-center"><%=listEvent.get(i).getSlotTime()%></td>
                                                     <td class="text-center"><%=listEvent.get(i).getOrgID()%></td>
 
                                                     <td class="text-left"><span class="text-wrap"><%=listEvent.get(i).getTitle()%></span>

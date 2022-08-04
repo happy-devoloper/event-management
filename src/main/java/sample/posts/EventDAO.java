@@ -26,16 +26,16 @@ import sample.util.DBUtils;
  */
 public class EventDAO {
 
-    private static final String GET_ALL_EVENT_POST = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
-            + "                        FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
-            + "                        WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID";
+    private static final String GET_ALL_EVENT_POST = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblSlot.slotID, tblSlot.slotTime\n"
+            + "                        FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
+            + "                        WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID and tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblSlot.slotID = tblEventPost.slotID";
 
     private static final String GET_ALL_EVENT_BY_TITLE = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary, \n"
-            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
-            + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType\n"
+            + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblSlot.slotID, slotTime\n"
+            + "            FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
             + "            WHERE (ufn_removeMark(tblEventPost.title) LIKE ufn_removeMark(?) or title LIKE ?)\n"
             + "            and tblEventPost.eventTypeID = tblEventType.eventTypeID and \n"
-            + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID";
+            + "            tblEventPost.location = tblLocation.locationID and tblEventPost.statusTypeID = tblStatusType.statusTypeID and tblSlotID.slotID = tblEventPost.slotID";
 
     private static final String GET_AN_EVENT_BY_ID = "SELECT eventID, tblOrgPage.orgID, tblEventPost.createDate, takePlaceDate, content, title, location, tblEventPost.imgUrl, tblEventPost.eventTypeID, numberOfView, speaker, summary,\n"
             + "            tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblOrgPage.orgName, participationLimit, tblSlot.slotID, slotTime\n"
@@ -45,8 +45,8 @@ public class EventDAO {
 
     private static final String ADD_AN_EVENT = "INSERT INTO tblEventPost\n"
             + "           (eventID, orgID, status, statusTypeID, content,\n"
-            + "		   title, location ,imgUrl, eventTypeID, numberOfView, speaker, approvalDes, summary, createDate ,takePlaceDate, participationLimit)\n"
-            + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + "		   title, location ,imgUrl, eventTypeID, numberOfView, speaker, approvalDes, summary, createDate ,takePlaceDate, participationLimit, slotID)\n"
+            + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String CHECK_EVENT_DUPLICATE = "SELECT eventID FROM tblEventPost where eventID = ?";
 
@@ -93,7 +93,7 @@ public class EventDAO {
             + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblEventPost.slotId, slotTime\n"
             + "FROM tblEventPost, tblEventType, tblLocation, tblStatusType, tblSlot\n"
             + "WHERE tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblEventPost.location = tblLocation.locationID\n"
-            + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblEventPost.orgID = ? ";
+            + "AND tblEventPost.statusTypeID = tblStatusType.statusTypeID AND tblSlot.slotID = tblEventPost.slotID AND tblEventPost.orgID = ? ";
 
     private static final String GET_ALL_EVENT_BY_TYPE_AND_ORG = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
             + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes\n"
@@ -156,7 +156,7 @@ public class EventDAO {
             ps.setInt(2, Integer.parseInt(event.getLocation()));
             ps.setInt(3, event.getSlotID());
             ps.setString(4, event.getId());
-            
+
             rs = ps.executeQuery();
             if (rs.next()) {
                 check = false;
@@ -410,8 +410,10 @@ public class EventDAO {
                 String statusTypeID = rs.getString("statusTypeID");
                 String statusTypeName = rs.getString("statusTypeName");
                 String approvalDes = rs.getString("approvalDes");
+                int slotID = rs.getInt("slotID");
+                String slotTime = rs.getString("slotTime");
 
-                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, title, content, createDate, imgUrl, numberOfView, summary, status);
+                EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, "", title, content, createDate, imgUrl, numberOfView, summary, status, 0, 0, slotID, slotTime);
                 listEvent.add(event);
 
             }
@@ -466,8 +468,10 @@ public class EventDAO {
                     String statusTypeID = rs.getString("statusTypeID");
                     String statusTypeName = rs.getString("statusTypeName");
                     String approvalDes = rs.getString("approvalDes");
+                    int slotID = rs.getInt("slotID");
+                    String slotTime = rs.getString("slotTime");
 
-                    EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, title, content, createDate, imgUrl, numberOfView, summary, status);
+                    EventPost event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, "", title, content, createDate, imgUrl, numberOfView, summary, status, 0, 0, slotID, slotTime);
                     listEvent.add(event);
 
                 }
@@ -525,7 +529,7 @@ public class EventDAO {
                     int participationLimit = rs.getInt("participationLimit");
                     int slotID = rs.getInt("slotID");
                     String slotTime = rs.getString("slotTime");
-                    
+
                     event = new EventPost(takePlaceDate, location, eventType, speaker, eventTypeName, locationName, statusTypeID, statusTypeName, approvalDes, id, orgID, orgName, title, content, createDate, imgUrl, numberOfView, summary, status, 0, participationLimit, slotID, slotTime);
                 }
             }
@@ -614,6 +618,8 @@ public class EventDAO {
                 ps.setObject(15, java.sql.Date.valueOf(event.getTakePlaceDate()));
 
                 ps.setInt(16, event.getParticipationLimit());
+                ps.setInt(17, event.getSlotID());
+
                 if (ps.executeUpdate() > 0) {
                     check = true;
                 }
@@ -686,7 +692,7 @@ public class EventDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                
+
                 ps = conn.prepareStatement(UPDATE_AN_EVENT_BY_MOD);
                 ps.setObject(1, java.sql.Date.valueOf(event.getTakePlaceDate()));
                 ps.setString(2, event.getContent());
