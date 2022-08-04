@@ -389,7 +389,6 @@
 
                                             <!--============ UPDATE EVENT ============-->                                           
                                             <%    if (evt != null) {
-                                                    evt.setTakePlaceDate(evt.getTakePlaceDate().replace(' ', 'T'));
                                                     Date now = new Date(System.currentTimeMillis());
                                                     Date takePlaceDate = Date.valueOf(evt.getTakePlaceDate());
                                                     if (takePlaceDate.after(now)) { //  ĐƯỢC EDIT
@@ -405,11 +404,12 @@
                                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                                 </button>
                                                             </div>
-
                                                         </div>
 
-                                                        <div class="modal-body" style="padding: 0px 60px;">                                                                            
-                                                            <form action="MainController" method="POST" enctype="multipart/form-data">
+                                                        <form action="MainController" method="POST" enctype="multipart/form-data">
+
+
+                                                            <div class="modal-body" style="padding: 0px 60px;">                                                                            
                                                                 <div style="text-align: center">
                                                                     <h1 class="Information ">Update Event</h1>
                                                                 </div>
@@ -441,8 +441,6 @@
                                                                 <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Event's Type, Slot  Location</h4>
 
                                                                 <div class="row form-group">
-
-
                                                                     <select name="slotID" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getSlotID()%>"><%=evt.getSlotTime()%></option>
                                                                         <%for (int j = 0; j < listEvtType.size(); j++) {
@@ -479,7 +477,7 @@
 
                                                                 <div class="row form-group">
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%=evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="<%=evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
                                                                 </div>
@@ -531,9 +529,6 @@
                                                                 <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Event's Type, Slot  Location</h4>
 
                                                                 <div class="row form-group">  
-
-
-
                                                                     <select name="slotID" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getSlotID()%>"><%=evt.getSlotTime()%></option>
                                                                         <%for (int j = 0; j < listEvtType.size(); j++) {
@@ -554,6 +549,7 @@
                                                                     </select>
 
                                                                 </div>
+
                                                                 <div class="row">
                                                                     <select style="width: 100%" name="location">
                                                                         <option hidden="" selected="" value="<%=evt.getLocation()%>"><%=evt.getLocationName()%></option>
@@ -565,11 +561,12 @@
                                                                         %>
                                                                     </select>
                                                                 </div>
+
                                                                 <h4 style="margin-top: 20px"><i class="fa fa-calendar" aria-hidden="true"></i> Take Place Date</h4>
                                                                 <div class="row form-group">
 
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 
@@ -661,14 +658,15 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="row modal-footer justify-content-center">
-                                                                    <button type="submit" style="cursor: pointer" class="login-box" name="action" value="UpdateEvent">
-                                                                        Update Event
-                                                                    </button>
-                                                                    <button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
+
+                                                            </div>
+                                                            <div class="row modal-footer justify-content-center">
+                                                                <button type="submit" style="cursor: pointer" class="login-box" name="action" value="UpdateEvent">
+                                                                    Update Event
+                                                                </button>
+                                                                <button  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -683,7 +681,6 @@
                                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                                 </button>
                                                             </div>
-
                                                         </div>
 
                                                         <div class="modal-body" style="padding: 0px 60px;">                                                                            
@@ -695,36 +692,7 @@
                                                                 <input type="hidden" name="eventID" value="<%=evt.getId()%>"> 
 
 
-                                                                <% if ("MOD".equals(user.getRoleID()) && !"FPT".equals(evt.getOrgID())) { // NHUNG THANG CON LAI %>
-                                                                <div class="flex-row-reverse">
-                                                                    <div class="row">
-                                                                        <h4>Status</h4>
-                                                                        <%
-                                                                            if (evt.isStatus() == false) {
-                                                                        %>
-                                                                        <div class="input-group">
-                                                                            <input disabled="" id="status-true" type="radio" name="status" value="true"/>
-                                                                            <label for="status-true">Active</label>
 
-                                                                            <input disabled="" id="status-false" type="radio" name="status" checked="" value="false"/>
-                                                                            <label for="status-false">Inactive</label>
-                                                                        </div>
-                                                                        <%
-                                                                        } else {
-                                                                        %>
-                                                                        <div class="input-group">
-                                                                            <input disabled="" id="status-true" type="radio" checked="" name="status" value="true"/>
-                                                                            <label for="status-true">Active</label>
-
-                                                                            <input disabled="" id="status-false" type="radio" name="status"  value="false"/>
-                                                                            <label for="status-false">Inactive</label>
-                                                                        </div>
-                                                                        <%                     }
-                                                                        %>
-                                                                    </div>
-                                                                </div>
-
-                                                                <% } else {%>
                                                                 <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
 
                                                                 <div class="row form-group">
@@ -752,7 +720,6 @@
 
                                                                 <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Event's Type, Slot  Location</h4>
                                                                 <div class="row form-group">
-
 
 
                                                                     <select name="slotID" class="md-6">
@@ -790,394 +757,396 @@
                                                                 <div class="row form-group">
 
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input disabled="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input disabled="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 
                                                                 </div>
 
-                                                                <div class="row">     
-                                                                    <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Summary</h4>                                                                        <div class="update-content form-group">
+                                                                <div class="row">
 
-                                                                        <div class="form-group">
-                                                                            <div class="update-content form-group">
+                                                                    <div class="form-group">
+                                                                        <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Summary</h4>
+                                                                        <div class="update-content form-group">
+                                                                            <div class="update-content">
                                                                                 <textarea disabled="" name="summary" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                           placeholder="Enter Event's Summary Here*"><%=evt.getSummary()%></textarea>
                                                                             </div>
                                                                         </div>
-
-                                                                        <div class="form-group">
-                                                                            <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Description</h4>                                                                        <div class="update-content form-group">
-
-                                                                                <div class="update-content">
-                                                                                    <textarea disabled="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
-                                                                                              placeholder="Enter Event's Description Here*"><%=evt.getContent()%></textarea>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="flex-row-reverse">
-                                                                            <div class="row">
-                                                                                <h4>Status</h4>
-                                                                                <%
-                                                                                    if (evt.isStatus() == false) {
-                                                                                %>
-                                                                                <div class="input-group">
-                                                                                    <input disabled="" id="status-true" type="radio" name="status" value="true"/>
-                                                                                    <label for="status-true">Active</label>
-
-                                                                                    <input disabled="" id="status-false" type="radio" name="status" checked="" value="false"/>
-                                                                                    <label for="status-false">Inactive</label>
-                                                                                </div>
-                                                                                <%
-                                                                                } else {
-                                                                                %>
-                                                                                <div class="input-group">
-                                                                                    <input disabled="" id="status-true" type="radio" checked="" name="status" value="true"/>
-                                                                                    <label for="status-true">Active</label>
-
-                                                                                    <input disabled="" id="status-false" type="radio" name="status"  value="false"/>
-                                                                                    <label for="status-false">Inactive</label>
-                                                                                </div>
-                                                                                <%                     }
-                                                                                %>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <% } %>
-
-                                                                        <div class="row justify-content-center modal-footer">                                                                   
-                                                                            <button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        </div>
-                                                                        </form>
                                                                     </div>
+
+                                                                    <div class="form-group">
+                                                                        <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Description</h4>
+                                                                        <div class="update-content form-group">
+                                                                            <div class="update-content">
+                                                                                <textarea disabled="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                                          placeholder="Enter Event's Description Here*"><%=evt.getContent()%></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="flex-row-reverse">
+                                                                        <div class="row">
+                                                                            <h4>Status</h4>
+                                                                            <%
+                                                                                if (evt.isStatus() == false) {
+                                                                            %>
+                                                                            <div class="input-group">
+                                                                                <input disabled="" id="status-true" type="radio" name="status" value="true"/>
+                                                                                <label for="status-true">Active</label>
+
+                                                                                <input disabled="" id="status-false" type="radio" name="status" checked="" value="false"/>
+                                                                                <label for="status-false">Inactive</label>
+                                                                            </div>
+                                                                            <%
+                                                                            } else {
+                                                                            %>
+                                                                            <div class="input-group">
+                                                                                <input disabled="" id="status-true" type="radio" checked="" name="status" value="true"/>
+                                                                                <label for="status-true">Active</label>
+
+                                                                                <input disabled="" id="status-false" type="radio" name="status"  value="false"/>
+                                                                                <label for="status-false">Inactive</label>
+                                                                            </div>
+                                                                            <%                     }
+                                                                            %>
+                                                                        </div>
+                                                                    </div>
+
+
                                                                 </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="row justify-content-center modal-footer">                                                                   
+                                                            <button  class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
 
-                                                    <% }
+                                            <%
+                                                    }
                                                 }%>
 
 
+                                            <!--================================================================-->
 
-                                                    <!--================================================================-->
-
-                                                    <!--===============================-->
+                                            <!--===============================-->
 
 
-                                                    <div class="row">
-                                                        <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                            <div class="media bg-light p-3 rounded align-items-center">	
-                                                                <div class="media-body">
-                                                                    <span class="fs-12 d-block mb-1"><i class="fa fa-eye" aria-hidden="true"></i>  Viewer</span>
-                                                                    <span class="fs-16 text-black"><%=evt.getNumberOfView()%> View</span>
-                                                                </div>
-                                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-eye" aria-hidden="true"></i>  Viewer</span>
+                                                            <span class="fs-16 text-black"><%=evt.getNumberOfView()%> View</span>
                                                         </div>
-                                                        <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                            <div class="media bg-light p-3 rounded align-items-center">	
-                                                                <div class="media-body">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
+                                                        <div class="media-body">
 
-                                                                    <span class="fs-12 d-block mb-1"><i class="fa fa-users" aria-hidden="true"></i>  Participants</span>
-                                                                    <span class="fs-16 text-black"><%=participants%>/<%=evt.getParticipationLimit()%>
-                                                                        People</span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-users" aria-hidden="true"></i>  Participants</span>
+                                                            <span class="fs-16 text-black"><%=participants%>/<%=evt.getParticipationLimit()%>
+                                                                People</span>
 
-                                                                </div>
-                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                            <div class="media bg-light p-3 rounded align-items-center">	
-                                                                <div class="media-body">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
+                                                        <div class="media-body">
 
-                                                                    <span class="fs-12 d-block mb-1"><i class="fa fa-address-book" aria-hidden="true"></i>
-                                                                        Club</span>
-                                                                    <span class="fs-16 text-black"><%=evt.getOrgName()%></span>
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-address-book" aria-hidden="true"></i>
+                                                                Club</span>
+                                                            <span class="fs-16 text-black"><%=evt.getOrgName()%></span>
 
-                                                                </div>
-                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                            <div class="media bg-light p-3 rounded align-items-center">	
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
 
-                                                                <div class="media-body">
-                                                                    <span class="fs-12 d-block mb-1"><i class="fa fa-map-marker" aria-hidden="true"></i>  Location</span>
-                                                                    <span class="fs-16 text-black"><%=evt.getLocationName()%></span>
-                                                                </div>
-                                                            </div>
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-map-marker" aria-hidden="true"></i>  Location</span>
+                                                            <span class="fs-16 text-black"><%=evt.getLocationName()%></span>
                                                         </div>
-                                                        <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                            <div class="media bg-light p-3 rounded align-items-center">	
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
 
-                                                                <div class="media-body">
-                                                                    <span class="fs-12 d-block mb-1"><i class="fa fa-calendar" aria-hidden="true"></i>  Date</span>
-                                                                    <span class="fs-16 text-black"><%=evt.getTakePlaceDate()%></span>
-                                                                </div>
-                                                            </div>
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-calendar" aria-hidden="true"></i>  Date</span>
+                                                            <span class="fs-16 text-black"><%=evt.getTakePlaceDate()%></span>
                                                         </div>
-                                                        <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
-                                                            <div class="media bg-light p-3 rounded align-items-center">	
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xxl-4 mb-3">
+                                                    <div class="media bg-light p-3 rounded align-items-center">	
 
-                                                                <div class="media-body">
-                                                                    <span class="fs-12 d-block mb-1"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                                        Time</span>
-                                                                    <span class="fs-16 text-black"><%=evt.getSlotTime()%></span>
-                                                                </div>
-                                                            </div>
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                                Time</span>
+                                                            <span class="fs-16 text-black"><%=evt.getSlotTime()%></span>
                                                         </div>
+                                                    </div>
+                                                </div>
 
 
-                                                        <%if ("CLB".equals(user.getRoleID()) && "DE".equals(evt.getStatusTypeID())) {
-                                                        %>
-                                                        <div class="col-lg-12 col-md-12 col-xxl-12 mb-12">
-                                                            <div class="media bg-light p-3 rounded align-items-center">
+                                                <%if ("CLB".equals(user.getRoleID()) && "DE".equals(evt.getStatusTypeID())) {
+                                                %>
+                                                <div class="col-lg-12 col-md-12 col-xxl-12 mb-12">
+                                                    <div class="media bg-light p-3 rounded align-items-center">
 
-                                                                <div class="media-body">
-                                                                    <span class="fs-12 d-block mb-1"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                                                                        Decline Description</span>
-                                                                    <span class="fs-16 text-black"><%=evt.getApprovalDes()%></span>
-                                                                </div>
-                                                            </div>
+                                                        <div class="media-body">
+                                                            <span class="fs-12 d-block mb-1"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                                                Decline Description</span>
+                                                            <span class="fs-16 text-black"><%=evt.getApprovalDes()%></span>
                                                         </div>
-                                                        <%
-                                                            }
-                                                        %>   
+                                                    </div>
+                                                </div>
+                                                <%
+                                                    }
+                                                %>   
+                                            </div>
+
+                                            <h4 style="margin-top: 10px" class="fs-20 text-black font-w600">Event Summary</h4>
+                                            <p class="fs-14 mb-0"><%=evt.getSummary()%>
+                                            </p>
+
+                                            <br>
+
+                                            <h4 class="fs-20 text-black font-w600">Event Description </h4>
+                                            <p class="fs-14 mb-0"><%=evt.getContent()%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>                               
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card event-detail-bx overflow-hidden ">
+                                        <div class="card-body">
+                                            <div class="comments">
+
+                                                <!-- Phần Mình Sẽ Comment -->
+                                                <div class="comment-box add-comment header-right">
+                                                    <span>
+                                                        <img src="<%= user.getPicture()%>" style="border-radius: 1.25rem;" width="40" height="40">
+                                                    </span>
+                                                    <span class="commenter-name">
+                                                        <form action="MainController" method="POST">
+                                                            <input type="hidden" name="eventID" value="<%= evt.getId()%>" />
+                                                            <input type="text" placeholder="Add a public comment" name="content">
+                                                            <button type="submit" name="action" value="Comment" class="btn btn-primary">Comment</button>
+                                                            <button type="Reset" class="btn btn-default">Cancel</button>
+                                                        </form>
+
+                                                    </span>
+                                                </div>
+
+                                                <div class="comments-details">
+                                                    <span class="total-comments comments-sort"><%= listCmt.size()%> Comments</span>
+                                                </div>
+
+                                                <div class="accordion" id="myaccordion" />
+                                                <%
+                                                    int count = 0;
+
+                                                    if (listCmt
+                                                            != null) {
+                                                        for (CommentDTO cmt : listCmt) {
+                                                            if (cmt.getReplyID() == null) {
+                                                                String countString = "reply" + count;
+                                                                count++;
+                                                %>
+
+
+                                                <div class="comment-box header-right">
+                                                    <span class="commenter-pic header-profile">
+                                                        <img src="<%= cmt.getAvatarUrl()%>">
+                                                    </span>
+                                                    <span class="commenter-name">
+                                                        <a href="#"><%= cmt.getUserName()%> (<%= cmt.getUserRoleName()%>)</a> <span class="comment-time"><%= cmt.getTime()%></span>
+                                                    </span>
+
+                                                    <!-- +================ DeleteCOmment ============= -->
+
+                                                    <button class="commenter-edit" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <form action="MainController" method="POST">                                                
+                                                            <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
+                                                            <input type="hidden" name="commentID" value="<%= cmt.getCommentID()%>"/>
+                                                            <button  onclick="return checkCmt();" name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
+                                                        </form>
                                                     </div>
 
-                                                    <h4 style="margin-top: 10px" class="fs-20 text-black font-w600">Event Summary</h4>
-                                                    <p class="fs-14 mb-0"><%=evt.getSummary()%>
-                                                    </p>
+                                                    <!-- ================================== -->
 
-                                                    <br>
 
-                                                    <h4 class="fs-20 text-black font-w600">Event Description </h4>
-                                                    <p class="fs-14 mb-0"><%=evt.getContent()%>
-                                                    </p>
+                                                    <p class="comment-txt more"><%= cmt.getContent()%></p>
+                                                    <div class="comment-meta">
+                                                        <span>
+                                                            <a class="btn btn-outline-primary" data-toggle="collapse"
+                                                               href="#<%= countString%>" aria-expanded="false" data-parent="#myaccordion"
+                                                               >Reply</a>
+                                                        </span>
+                                                    </div>
+
+
+                                                    <!-- REPLY COMMENT KHI ẤN REPLY -->
+                                                    <!-- mỗi ID có một popup khác nhau -->
+
+                                                    <div  class="collapse" id="<%= countString%>">
+                                                        <form action="MainController" method="POST" >
+                                                            <input type="hidden" name="eventID" value="<%= evt.getId()%>" />
+                                                            <input type="hidden" name="replyCommentID" value="<%= cmt.getCommentID()%>" />
+
+                                                            <div class="form-group">
+                                                                <label style="font-weight: bold" for="comment"><%= user.getName()%> (<%= user.getRoleID()%>)</label>
+                                                                <textarea name="content" class="form-control" rows="3"></textarea>
+                                                            </div>
+                                                            <button type="submit" name="action" value="ReplyComment" class="btn btn-outline-info">Send</button>
+                                                        </form>
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>                               
-                                    </div>
 
 
+                                                <%   for (CommentDTO cmtRep : listCmt) {
+                                                        if (cmt.getCommentID() != cmtRep.getCommentID()) {
+                                                            if ((cmt.getCommentID()).equals(cmtRep.getReplyID())) {
+                                                %>
 
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="card event-detail-bx overflow-hidden ">
-                                                <div class="card-body">
-                                                    <div class="comments">
+                                                <div class="comment-box replied header-right">
+                                                    <span class="commenter-pic header-profile">
+                                                        <img src="<%= cmtRep.getAvatarUrl()%>" class="img-fluid">
+                                                    </span>
+                                                    <span class="commenter-name">
+                                                        <a href="#"><%= cmtRep.getUserName()%> (<%= cmtRep.getUserRoleName()%>)</a> <span class="comment-time"><%= cmtRep.getTime()%></span>
+                                                    </span>
 
-                                                        <!-- Phần Mình Sẽ Comment -->
-                                                        <div class="comment-box add-comment header-right">
-                                                            <span>
-                                                                <img src="<%= user.getPicture()%>" style="border-radius: 1.25rem;" width="40" height="40">
-                                                            </span>
-                                                            <span class="commenter-name">
-                                                                <form action="MainController" method="POST">
-                                                                    <input type="hidden" name="eventID" value="<%= evt.getId()%>" />
-                                                                    <input type="text" placeholder="Add a public comment" name="content">
-                                                                    <button type="submit" name="action" value="Comment" class="btn btn-primary">Comment</button>
-                                                                    <button type="Reset" class="btn btn-default">Cancel</button>
-                                                                </form>
+                                                    <!-- +================ DeleteCOmment ============= -->
 
-                                                            </span>
-                                                        </div>
+                                                    <button class="commenter-edit" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
 
-                                                        <div class="comments-details">
-                                                            <span class="total-comments comments-sort"><%= listCmt.size()%> Comments</span>
-                                                        </div>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <form action="MainController" method="POST">                                                
+                                                            <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
+                                                            <input type="hidden" name="commentID" value="<%= cmtRep.getCommentID()%>"/>
+                                                            <button name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
+                                                        </form>
+                                                    </div>
 
-                                                        <div class="accordion" id="myaccordion" />
-                                                        <%
-                                                            int count = 0;
+                                                    <!-- ================================== -->
 
-                                                            if (listCmt
-                                                                    != null) {
-                                                                for (CommentDTO cmt : listCmt) {
-                                                                    if (cmt.getReplyID() == null) {
-                                                                        String countString = "reply" + count;
-                                                                        count++;
-                                                        %>
+                                                    <p class="comment-txt more"><%= cmtRep.getContent()%></p>
+                                                    <div class="comment-meta">
+                                                    </div>
+                                                </div>
 
-
-                                                        <div class="comment-box header-right">
-                                                            <span class="commenter-pic header-profile">
-                                                                <img src="<%= cmt.getAvatarUrl()%>">
-                                                            </span>
-                                                            <span class="commenter-name">
-                                                                <a href="#"><%= cmt.getUserName()%> (<%= cmt.getUserRoleName()%>)</a> <span class="comment-time"><%= cmt.getTime()%></span>
-                                                            </span>
-
-                                                            <!-- +================ DeleteCOmment ============= -->
-
-                                                            <button class="commenter-edit" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
-
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <form action="MainController" method="POST">                                                
-                                                                    <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
-                                                                    <input type="hidden" name="commentID" value="<%= cmt.getCommentID()%>"/>
-                                                                    <button  onclick="return checkCmt();" name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
-                                                                </form>
-                                                            </div>
-
-                                                            <!-- ================================== -->
-
-
-                                                            <p class="comment-txt more"><%= cmt.getContent()%></p>
-                                                            <div class="comment-meta">
-                                                                <span>
-                                                                    <a class="btn btn-outline-primary" data-toggle="collapse"
-                                                                       href="#<%= countString%>" aria-expanded="false" data-parent="#myaccordion"
-                                                                       >Reply</a>
-                                                                </span>
-                                                            </div>
-
-
-                                                            <!-- REPLY COMMENT KHI ẤN REPLY -->
-                                                            <!-- mỗi ID có một popup khác nhau -->
-
-                                                            <div  class="collapse" id="<%= countString%>">
-                                                                <form action="MainController" method="POST" >
-                                                                    <input type="hidden" name="eventID" value="<%= evt.getId()%>" />
-                                                                    <input type="hidden" name="replyCommentID" value="<%= cmt.getCommentID()%>" />
-
-                                                                    <div class="form-group">
-                                                                        <label style="font-weight: bold" for="comment"><%= user.getName()%> (<%= user.getRoleID()%>)</label>
-                                                                        <textarea name="content" class="form-control" rows="3"></textarea>
-                                                                    </div>
-                                                                    <button type="submit" name="action" value="ReplyComment" class="btn btn-outline-info">Send</button>
-                                                                </form>
-
-                                                            </div>
-                                                        </div>
-
-
-                                                        <%   for (CommentDTO cmtRep : listCmt) {
-                                                                if (cmt.getCommentID() != cmtRep.getCommentID()) {
-                                                                    if ((cmt.getCommentID()).equals(cmtRep.getReplyID())) {
-                                                        %>
-
-                                                        <div class="comment-box replied header-right">
-                                                            <span class="commenter-pic header-profile">
-                                                                <img src="<%= cmtRep.getAvatarUrl()%>" class="img-fluid">
-                                                            </span>
-                                                            <span class="commenter-name">
-                                                                <a href="#"><%= cmtRep.getUserName()%> (<%= cmtRep.getUserRoleName()%>)</a> <span class="comment-time"><%= cmtRep.getTime()%></span>
-                                                            </span>
-
-                                                            <!-- +================ DeleteCOmment ============= -->
-
-                                                            <button class="commenter-edit" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
-
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <form action="MainController" method="POST">                                                
-                                                                    <input type="hidden" name="eventID" value="<%= evt.getId()%>"/>
-                                                                    <input type="hidden" name="commentID" value="<%= cmtRep.getCommentID()%>"/>
-                                                                    <button name="action" value="DeleteComment" type="submit" class="dropdown-item" href="">Delete</button>
-                                                                </form>
-                                                            </div>
-
-                                                            <!-- ================================== -->
-
-                                                            <p class="comment-txt more"><%= cmtRep.getContent()%></p>
-                                                            <div class="comment-meta">
-                                                            </div>
-                                                        </div>
-
-                                                        <%
-                                                                                }
-                                                                            }
+                                                <%
                                                                         }
                                                                     }
                                                                 }
-                                                            }%>
-                                                    </div>
-                                                </div>
+                                                            }
+                                                        }
+                                                    }%>
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
-
-
-                            </div>
-
-
-
-                            <div class="col-xl-5">
-                                <div class="row">
-                                    <div class="col-xl-12 col-sm-6">
-                                        <img class="card-img img-fluid" src="<%= evt.getImgUrl()%>">
-                                    </div>
                                 </div>
                             </div>
+                        </div> 
 
 
+                    </div>
+
+
+
+                    <div class="col-xl-5">
+                        <div class="row">
+                            <div class="col-xl-12 col-sm-6">
+                                <img class="card-img img-fluid" src="<%= evt.getImgUrl()%>">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!--**********************************
-                    Content body end
-                ***********************************-->
 
-                <!--**********************************
-                    Footer start
-                ***********************************-->
-                <div class="footer">
-                    <div class="copyright">
-                        <p>© Best For Event Management Schedule
-                            &amp; Developed by <a href="http://dexignzone.com/" target="_blank">F.E.M</a> 2022</p>
-                    </div>
-                </div>
-                <!--**********************************
-                    Footer end
-                ***********************************-->
 
-                <!--**********************************
-           Support ticket button start
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
         ***********************************-->
 
-                <!--**********************************
-                   Support ticket button end
-                ***********************************-->
-
-
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>© Best For Event Management Schedule
+                    &amp; Developed by <a href="http://dexignzone.com/" target="_blank">F.E.M</a> 2022</p>
             </div>
-            <!--**********************************
-                Main wrapper end
-            ***********************************-->
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
 
-            <!--**********************************
-                Scripts
-            ***********************************-->
-            <!-- Required vendors -->
+        <!--**********************************
+    Support ticket button start
+    ***********************************-->
 
-            <script>
-                function check() {
-                    if (confirm("Are you sure to remove this event?") === false) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
 
-                function checkCmt() {
-                    if (confirm("Are you sure to remove this comment?") === false) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            </script>
 
-            <script src="./css_Admin/vendor/global/global.min.js"></script>
-            <!--    <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-                <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
-            <script src="./css_Admin/js/custom.min.js"></script>
-            <script src="./css_Admin/js/deznav-init.js"></script>
-   
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
 
-            <script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script> 
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <script>
+        function check() {
+            if (confirm("Are you sure to remove this event?") === false) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkCmt() {
+            if (confirm("Are you sure to remove this comment?") === false) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+
+    <script src="./css_Admin/vendor/global/global.min.js"></script>
+    <!--    <script src="./css_Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="./css_Admin/vendor/chart.js/Chart.bundle.min.js"></script>-->
+    <script src="./css_Admin/js/custom.min.js"></script>
+    <script src="./css_Admin/js/deznav-init.js"></script>
+
+
+    <script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script> 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
     <!--     Chart piety plugin files 
         <script src="./css_Admin/vendor/peity/jquery.peity.min.js"></script>
