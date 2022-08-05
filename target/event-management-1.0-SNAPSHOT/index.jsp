@@ -35,7 +35,6 @@
                                 <input type="checkbox" checked>
                                 Remember me
                             </label>
-                            <a style="color: rgb(255, 166, 0);" href="">Forgot Password</a>
                         </div>
                         <input type="submit" name="action" value="Login" class="btn solid" />
                     </form>
