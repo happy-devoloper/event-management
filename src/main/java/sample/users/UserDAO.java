@@ -142,7 +142,7 @@ public class UserDAO {
                 ptm.setString(7, "");
                 ptm.setString(8, "");
                 ptm.setString(9, "");
-                ptm.setString(10, "");
+                ptm.setString(10, manager.getPicture());
 
                 if (ptm.executeUpdate() > 0) {
                     check = true;

@@ -445,9 +445,9 @@
                                                     <td>
                                                         <div class="d-flex">
                                                             <% if ("PE".equals(list.getStatusTypeID())) {%>
-                                                            <a href="MainController?action=ApproveOrg&id=<%= list.getOrgID()%>&type=AP&orgName=<%= list.getOrgName()%>"
+                                                            <a href="MainController?action=ApproveOrg&id=<%= list.getOrgID()%>&type=AP"
                                                                class="btn btn-outline-success btn-sm light px-4">Approve</a>
-                                                            <a href="MainController?action=ApproveOrg&id=<%= list.getOrgID()%>&type=DE&orgName=<%= list.getOrgName()%>"
+                                                            <a href="MainController?action=ApproveOrg&id=<%= list.getOrgID()%>&type=DE"
                                                                class="btn btn-outline-danger btn-sm light ml-2 px-4">Decline</a>
 
                                                             <% } else if ("AP".equals(list.getStatusTypeID())) {%>

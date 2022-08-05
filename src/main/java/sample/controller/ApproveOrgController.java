@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.organization.OrganizationDAO;
+import sample.organization.OrganizationDTO;
 import sample.users.ManagerDTO;
 import sample.users.UserDAO;
 
@@ -38,15 +39,17 @@ public class ApproveOrgController extends HttpServlet {
         List<ManagerDTO> list = new ArrayList<>();
         try {
             String orgID = request.getParameter("id");
+            OrganizationDTO orgObject = new OrganizationDAO().getOrganization(orgID);
+            
             String type = request.getParameter("type");
-            String name = request.getParameter("orgName");
             if (orgDAO.approveOrg(type, orgID)) {
-                manager.setName(name);
+                manager.setName(orgObject.getOrgName());
                 manager.setPassword("1");
                 manager.setStatus(true);
                 manager.setTypeID("STU");
                 manager.setRoleID("CLB");
                 manager.setOrgID(orgID);
+                manager.setPicture(orgObject.getImgUrl());
                 for (int i = 0; i < 3; i++) {
                     manager.setId(orgID + "_0" + (i + 1));
                     userDAO.createClubMemberWhenApprovedOrg(manager);
