@@ -29,7 +29,12 @@ public class DBUtils {
 //      Connect SQL Server
 //        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 //        String url = "jdbc:sqlserver://localhost:1433;databaseName=FPT_EVENT_MANAGEMENT; encrypt=true;trustServerCertificate=true;";
-//        conn = DriverManager.getConnection(url, "sa", "1");       
+//        conn = DriverManager.getConnection(url, "sa", "1");   
+
+//        Class.forName("org.postgresql.Driver");
+//        String url = "jdbc:postgresql://postgresql-84712-0.cloudclusters.net:16874/FPT-EVENT-MANAGEMENT?sslmode=require"; //";
+//        conn = DriverManager.getConnection(url, "admin", "hoanghai2907");
+
         return conn;
     }
 }
