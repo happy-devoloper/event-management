@@ -542,7 +542,8 @@
                                         <table id="example2" class="table card-table display dataTablesCard">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">EventID</th>                                                    
+                                                    <th class="text-center">EventID</th>     
+                                                    <th class="text-center">Created</th>
                                                     <th class="text-center">Take Place Date</th>
                                                     <th class="text-center">Time</th>
                                                     <th class="text-center">Event Title</th>
@@ -559,7 +560,9 @@
                                                 %>
 
                                                 <tr>
-                                                    <td class="text-center"><%=listEvent.get(i).getId()%></td>                                                   
+                                                    <td class="text-center"><%=listEvent.get(i).getId()%></td>
+                                                    <td class="text-center"><%=listEvent.get(i).getCreateDate()%></td>
+
                                                     <td class="text-center"><%=listEvent.get(i).getTakePlaceDate()%></td>
                                                     <td class="text-center"><%=listEvent.get(i).getSlotTime()%></td>
                                                     <td class="text-left"><span class="text-wrap"><%=listEvent.get(i).getTitle()%></span>
