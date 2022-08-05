@@ -39,7 +39,6 @@
                                 <input type="checkbox" checked>
                                 Remember me
                             </label>
-                            <a style="color: rgb(255, 166, 0);" href="">Forgot Password</a>
                         </div>
                         <input type="hidden" name="eventID" value="<%=eventID%>"/>
                         <input type="hidden" name="userID" value="<%=userID%>"/>
