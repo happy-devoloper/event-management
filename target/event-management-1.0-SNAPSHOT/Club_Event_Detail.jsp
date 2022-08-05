@@ -392,7 +392,7 @@
                                                     Date now = new Date(System.currentTimeMillis());
                                                     Date takePlaceDate = Date.valueOf(evt.getTakePlaceDate());
                                                     if (takePlaceDate.after(now)) { //  ĐƯỢC EDIT
-%>
+                                            %>
 
                                             <div class="modal fade bd-example-modal-lg" id="updateEvent">
                                                 <div class="modal-dialog modal-lg" role="document">
@@ -416,7 +416,9 @@
 
                                                                 <input type="hidden" name="eventID" value="<%=evt.getId()%>">
 
-                                                                <% if (user.getRoleID().equals("CLB") && "PE".equals(evt.getStatusTypeID())) {%>
+                                                                <% if (("PE".equals(evt.getStatusTypeID()) && "CLB".equals(user.getRoleID()))  
+                                                                || (user.getOrgID().equals(evt.getOrgID()) && "MOD".equals(user.getRoleID()))) {%>
+                                                                
                                                                 <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
 
                                                                 <div class="row form-group">
@@ -501,35 +503,36 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <% } else if (evt.getOrgID().equals(user.getOrgID())) { //FPTU %>
+                                                                <input type="hidden" name="FPT" value="FPT"/>
+
+                                                                <% } else if (!"PE".equals(evt.getStatusTypeID()) && "CLB".equals(user.getRoleID())) { %>
                                                                 <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Event's Information</h4>
 
                                                                 <div class="row form-group">
 
-                                                                    <input type="hidden" name="FPT" value="FPT"/>
 
                                                                     <div class="input-group input-group-icon">
-                                                                        <input required="" style="padding: 14px;
+                                                                        <input disabled="" style="padding: 14px;
                                                                                padding-left: 4.4em;" type="text" value="<%=evt.getTitle()%>" name="title" placeholder=""/>
                                                                         <div class="input-icon"><i class="fa fa-font" aria-hidden="true"></i>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="input-group input-group-icon">
-                                                                        <input required="" style="padding: 14px;
+                                                                        <input disabled="" style="padding: 14px;
                                                                                padding-left: 4.4em;" type="text" value="<%=evt.getSpeaker()%>" name="speaker" placeholder="Speaker"/>
                                                                         <div class="input-icon"><i class="fa fa-user"></i></div>
                                                                     </div>
 
                                                                     <div class="input-group input-group-icon">
-                                                                        <input type="number" value="<%=evt.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="5"/>
+                                                                        <input disabled="" type="number" value="<%=evt.getParticipationLimit()%>" name="participationLimit" placeholder="Number of Participant" min="5"/>
                                                                         <div class="input-icon"><i class="fa fa-user"></i></div>
                                                                     </div> 
                                                                 </div>
                                                                 <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Event's Type, Slot  Location</h4>
 
                                                                 <div class="row form-group">  
-                                                                    <select name="slotID" class="md-6">
+                                                                    <select disabled="" name="slotID" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getSlotID()%>"><%=evt.getSlotTime()%></option>
                                                                         <%for (int j = 0; j < listSlotTime.size(); j++) {
                                                                         %>
@@ -538,7 +541,7 @@
                                                                             }
                                                                         %>
                                                                     </select>
-                                                                    <select name="eventType" class="md-6">
+                                                                    <select disabled="" name="eventType" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getEventType()%>"><%=evt.getEventTypeName()%></option>
                                                                         <%for (int j = 0; j < listEvtType.size(); j++) {
                                                                         %>
@@ -551,7 +554,7 @@
                                                                 </div>
 
                                                                 <div class="row">
-                                                                    <select style="width: 100%" name="location">
+                                                                    <select disabled="" style="width: 100%" name="location">
                                                                         <option hidden="" selected="" value="<%=evt.getLocation()%>"><%=evt.getLocationName()%></option>
                                                                         <%for (int j = 0; j < listEvtLocation.size(); j++) {
                                                                         %>
@@ -566,7 +569,7 @@
                                                                 <div class="row form-group">
 
                                                                     <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                        <input disabled="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="<%= evt.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                     </div>
 
@@ -576,7 +579,7 @@
                                                                     <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Summary</h4>                                                                        <div class="update-content form-group">
 
                                                                         <div class="form-group">
-                                                                            <textarea required="" name="summary" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                            <textarea disabled="" name="summary" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                       placeholder="Enter Event's Summary Here*"><%=evt.getSummary()%></textarea>
                                                                         </div>
                                                                     </div>
@@ -584,7 +587,7 @@
                                                                     <div class="form-group">
                                                                         <h4><i class="fa fa-file-text" aria-hidden="true"></i> Event Description</h4>
                                                                         <div class="update-content">
-                                                                            <textarea required="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
+                                                                            <textarea disabled="" name="content" id="role" rows="9" style="width: 710px; border-color: #dddada; font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;"
                                                                                       placeholder="Enter Event's Description Here*"><%=evt.getContent()%></textarea>
                                                                         </div>
                                                                     </div>
@@ -596,20 +599,20 @@
                                                                             if (evt.isStatus() == false) {
                                                                         %>
                                                                         <div class="input-group">
-                                                                            <input id="status-true" type="radio" name="status" value="true"/>
+                                                                            <input disabled="" id="status-true" type="radio" name="status" value="true"/>
                                                                             <label for="status-true">Active</label>
 
-                                                                            <input id="status-false" type="radio" name="status" checked="" value="false"/>
+                                                                            <input disabled="" id="status-false" type="radio" name="status" checked="" value="false"/>
                                                                             <label for="status-false">Inactive</label>
                                                                         </div>
                                                                         <%
                                                                         } else {
                                                                         %>
                                                                         <div class="input-group">
-                                                                            <input id="status-true" type="radio" checked="" name="status" value="true"/>
+                                                                            <input disabled="" id="status-true" type="radio" checked="" name="status" value="true"/>
                                                                             <label for="status-true">Active</label>
 
-                                                                            <input id="status-false" type="radio" name="status"  value="false"/>
+                                                                            <input disabled=""   id="status-false" type="radio" name="status"  value="false"/>
                                                                             <label for="status-false">Inactive</label>
                                                                         </div>
                                                                         <%                     }
