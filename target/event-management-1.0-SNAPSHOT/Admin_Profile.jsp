@@ -279,8 +279,9 @@
                     <div class="container rounded bg-white mt-5 mb-5">
                         <div class="row">
                             <div class="col-md-3 border-right">
-                                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                                        class="mt-5" style="width: 50%; border-radius: 100%"
+                                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                    <img
+                                        class="mt-5" style="width: 120px; height: 120px ;border-radius: 100%"
                                         src="<%= user.getPicture()%>">
                                     </br>
                                     <span

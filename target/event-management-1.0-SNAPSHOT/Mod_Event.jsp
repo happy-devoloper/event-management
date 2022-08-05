@@ -274,7 +274,7 @@
 
                                 <h4><i class="fa-solid fa-file-pen" style="width: 25px;"></i>Event's Type and Location</h4>
 
-           
+
 
                                 <div class="row">
                                     <select name="slotID" class="md-6">
@@ -317,7 +317,7 @@
                                     <p style="color: red"><%= evtError.getTakePlaceDate()%></p>
                                     <div class="input-group input-group-icon " style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
                                         <!--<input required="" type="date" value="" name="takePlaceDate" class="font-color"/>-->
-                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" name="takePlaceDate" class="font-color"/>
+                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5)%>" name="takePlaceDate" class="font-color"/>
 
                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                     </div>
@@ -585,6 +585,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">EventID</th>
+                                                    <th class="text-center">Created</th>
                                                     <th class="text-center">Take Place Date</th>
                                                     <th class="text-center">Time</th>
                                                     <th class="text-center">Club</th>
@@ -605,6 +606,7 @@
 
                                                 <tr>
                                                     <td class="text-center">#<%=listEvent.get(i).getId()%></td>
+                                                    <td class="text-center"><%=listEvent.get(i).getCreateDate()%></td>
                                                     <td class="text-center"><%=listEvent.get(i).getTakePlaceDate()%></td>
                                                     <td class="text-center"><%=listEvent.get(i).getSlotTime()%></td>
                                                     <td class="text-center"><%=listEvent.get(i).getOrgID()%></td>
@@ -682,7 +684,7 @@
                                                                 Date now = new Date(System.currentTimeMillis());
                                                                 Date takePlaceDate = Date.valueOf(event.getTakePlaceDate());
                                                                 if (takePlaceDate.after(now)) { //  ĐƯỢC EDIT
-%>
+                                                        %>
 
                                                         <div class="modal fade bd-example-modal-lg" id="<%=listEvent.get(i).getId()%>">
                                                             <div class="modal-dialog modal-lg" role="document">
@@ -770,7 +772,7 @@
                                                                                 <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                                 <%= evtError.getTakePlaceDate()%>
                                                                                 <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                                    <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                                    <input required="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                                     <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                                 </div>
 
@@ -948,7 +950,7 @@
                                                                                 <h4><i class="fa-solid fa-calendar-days" style="width: 25px;"></i>Take Place Date</h4>
                                                                                 <%= evtError.getTakePlaceDate()%>
                                                                                 <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
-                                                                                    <input disabled="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                                    <input disabled="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                                     <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                                 </div>
 
@@ -1239,7 +1241,7 @@
         </script>
         <% }%>
 
-     
+
     </body>
 
 </html>
