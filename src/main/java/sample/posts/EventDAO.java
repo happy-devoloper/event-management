@@ -87,7 +87,7 @@ public class EventDAO {
 
     private static final String GET_NUMBER_OF_PARTICIPANTS = "SELECT COUNT(userID) as total\n"
             + "  FROM tblParticipants\n"
-            + "  Where eventID = ?";
+            + "  Where eventID = ? AND status = '1'";
 
     private static final String GET_ALL_EVENT_BY_ORG = "SELECT eventID, orgID, createDate, takePlaceDate, content, title, location, imgUrl, tblEventPost.eventTypeID,\n"
             + "numberOfView, speaker, summary, tblEventPost.status, tblEventPost.statusTypeID, statusTypeName, eventTypeName, locationName, approvalDes, tblEventPost.slotId, slotTime\n"
