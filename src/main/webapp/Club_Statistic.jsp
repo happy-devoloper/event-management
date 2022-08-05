@@ -374,7 +374,7 @@
                                         %>                                     
 
                                         <div class="items">
-                                            <div style="width: 500px" class="image-bx ">
+                                            <div class="image-bx ">
                                                 <img style="width: 500px; height: 450px" src="<%=listEvent.get(i).getImgUrl()%>" alt="">
                                                 <div class="info">
                                                     <p class="fs-18 font-w600">
