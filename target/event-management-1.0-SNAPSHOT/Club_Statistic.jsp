@@ -375,7 +375,7 @@
 
                                         <div class="items">
                                             <div class="image-bx ">
-                                                <img style="width: 500px; height: 450px" src="<%=listEvent.get(i).getImgUrl()%>" alt="">
+                                                <img style="width: 100%; height: 450px" src="<%=listEvent.get(i).getImgUrl()%>" alt="">
                                                 <div class="info">
                                                     <p class="fs-18 font-w600">
                                                         <a href="MainController?action=EventDetail&eventID=<%=listEvent.get(i).getId()%>" class="text-black">
