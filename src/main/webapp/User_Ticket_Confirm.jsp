@@ -1,15 +1,22 @@
-<%@page import="sample.users.UserDTO"%>
+<%@page import="sample.users.ManagerDTO"%>
 <%@page import="sample.ticket.TicketDTO"%>
 <!DOCTYPE html>
 <html lang="en">
-
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <head>
         <meta charset="UTF-8">
         <title>F.E.M - TICKET</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/all.min.css">
+        <link rel="stylesheet" href="assets/css/icofont.min.css">
+        <link rel="stylesheet" href="assets/css/lightcase.css">
+        <link rel="stylesheet" href="assets/css/swiper.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css' />
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
         <script type="text/javascript">
 
             function testConfirmDialog() {
@@ -24,9 +31,12 @@
             }
 
         </script>
-        <%TicketDTO ticket = new TicketDTO();
-            ticket = (TicketDTO) request.getAttribute("participantsConfirm");%>
         <style>
+            @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+            @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600&display=swap');
+
+
             * {
                 margin: 0;
                 padding: 0;
@@ -55,14 +65,15 @@
             .left {
                 display: flex;
             }
-
+            <%TicketDTO dto = new TicketDTO();
+                dto = (TicketDTO) request.getAttribute("participantsConfirm");%>
             .image {
                 height: 250px;
                 width: 250px;
-                <%if (ticket.getAvatarURL().contains("Image//")) {%>
-                background-image: url("http://localhost:8080/EventManagement/<%=ticket.getAvatarURL()%>");
+                <%if (dto.getAvatarURL().contains("Image//")) {%>
+                background-image: url("	http://localhost:8080/EventManagement/<%=dto.getAvatarURL()%>");
                 <%} else {%>
-                background-image: url("<%=ticket.getAvatarURL()%>");
+                background-image: url("<%=dto.getAvatarURL()%>");
                 <%}%>
                 background-size: contain;
                 opacity: 0.85;
@@ -139,7 +150,7 @@
             }
 
             .show-name h1 {
-                font-size: 48px;
+                font-size: 30px;
                 font-weight: 700;
                 letter-spacing: 0.1em;
                 color: #4a437e;
@@ -196,7 +207,7 @@
                 padding: 10px 10px 10px 35px;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-around;
+                justify-content: center;
                 align-items: center;
             }
 
@@ -400,16 +411,29 @@
                     transform: scale(1);
                 }
             }
+            .primary1 {
+                display: inline-block;
+                line-height: 30px;
+                padding: 0 18px;
+                background: #fff;
+                color: #df01ae;
+                font-family: "Vollkorn";
+                font-style: italic;
+                font-size: 20px;
+                text-transform: capitalize;
+                -webkit-transition: all 0.3s ease;
+                -moz-transition: all 0.3s ease;
+                transition: all 0.3s ease;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                box-shadow: 4px 4px 0 0 currentColor;
+                border-color: #df01ae;
+            }
         </style>
     </head>
 
     <body>
-        <%
-            UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
-            if (user == null || !user.getRoleID().equals("CLB")) {
-                response.sendRedirect("index.jsp");
-                return;
-            }%>
         <!-- partial:index.partial.html -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
@@ -421,28 +445,21 @@
                         <span>F.E.M</span>
                         <span>F.E.M</span>
                     </p>
-                    <div class="ticket-number">
-                        <p>
-                            #20030220
-                        </p>
-                    </div>
+
                 </div>
                 <div class="ticket-info">
                     <p class="date">
 
-                        <span class="june-29">JUNE 29TH</span>
+                        <span class="june-29"><%=dto.getTakePlaceDate()%></span>
 
                     </p>
                     <div class="show-name">
-                        <h1><%=ticket.getTitle()%></h1>
-                        <h2><%=ticket.getFullName()%></h2>
+                        <h1 style="font-family: 'Open Sans', serif;"><%=dto.getTitle()%></h1>
                     </div>
                     <div class="time">
-                        <p>8:00 PM <span>TO</span> 11:00 PM</p>
-                        <p>DOORS <span>@</span> 7:00 PM</p>
+                        <p><%=dto.getSlotTime()%></p>
                     </div>
-                    <p class="location"><span>East High School</span>
-                        <span class="separator"><i class="far fa-smile"></i></span><span>Salt Lake City, Utah</span>
+                    <p class="location" style="font-family: 'Open Sans', serif; color: #000;"><span><%=dto.getLocationName()%></span>
                     </p>
                 </div>
             </div>
@@ -454,29 +471,14 @@
                 </p>
                 <div class="right-info-container">
                     <div class="show-name">
-                        <h1>SOUR Prom</h1>
+                        <h1 style="font-family: 'Open Sans', serif; font-size: 13px;"><%=dto.getFullName()%></h1>
                     </div>
                     <div class="time">
-                        <p>8:00 PM <span>TO</span> 11:00 PM</p>
-                        <p>DOORS <span>@</span> 7:00 PM</p>
                     </div>
 
-                    <div>
-                        <input type="checkbox" id="c">
-                        <label for="c" id="upload_app">
-                            <div id="app">
-                                <div id="arrow"></div>
-                                <div id="success">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                            </div>
-                        </label>
-                    </div>	
-
-
-                    <p class="ticket-number">
-                        #20030220
-                    </p>
+                    <button type="button" class="btn btn-primary primary1" style="font-family: 'Open Sans', serif; ">
+                        <span style="font-weight: bold; ">Xác nhận</span>
+                    </button>
                 </div>
             </div>
         </div>

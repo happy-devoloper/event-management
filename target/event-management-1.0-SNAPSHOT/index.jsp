@@ -15,12 +15,16 @@
                 <div class="signin-signup">
                     <form action="MainController" method="POST" class="sign-in-form">
                         <h2 class="title">Sign in</h2>
-                        <% 
-                            String error = (String)request.getAttribute("ERROR");
-                            if(error == null)
+                        <%
+                            String error = (String) request.getAttribute("ERROR");
+                            if (error == null)
                                 error = "";
                         %>
-                        <p style="font-weight: bold; color: red"><%= error %></p>
+                        <%
+                            String userID = (String) request.getAttribute("USERID");
+                            String eventID = (String) request.getAttribute("EVENTID");
+                            String orgID = (String) request.getAttribute("ORGID");%>
+                        <p style="font-weight: bold; color: red"><%= error%></p>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
                             <input type="text" placeholder="Username" name="username"/>
@@ -35,8 +39,16 @@
                                 <input type="checkbox" checked>
                                 Remember me
                             </label>
+                            <a style="color: rgb(255, 166, 0);" href="">Forgot Password</a>
                         </div>
+                        <input type="hidden" name="eventID" value="<%=eventID%>"/>
+                        <input type="hidden" name="userID" value="<%=userID%>"/>
+                        <input type="hidden" name="orgID" value="<%=orgID%>"/>
+                        <%if (userID == null && eventID == null && orgID == null) {%>
                         <input type="submit" name="action" value="Login" class="btn solid" />
+                        <%} else {%>
+                        <input type="submit" name="action" value="LoginToCheckTicket" class="btn solid" />
+                        <%}%>
                     </form>
                 </div>
             </div>

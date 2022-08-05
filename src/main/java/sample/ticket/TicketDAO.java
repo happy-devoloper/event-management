@@ -16,20 +16,22 @@ import sample.util.DBUtils;
  */
 public class TicketDAO {
 
-    private static final String GET_INFO_FOR_TICKET = "SELECT fullName, avatarURL, \n"
-            + "	   title, tblEventPost.orgID AS org_ID, location, takePlaceDate, tblEventPost.eventTypeID AS event_TypeID, speaker,\n"
-            + "	   eventTypeName, tblEventType.eventTypeID AS evt_TypeID,\n"
-            + "	   locationName, tblLocation.locationID AS location_ID,\n"
-            + "	   orgName, tblOrgPage.orgID AS orgid,\n"
-            + "	   QRCode\n"
-            + "	   FROM tblUsers, tblEventPost, tblEventType, tblLocation, tblOrgPage, tblParticipants\n"
-            + "	   WHERE tblOrgPage.orgID = tblEventPost.orgID AND \n"
-            + "			 location = tblLocation.locationID AND \n"
-            + "			 tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblParticipants.userID = tblUsers.userID AND\n"
-            + "			 tblEventPost.eventID = tblParticipants.eventID AND \n"
-            + "			 tblUsers.status = '1' AND tblEventPost.statusTypeID = 'AP' AND tblEventPost.status = '1' AND\n"
-            + "			 tblEventType.status = '1' AND  tblLocation.status = '1' AND tblOrgPage.status = '1' AND \n"
-            + "			 tblParticipants.eventID = ? AND tblParticipants.userID = ? AND participantsCheck = '0'";
+    private static final String GET_INFO_FOR_TICKET = "SELECT fullName, avatarURL,\n"
+            + "            	   content, tblEventPost.orgID AS org_ID, location, takePlaceDate, tblEventPost.eventTypeID AS event_TypeID, speaker,   \n"
+            + "            	   eventTypeName, tblEventType.eventTypeID AS evt_TypeID,\n"
+            + "            	   locationName, tblLocation.locationID AS location_ID,\n"
+            + "            	   orgName, tblOrgPage.orgID AS orgid,\n"
+            + "            	   QRCode,\n"
+            + "                    slottime \n"
+            + "            	   FROM tblUsers, tblEventPost, tblEventType, tblLocation, tblorgpage, tblparticipants, tblslot\n"
+            + "            	   WHERE tblOrgPage.orgID = tblEventPost.orgID AND \n"
+            + "            			 location = tblLocation.locationID AND \n"
+            + "            			 tblEventPost.eventTypeID = tblEventType.eventTypeID AND tblParticipants.userID = tblUsers.userID AND\n"
+            + "                                tblEventPost.eventID = tblParticipants.eventID AND\n"
+            + "                                tbleventpost.slotid = tblslot.slotid AND\n"
+            + "            			 tblUsers.status = '1' AND tblEventPost.statusTypeID = 'AP' AND tblEventPost.status = '1' AND\n"
+            + "            			 tblEventType.status = '1' AND  tblLocation.status = '1' AND tblOrgPage.status = '1' AND \n"
+            + "                                tblparticipants.eventID = ? AND tblparticipants.userID = ? AND participantcheck = '0' AND tblparticipants.status = '1'";
 
     public TicketDTO getInfoForTiket(String eventID, String userID) throws ClassNotFoundException, SQLException {
         Connection conn = null;
@@ -45,7 +47,7 @@ public class TicketDAO {
             if (rs.next()) {
                 String fullName = rs.getString("fullName");
                 String avatarURL = rs.getString("avatarURL");
-                String title = rs.getString("title");
+                String title = rs.getString("content");
                 String org_ID = rs.getString("org_ID");
                 String location = rs.getString("location");
                 String takePlaceDate = rs.getString("takePlaceDate");
@@ -58,8 +60,9 @@ public class TicketDAO {
                 String orgName = rs.getString("orgName");
                 String orgid = rs.getString("orgid");
                 String qrCode = rs.getString("qrCode");
+                String slotTime = rs.getString("slottime");
 
-                ticket = new TicketDTO(fullName, avatarURL, title, org_ID, location, takePlaceDate, eventTypeID, speaker, eventTypeName, evt_TypeID, locationName, location_ID, orgName, orgid, qrCode);
+                ticket = new TicketDTO(fullName, avatarURL, title, org_ID, location, takePlaceDate, eventTypeID, speaker, eventTypeName, evt_TypeID, locationName, location_ID, orgName, orgid, qrCode, slotTime);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -25,6 +25,7 @@ public class TicketDTO {
     private String orgName;
     private String orgid;
     private String qrCode;
+    private String slotTime;
 
     public TicketDTO() {
         this.fullName = "";
@@ -44,7 +45,7 @@ public class TicketDTO {
         this.qrCode = "";
     }
 
-    public TicketDTO(String fullName, String avatarURL, String title, String org_ID, String location, String takePlaceDate, String eventTypeID, String speaker, String eventTypeName, String evt_TypeID, String locationName, String location_ID, String orgName, String orgid, String qrCode) {
+    public TicketDTO(String fullName, String avatarURL, String title, String org_ID, String location, String takePlaceDate, String eventTypeID, String speaker, String eventTypeName, String evt_TypeID, String locationName, String location_ID, String orgName, String orgid, String qrCode, String slotTime) {
         this.fullName = fullName;
         this.avatarURL = avatarURL;
         this.title = title;
@@ -60,6 +61,15 @@ public class TicketDTO {
         this.orgName = orgName;
         this.orgid = orgid;
         this.qrCode = qrCode;
+        this.slotTime = slotTime;
+    }
+
+    public String getSlotTime() {
+        return slotTime;
+    }
+
+    public void setSlotTime(String slotTime) {
+        this.slotTime = slotTime;
     }
 
     public String getFullName() {
