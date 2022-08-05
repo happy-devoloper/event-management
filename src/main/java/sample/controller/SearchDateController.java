@@ -37,17 +37,20 @@ public class SearchDateController extends HttpServlet {
             String endDate = request.getParameter("enddate");
             HttpSession session = request.getSession();
             ManagerDTO man = (ManagerDTO) session.getAttribute("LOGIN_USER");
-            
+
             List<EventPost> evt = evtDao.searchEventByDate(beginDate, endDate, man.getOrgID());
-            if(evt != null) {
+            if (evt != null) {
+                for (EventPost eventPost : evt) {
+                    EventPost event = evtDao.getAnEventByID(eventPost.getId());
+                    request.setAttribute("event_" + event.getId(), event);
+                }
                 request.setAttribute("listEvent", evt);
                 request.setAttribute("fromdate", beginDate);
                 request.setAttribute("enddate", endDate);
-                
+
                 url = SUCCESS;
             }
-            
-            
+
         } catch (Exception e) {
             log("Error at Search Date Controller " + e.toString());
         } finally {

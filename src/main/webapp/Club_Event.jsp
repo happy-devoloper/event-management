@@ -311,7 +311,7 @@
                                     <p style="color: red"><%= evtError.getTakePlaceDate()%></p>
                                     <div class="input-group input-group-icon " style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">
                                         <!--<input required="" type="date" value="" name="takePlaceDate" class="font-color"/>-->
-                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="" name="takePlaceDate" class="font-color"/>
+                                        <input required="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="" name="takePlaceDate" class="font-color"/>
 
                                         <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                     </div>
@@ -710,7 +710,7 @@
                                                                                 <h4 style="margin-top: 20px"><i class="fa fa-calendar" aria-hidden="true"></i> Take Place Date</h4>
                                                                                 <%= evtError.getTakePlaceDate()%>
                                                                                 <div class="input-group input-group-icon" style="font-family: 'Open Sans','Helvetica Neue',Helvetica, Arial, sans-serif;">                                                               
-                                                                                    <input required="" type="date" min="<%= LocalDate.now().plusDays(5) %>" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
+                                                                                    <input required="" type="date" min="<%= LocalDate.now().plusDays(5)%>" value="<%= event.getTakePlaceDate()%>" name="takePlaceDate" class="font-color"/>
                                                                                     <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
                                                                                 </div>
 
@@ -768,7 +768,6 @@
                                                                             <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                                             </button>
                                                                         </div>
-
                                                                     </div>
 
                                                                     <div class="modal-body" style="padding: 0px 60px;">                                                                            
@@ -865,16 +864,17 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>        
-                                                                                <div class="row modal-footer justify-content-center">                                                                    
-                                                                                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                </div>
+
+                                                                            </div>
                                                                         </form>
                                                                     </div>
+                                                                    <div class="row modal-footer justify-content-center">                                                                    
+                                                                        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div> 
-                                                        <% }
-                                                            }%>
+                                                            </div> 
+                                                            <% }
+                                                                }%>
                                                     </td>
                                                 </tr>
 

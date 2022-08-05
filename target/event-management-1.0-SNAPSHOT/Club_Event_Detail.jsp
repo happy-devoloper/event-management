@@ -722,7 +722,7 @@
                                                                 <div class="row form-group">
 
 
-                                                                    <select name="slotID" class="md-6">
+                                                                    <select disabled="" name="slotID" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getSlotID()%>"><%=evt.getSlotTime()%></option>
                                                                         <%for (int j = 0; j < listSlotTime.size(); j++) {
                                                                         %>
@@ -731,7 +731,7 @@
                                                                             }
                                                                         %>
                                                                     </select>
-                                                                    <select name="eventType" class="md-6">
+                                                                    <select disabled="" name="eventType" class="md-6">
                                                                         <option hidden="" selected="" value="<%=evt.getEventType()%>"><%=evt.getEventTypeName()%></option>
                                                                         <%for (int j = 0; j < listEvtType.size(); j++) {
                                                                         %>
@@ -743,7 +743,7 @@
 
                                                                 </div>
                                                                 <div class="row">
-                                                                    <select style="width: 100%" name="location">
+                                                                    <select disabled="" style="width: 100%" name="location">
                                                                         <option hidden="" selected="" value="<%=evt.getLocation()%>"><%=evt.getLocationName()%></option>
                                                                         <%for (int j = 0; j < listEvtLocation.size(); j++) {
                                                                         %>
