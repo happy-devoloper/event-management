@@ -475,10 +475,32 @@
                     </div>
                     <div class="time">
                     </div>
+                    <form action="MainController" method="POST">
+                        <input type="hidden" name="userID" value="<%=dto.getUserID()%>">
+                        <input type="hidden" name="eventID" value="<%=dto.getEventID()%>">     
+                        <input type="hidden" name="orgID" value="<%=dto.getOrgid()%>">                      
 
-                    <button type="button" class="btn btn-primary primary1" style="font-family: 'Open Sans', serif; ">
-                        <span style="font-weight: bold; ">Xác nhận</span>
-                    </button>
+                        <%if ("TRUE".equals(request.getAttribute("CONFIRM"))) {
+                        %>
+
+                        <button disabled="" class="btn btn-primary primary1" style="font-family: 'Open Sans', serif; ">
+                            <span style="font-weight: bold; ">Checked</span>
+                        </button>
+
+                        <%
+                        } else {
+                        %>
+                        <button type="submit" name="action" value="TicketConfirm" class="btn btn-primary primary1" style="font-family: 'Open Sans', serif; ">
+                            <span style="font-weight: bold; ">Checkin</span>
+                        </button>
+                        <%
+                            }
+                        %>
+
+
+
+                    </form>
+
                 </div>
             </div>
         </div>

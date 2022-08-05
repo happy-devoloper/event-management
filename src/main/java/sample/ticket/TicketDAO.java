@@ -31,18 +31,27 @@ public class TicketDAO {
             + "                                tbleventpost.slotid = tblslot.slotid AND\n"
             + "            			 tblUsers.status = '1' AND tblEventPost.statusTypeID = 'AP' AND tblEventPost.status = '1' AND\n"
             + "            			 tblEventType.status = '1' AND  tblLocation.status = '1' AND tblOrgPage.status = '1' AND \n"
-            + "                                tblparticipants.eventID = ? AND tblparticipants.userID = ? AND participantcheck = '0' AND tblparticipants.status = '1'";
+            + "                                tblparticipants.eventID = ? AND tblparticipants.userID = ? AND participantcheck = ? AND tblparticipants.status = '1'";
 
-    public TicketDTO getInfoForTiket(String eventID, String userID) throws ClassNotFoundException, SQLException {
+    public TicketDTO getInfoForTiket(String eventID, String userID, String check) throws ClassNotFoundException, SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         TicketDTO ticket = new TicketDTO();
+        boolean participantCheck = false;
         try {
             conn = DBUtils.getConnection();
             ptm = conn.prepareStatement(GET_INFO_FOR_TICKET);
+            
+            if ("CONFIRM".equals(check)){
+                participantCheck = true;
+            }
+            
             ptm.setString(1, eventID);
             ptm.setString(2, userID);
+            ptm.setBoolean(3, participantCheck);
+            
+            
             rs = ptm.executeQuery();
             if (rs.next()) {
                 String fullName = rs.getString("fullName");
@@ -62,7 +71,7 @@ public class TicketDAO {
                 String qrCode = rs.getString("qrCode");
                 String slotTime = rs.getString("slottime");
 
-                ticket = new TicketDTO(fullName, avatarURL, title, org_ID, location, takePlaceDate, eventTypeID, speaker, eventTypeName, evt_TypeID, locationName, location_ID, orgName, orgid, qrCode, slotTime);
+                ticket = new TicketDTO(fullName, avatarURL, title, org_ID, location, takePlaceDate, eventTypeID, speaker, eventTypeName, evt_TypeID, locationName, location_ID, orgName, orgid, qrCode, slotTime, userID, eventID);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,7 +92,7 @@ public class TicketDAO {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         TicketDTO t = new TicketDTO();
         TicketDAO d = new TicketDAO();
-        t = d.getInfoForTiket("EVT1", "Haisan");
+        t = d.getInfoForTiket("EVT1", "Haisan", "");
         System.out.println(t);
     }
 }

@@ -32,10 +32,22 @@ public class ReadQRCodeController extends HttpServlet {
         String url = ERROR;
         HttpSession session = request.getSession();
         try {
-            String userID = request.getParameter("userID");
-            String eventID = request.getParameter("eventID");
-            String orgID = request.getParameter("orgID");
-            System.out.println(orgID);
+            String userID;
+            String eventID;
+            String orgID;
+            String check = "GET";
+            if ("TRUE".equals(request.getAttribute("TICKET_CONFIRM"))) {
+                eventID = (String) request.getAttribute("eventID");
+                userID = (String) request.getAttribute("userID");
+                orgID = (String) request.getAttribute("orgID");
+                request.setAttribute("CONFIRM", "TRUE");
+                check = "CONFIRM";
+            } else {
+                userID = request.getParameter("userID");
+                eventID = request.getParameter("eventID");
+                orgID = request.getParameter("orgID");
+            }
+
             if (userID == null && eventID == null) {
                 userID = (String) request.getAttribute("USERID");
                 eventID = (String) request.getAttribute("EVENTID");
@@ -52,7 +64,7 @@ public class ReadQRCodeController extends HttpServlet {
 
                 TicketDTO dto = new TicketDTO();
                 TicketDAO dao = new TicketDAO();
-                dto = dao.getInfoForTiket(eventID, userID);
+                dto = dao.getInfoForTiket(eventID, userID, check);
                 request.setAttribute("participantsConfirm", dto);
                 url = SUCCCESS;
             } else if (!user.getOrgID().equals(orgID)) {

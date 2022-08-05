@@ -32,6 +32,9 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String TICKET_CONFIRM = "TicketConfirm";
+    private static final String TICKET_CONFIRM_CONTROLLER = "TicketConfirmController";
+
     private static final String READ_QR_CODE = "readQRCode";
     private static final String READ_QR_CODE_CONTROLLER = "ReadQRCodeController";
 
@@ -423,6 +426,10 @@ public class MainController extends HttpServlet {
                     break;
                 case (GET_SESSION_FOR_TICKET):
                     url = GET_SESSION_FOR_TICKET_CONTROLLER;
+                    break;
+
+                case (TICKET_CONFIRM):
+                    url = TICKET_CONFIRM_CONTROLLER;
                     break;
             }
         } catch (Exception e) {

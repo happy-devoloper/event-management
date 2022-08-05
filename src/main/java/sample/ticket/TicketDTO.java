@@ -26,6 +26,8 @@ public class TicketDTO {
     private String orgid;
     private String qrCode;
     private String slotTime;
+    private String userID;
+    private String eventID;
 
     public TicketDTO() {
         this.fullName = "";
@@ -43,9 +45,11 @@ public class TicketDTO {
         this.orgName = "";
         this.orgid = "";
         this.qrCode = "";
+        this.userID = "";
+        this.eventID = "";
     }
 
-    public TicketDTO(String fullName, String avatarURL, String title, String org_ID, String location, String takePlaceDate, String eventTypeID, String speaker, String eventTypeName, String evt_TypeID, String locationName, String location_ID, String orgName, String orgid, String qrCode, String slotTime) {
+    public TicketDTO(String fullName, String avatarURL, String title, String org_ID, String location, String takePlaceDate, String eventTypeID, String speaker, String eventTypeName, String evt_TypeID, String locationName, String location_ID, String orgName, String orgid, String qrCode, String slotTime, String userID, String eventID) {
         this.fullName = fullName;
         this.avatarURL = avatarURL;
         this.title = title;
@@ -62,6 +66,8 @@ public class TicketDTO {
         this.orgid = orgid;
         this.qrCode = qrCode;
         this.slotTime = slotTime;
+        this.userID = userID;
+        this.eventID = eventID;
     }
 
     public String getSlotTime() {
@@ -192,6 +198,23 @@ public class TicketDTO {
         this.qrCode = qrCode;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    
     @Override
     public String toString() {
         return "TicketDTO{" + "fullName=" + fullName + ", avatarURL=" + avatarURL + ", title=" + title + ", org_ID=" + org_ID + ", location=" + location + ", takePlaceDate=" + takePlaceDate + ", eventTypeID=" + eventTypeID + ", speaker=" + speaker + ", eventTypeName=" + eventTypeName + ", evt_TypeID=" + evt_TypeID + ", locationName=" + locationName + ", location_ID=" + location_ID + ", orgName=" + orgName + ", orgid=" + orgid + ", qrCode=" + qrCode + '}';

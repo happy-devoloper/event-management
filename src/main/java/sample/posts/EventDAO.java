@@ -143,6 +143,10 @@ public class EventDAO {
 
     private static final String CHECK_AVALABLE_SLOT = "SELECT eventID FROM tblEventPost WHERE statusTypeID != 'DE' AND status = '1' AND takePlaceDate = ? AND location = ? AND tblEventPost.slotID = ? AND tblEventPost.eventID != ?";
 
+    private static final String CONFIRM_TICKET = "UPDATE tblparticipants\n"
+            + "	SET participantcheck = '1'\n"
+            + "	WHERE userId = ? AND eventId = ?";
+
     public boolean checkAvailableSlot(EventPost event) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -1098,6 +1102,40 @@ public class EventDAO {
             }
         }
         return slotTimeList;
+    }
+
+    public boolean ConfirmTicket(String userID, String eventID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ps = conn.prepareStatement(CONFIRM_TICKET);
+                ps.setString(1, userID);
+                ps.setString(2, eventID);
+
+                int checkUpdate = ps.executeUpdate();
+                if (checkUpdate > 0) {
+                    check = true;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EventDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 
 }
